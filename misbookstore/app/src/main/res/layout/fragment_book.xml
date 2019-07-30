@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--主要框架-->
+
+
+        <RelativeLayout
+            android:id="@+id/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <SearchView
+                android:id="@+id/searchBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="300dp"
+                android:scrollbarSize="500dp"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="350dp"
+                android:src="@drawable/baseline_keyboard_voice_black_18dp" />
+
+        </RelativeLayout>
+
+
+
+        <ScrollView
+            android:id="@+id/ScrollView01"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignStart="@+id/fragment_container"
+            android:layout_alignLeft="@+id/fragment_container"
+            android:layout_alignTop="@+id/fragment_container"
+            android:fillViewport="true"
+            android:scrollbars="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="130dp"
+                    android:layout_marginRight="50dp">
+
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/rbook_item1" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="輕輕鬆鬆讓人聽妳的"
+                            android:textSize="15sp" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="$180"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/button"
+                        android:layout_width="51dp"
+                        android:layout_height="37dp"
+                        android:layout_marginTop="60dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/butto_rounde"
+                        android:text="導航"
+                        android:textColor="#FFFFFF" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="50dp">
+
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/rbook_item1" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="輕輕鬆鬆讓人聽妳的"
+                            android:textSize="15sp" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="$180"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/button2"
+                        android:layout_width="51dp"
+                        android:layout_height="37dp"
+                        android:layout_marginTop="60dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/butto_rounde"
+                        android:text="導航"
+                        android:textColor="#FFFFFF" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="50dp">
+
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/rbook_item1" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="輕輕鬆鬆讓人聽妳的"
+                            android:textSize="15sp" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="$180"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="51dp"
+                        android:layout_height="37dp"
+                        android:layout_marginTop="60dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/butto_rounde"
+                        android:text="導航"
+                        android:textColor="#FFFFFF" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="50dp">
+
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/rbook_item1" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="輕輕鬆鬆讓人聽妳的"
+                            android:textSize="15sp" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="$180"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="51dp"
+                        android:layout_height="37dp"
+                        android:layout_marginTop="60dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/butto_rounde"
+                        android:text="導航"
+                        android:textColor="#FFFFFF" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="50dp">
+
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/rbook_item1" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="輕輕鬆鬆讓人聽妳的"
+                            android:textSize="15sp" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="$180"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="51dp"
+                        android:layout_height="37dp"
+                        android:layout_marginTop="60dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/butto_rounde"
+                        android:text="導航"
+                        android:textColor="#FFFFFF" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="50dp">
+
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/rbook_item1" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="輕輕鬆鬆讓人聽妳的"
+                            android:textSize="15sp" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="$180"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="51dp"
+                        android:layout_height="37dp"
+                        android:layout_marginTop="60dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/butto_rounde"
+                        android:text="導航"
+                        android:textColor="#FFFFFF" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+
+
+        </ScrollView>
+
+
+    </FrameLayout>
+
+
+</RelativeLayout>
