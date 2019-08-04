@@ -16,24 +16,7 @@
 
         <!--主要框架-->
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <SearchView
-                android:id="@+id/searchBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="300dp"
-                android:scrollbarSize="500dp"/>
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="350dp"
-                app:srcCompat="@drawable/baseline_keyboard_voice_black_18dp" />
-
-        </RelativeLayout>
 
         <ScrollView
             android:id="@+id/ScrollView01"
@@ -569,6 +552,27 @@
 
         </ScrollView>
 
+
+        <RelativeLayout
+            android:id="@+id/top_bar"
+            android:background="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <SearchView
+                android:id="@+id/searchBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="300dp"
+                android:scrollbarSize="500dp"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="350dp"
+                app:srcCompat="@drawable/baseline_keyboard_voice_black_18dp" />
+
+        </RelativeLayout>
 
     </FrameLayout>
 
