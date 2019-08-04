@@ -54,7 +54,7 @@ public class Login extends AppCompatActivity {
 
    //開啟首頁頁面func
     public void openHomePage(){
-        Intent intent = new Intent(this, BottomNavActivity.class);
+        Intent intent = new Intent(this, HomePage.class);
         startActivity(intent);
 
     }
