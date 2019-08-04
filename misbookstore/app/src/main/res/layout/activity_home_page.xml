@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/viewPager"
                     android:gravity="center_vertical|center_horizontal"
-                    android:orientation="horizontal"/>
+                    android:orientation="horizontal" />
 
 
                 <LinearLayout

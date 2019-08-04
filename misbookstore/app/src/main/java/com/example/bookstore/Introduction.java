@@ -8,16 +8,14 @@ import android.view.View;
 
 public class Introduction extends AppCompatActivity {
 
-    private CardView CardView_introduction;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_introduction);
 
-        CardView_introduction = (CardView) findViewById(R.id.CardView_introduction);
-        CardView_introduction.setOnClickListener(new View.OnClickListener() {
+        CardView cardView_introduction = findViewById(R.id.CardView_introduction);
+        cardView_introduction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openLogin();

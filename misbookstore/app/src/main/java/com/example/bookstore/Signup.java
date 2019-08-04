@@ -9,15 +9,15 @@ import android.widget.TextView;
 
 public class Signup extends AppCompatActivity {
 
-    private CardView CardView_Signup;
-    private TextView textView_signup_login;
+    protected CardView CardView_Signup;
+    protected TextView textView_signup_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
 
-        CardView_Signup = (CardView) findViewById(R.id.CardView_Signup);
+        CardView_Signup = findViewById(R.id.CardView_Signup);
         CardView_Signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -25,7 +25,7 @@ public class Signup extends AppCompatActivity {
             }
         });
 
-        textView_signup_login = (TextView) findViewById(R.id.textView_signup_login);
+        textView_signup_login = findViewById(R.id.textView_signup_login);
         textView_signup_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

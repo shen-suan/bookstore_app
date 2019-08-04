@@ -62,9 +62,9 @@ public class HomePage extends AppCompatActivity {
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager = findViewById(R.id.viewPager);
 
-        sliderDotspanel = (LinearLayout) findViewById(R.id .SliderDots);
+        sliderDotspanel = findViewById(R.id .SliderDots);
 
 
 

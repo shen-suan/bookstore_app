@@ -9,9 +9,8 @@ import android.widget.TextView;
 
 public class Login extends AppCompatActivity {
 
-    private CardView CardView_login;
-    private TextView textView_login_signup;
-    private TextView textView_login_FPassword;
+    protected TextView textView_login_signup;
+    protected TextView textView_login_FPassword;
 
 
     @Override
@@ -20,8 +19,8 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.login);
 
 
-        CardView_login = (CardView) findViewById(R.id.CardView_login);
-        CardView_login.setOnClickListener(new View.OnClickListener() {
+        CardView cardView_login = findViewById(R.id.CardView_login);
+        cardView_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openHomePage();
@@ -31,7 +30,7 @@ public class Login extends AppCompatActivity {
 
 
 //        程式執行會當掉
-        textView_login_signup = (TextView) findViewById(R.id.textView_login_signup);
+        textView_login_signup = findViewById(R.id.textView_login_signup);
         textView_login_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +39,7 @@ public class Login extends AppCompatActivity {
         });
 
 
-        textView_login_FPassword = (TextView) findViewById(R.id.textView_login_FPassword);
+        textView_login_FPassword = findViewById(R.id.textView_login_FPassword);
         textView_login_FPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
