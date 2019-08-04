@@ -13,12 +13,12 @@
         <activity android:name=".startActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".Introduction"></activity>
+        <activity android:name=".Introduction" />
 
         <activity android:name=".Login" />
 
@@ -28,6 +28,7 @@
 
         <activity android:name=".HomePage"/>
 
+        <activity android:name=".BottomNavActivity"/>
 
     </application>
 

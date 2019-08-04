@@ -1,65 +1,35 @@
 package com.example.bookstore;
 
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
+//import android.support.design.widget.BottomNavigationView;
+//import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.annotation.NonNull;
-import android.view.MenuItem;
+//import android.support.annotation.NonNull;
+//import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
 
-public class HomePage extends AppCompatActivity {
+public class HomePage extends BottomNavActivity {
 
-    private TextView mTextMessage;
+    TextView mTextMessage;
     ViewPager viewPager;
     LinearLayout sliderDotspanel;
     private int dotscount;
     private ImageView[] dots;
 
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_home:
-                        mTextMessage.setText("首頁");
-                        return true;
-                    case R.id.navigation_book:
-                        mTextMessage.setText("書籍");
-                        return true;
-
-                    case R.id.navigation_scan:
-                        mTextMessage.setText("掃描");
-                        return true;
-
-                    case R.id.navigation_favorites:
-                        mTextMessage.setText("我的最愛");
-                        return true;
-
-                    case R.id.navigation_profile:
-                        mTextMessage.setText("個人檔案");
-                        return true;
-
-                }
-                return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        BottomNavigationView navView = findViewById(R.id.bottom_navigation);
         mTextMessage = findViewById(R.id.message);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
 
 
         viewPager = findViewById(R.id.viewPager);
@@ -117,47 +87,12 @@ public class HomePage extends AppCompatActivity {
 //        Timer timer = new Timer();
 //        timer.scheduleAtFixedRate(new MyTimerTask(), 2000, 4000);
 
-        BottomNavigationView bottonNav = findViewById(R.id.bottom_navigation);
-        bottonNav.setOnNavigationItemSelectedListener(navListener);
 
 
 
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = null;
 
-                    switch(item.getItemId()){
-                        case R.id.navigation_home:
-                            selectedFragment = new Fragment();
-                            break;
-
-                        case R.id.navigation_book:
-                            selectedFragment = new BookFragment();
-                            break;
-
-                        case R.id.navigation_scan:
-                            selectedFragment = new ScanFragment();
-                            break;
-
-                        case R.id.navigation_favorites:
-                            selectedFragment = new FavoriteFragment();
-                            break;
-
-                        case R.id.navigation_profile:
-                            selectedFragment = new ProfileFragment();
-                            break;
-                    }
-
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            selectedFragment).commit();
-
-                    return true;
-                }
-            };
 
 
 

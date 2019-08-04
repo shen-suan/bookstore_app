@@ -5,4 +5,13 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_scro_ll__test">scroLL_TEST</string>
+    <!--bottomnavigation-->
+    <string name="home">首頁</string>
+    <string name="book">書籍</string>
+    <string name="favor">我的最愛</string>
+    <string name="profile">個人檔案</string>
+    <string name="scanbook">掃描書籍</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

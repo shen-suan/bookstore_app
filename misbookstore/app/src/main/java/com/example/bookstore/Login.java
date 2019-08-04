@@ -29,7 +29,6 @@ public class Login extends AppCompatActivity {
 
 
 
-//        程式執行會當掉
         textView_login_signup = findViewById(R.id.textView_login_signup);
         textView_login_signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,8 +54,9 @@ public class Login extends AppCompatActivity {
 
    //開啟首頁頁面func
     public void openHomePage(){
-        Intent intent = new Intent(this, HomePage.class);
+        Intent intent = new Intent(this, BottomNavActivity.class);
         startActivity(intent);
+
     }
 
 
