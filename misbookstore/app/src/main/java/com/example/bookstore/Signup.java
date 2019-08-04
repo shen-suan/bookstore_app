@@ -10,7 +10,7 @@ import android.widget.TextView;
 public class Signup extends AppCompatActivity {
 
     private CardView CardView_Signup;
-    private TextView textView2_Signup;
+    private TextView textView_signup_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,15 +21,15 @@ public class Signup extends AppCompatActivity {
         CardView_Signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMainActivity();
+                openLogin();
             }
         });
 
-        textView2_Signup = (TextView) findViewById(R.id.textView2_login);
-        textView2_Signup.setOnClickListener(new View.OnClickListener() {
+        textView_signup_login = (TextView) findViewById(R.id.textView_signup_login);
+        textView_signup_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMainActivity();
+                openLogin();
             }
         });
 
@@ -38,7 +38,7 @@ public class Signup extends AppCompatActivity {
 
 
     //開啟登入頁面func
-    public void openMainActivity(){
+    public void openLogin(){
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }

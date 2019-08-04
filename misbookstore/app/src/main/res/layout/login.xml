@@ -60,14 +60,6 @@
          android:layout_marginLeft="35dp"
          android:layout_marginStart="35dp">
 
-            <!--<RadioButton-->
-            <!--android:id="@+id/radioButton"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:hint="記住我"-->
-            <!--android:textSize="16dp"-->
-            <!--/>-->
-
          <CheckBox
              android:id="@+id/checkBox_rememberMe"
              android:layout_width="wrap_content"
@@ -123,10 +115,9 @@
 
 
 
-
     <!--程式執行會當掉-->
     <TextView
-        android:id="@+id/textView2_login"
+        android:id="@+id/textView_login_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/CardView_login"

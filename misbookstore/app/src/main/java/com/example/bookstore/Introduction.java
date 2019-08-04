@@ -20,13 +20,13 @@ public class Introduction extends AppCompatActivity {
         CardView_introduction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMainActivity();
+                openLogin();
             }
         });
     }
 
     //開啟登入頁面func
-    public void openMainActivity(){
+    public void openLogin(){
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }

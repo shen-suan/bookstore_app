@@ -10,7 +10,7 @@ import android.widget.TextView;
 public class ForgetPassword extends AppCompatActivity {
 
     private CardView CardView_FPassword;
-    private TextView textView3_FPassword;
+    private TextView textView_FPassword_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,23 +21,23 @@ public class ForgetPassword extends AppCompatActivity {
         CardView_FPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMainActivity();
+                openLogin();
             }
         });
 
 
-        textView3_FPassword = (TextView) findViewById(R.id.textView3_FPassword);
-        textView3_FPassword.setOnClickListener(new View.OnClickListener() {
+        textView_FPassword_login = (TextView) findViewById(R.id.textView_FPassword_login);
+        textView_FPassword_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMainActivity();
+                openLogin();
             }
         });
 
     }
 
     //開啟登入頁面func
-    public void openMainActivity(){
+    public void openLogin(){
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }

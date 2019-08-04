@@ -7,7 +7,6 @@
     tools:context=".Signup">
 
 
-
         <ImageView
             android:id="@+id/imageView_Logo"
             android:layout_width="100dp"
@@ -112,7 +111,7 @@
         </android.support.v7.widget.CardView>
 
         <TextView
-            android:id="@+id/textView2_Signup"
+            android:id="@+id/textView_signup_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/CardView_Signup"

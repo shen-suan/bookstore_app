@@ -8,10 +8,9 @@ import android.view.View;
 import android.widget.TextView;
 
 public class Login extends AppCompatActivity {
-//    private Button button;
 
     private CardView CardView_login;
-    private TextView textView2_login;
+    private TextView textView_login_signup;
     private TextView textView_login_FPassword;
 
 
@@ -31,23 +30,21 @@ public class Login extends AppCompatActivity {
 
 
 
-        textView_login_FPassword = (TextView) findViewById(R.id.textView_login_FPassword);
-        textView_login_FPassword.setOnClickListener(new View.OnClickListener() {
+//        程式執行會當掉
+        textView_login_signup = (TextView) findViewById(R.id.textView_login_signup);
+        textView_login_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMain3Activity();
+                openSignup();
             }
         });
 
 
-
-//        程式執行會當掉
-
-        textView2_login = (TextView) findViewById(R.id.textView2_login);
-        textView2_login.setOnClickListener(new View.OnClickListener() {
+        textView_login_FPassword = (TextView) findViewById(R.id.textView_login_FPassword);
+        textView_login_FPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMain2Activity();
+                openForgetPassword();
             }
         });
 
@@ -65,13 +62,13 @@ public class Login extends AppCompatActivity {
 
 
 //開啟註冊頁面func
-    public void openMain2Activity(){
+    public void openSignup(){
         Intent intent = new Intent(this, Signup.class);
         startActivity(intent);
     }
 
 //忘記密碼頁面func
-    public void openMain3Activity(){
+    public void openForgetPassword(){
         Intent intent = new Intent(this, ForgetPassword.class);
         startActivity(intent);
     }
