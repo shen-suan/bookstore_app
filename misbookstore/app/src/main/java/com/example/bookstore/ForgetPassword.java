@@ -7,7 +7,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
-public class Main3Activity extends AppCompatActivity {
+public class ForgetPassword extends AppCompatActivity {
 
     private CardView CardView_FPassword;
     private TextView textView3_FPassword;
@@ -15,7 +15,7 @@ public class Main3Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main3);
+        setContentView(R.layout.forgetpassword);
 
         CardView_FPassword = (CardView) findViewById(R.id.CardView_FPassword);
         CardView_FPassword.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +38,7 @@ public class Main3Activity extends AppCompatActivity {
 
     //開啟登入頁面func
     public void openMainActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }
 

@@ -27,7 +27,7 @@ public class Introduction extends AppCompatActivity {
 
     //開啟登入頁面func
     public void openMainActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }
 

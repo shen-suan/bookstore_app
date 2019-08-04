@@ -7,7 +7,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
-public class Main2Activity extends AppCompatActivity {
+public class Signup extends AppCompatActivity {
 
     private CardView CardView_Signup;
     private TextView textView2_Signup;
@@ -15,7 +15,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.signup);
 
         CardView_Signup = (CardView) findViewById(R.id.CardView_Signup);
         CardView_Signup.setOnClickListener(new View.OnClickListener() {
@@ -39,7 +39,7 @@ public class Main2Activity extends AppCompatActivity {
 
     //開啟登入頁面func
     public void openMainActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }
 

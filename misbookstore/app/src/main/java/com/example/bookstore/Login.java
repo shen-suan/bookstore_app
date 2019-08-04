@@ -5,10 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 //    private Button button;
 
     private CardView CardView_login;
@@ -19,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.login);
 
 
         CardView_login = (CardView) findViewById(R.id.CardView_login);
@@ -67,13 +66,13 @@ public class MainActivity extends AppCompatActivity {
 
 //開啟註冊頁面func
     public void openMain2Activity(){
-        Intent intent = new Intent(this, Main2Activity.class);
+        Intent intent = new Intent(this, Signup.class);
         startActivity(intent);
     }
 
 //忘記密碼頁面func
     public void openMain3Activity(){
-        Intent intent = new Intent(this, Main3Activity.class);
+        Intent intent = new Intent(this, ForgetPassword.class);
         startActivity(intent);
     }
 

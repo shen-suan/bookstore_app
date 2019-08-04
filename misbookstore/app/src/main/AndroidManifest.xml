@@ -20,11 +20,11 @@
 
         <activity android:name=".Introduction"></activity>
 
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Login" />
 
-        <activity android:name=".Main2Activity"/>
+        <activity android:name=".Signup"/>
 
-        <activity android:name=".Main3Activity" />
+        <activity android:name=".ForgetPassword" />
 
         <activity android:name=".HomePage"/>
 
