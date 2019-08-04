@@ -50,7 +50,7 @@
 
 
                 <!--須設定1920x1080尺寸之照片-->
-                <androidx.viewpager.widget.ViewPager
+                <android.support.v4.view.ViewPager
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
                     android:layout_height="250dp" />
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/viewPager"
                     android:gravity="center_vertical|center_horizontal"
-                    android:orientation="horizontal" />
+                    android:orientation="horizontal"/>
 
 
                 <LinearLayout
@@ -575,7 +575,7 @@
 
 
     <!--導覽列-->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
