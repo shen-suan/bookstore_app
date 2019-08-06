@@ -9,13 +9,13 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="首頁"
+        android:title="@string/homepage"
         android:checked="true"/>
 
     <item
         android:id="@+id/navigation_book"
         android:icon="@drawable/baseline_collections_bookmark_black_18dp"
-        android:title="書籍" />
+        android:title="@string/book" />
     <!--must set the item title to empty-->
     <item
         android:id="@+id/i_empty"
@@ -24,12 +24,12 @@
     <item
         android:id="@+id/navigation_favorites"
         android:icon="@drawable/baseline_favorite_black_18dp"
-        android:title="我的最愛" />
+        android:title="@string/favorite" />
 
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/baseline_person_black_18dp"
-        android:title="個人檔案" />
+        android:title="@string/profile" />
 
 
 </menu>
