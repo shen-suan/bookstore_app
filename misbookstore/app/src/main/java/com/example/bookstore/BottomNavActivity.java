@@ -150,7 +150,7 @@ public class BottomNavActivity extends AppCompatActivity {
         bind.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(BottomNavActivity.this, "Center", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BottomNavActivity.this, "掃描書籍", Toast.LENGTH_SHORT).show();
             }
         });
     }
