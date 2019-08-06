@@ -1,6 +1,5 @@
 package com.example.bookstore;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -23,7 +22,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.annotation.NonNull;
 
 
-import com.example.bookstore.databinding.ActivityCenterFabBinding;
+import com.example.bookstore.databinding.ActivityBottomNavBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ import java.util.List;
 public class BottomNavActivity extends AppCompatActivity {
 
     private static final String TAG = BottomNavActivity.class.getSimpleName();
-    private ActivityCenterFabBinding bind;
+    private ActivityBottomNavBinding bind;
     private VpAdapter adapter;
 
     // collections
@@ -41,7 +40,7 @@ public class BottomNavActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_with_view_pager);
-        bind = DataBindingUtil.setContentView(this, R.layout.activity_center_fab);
+        bind = DataBindingUtil.setContentView(this, R.layout.activity_bottom_nav);
 
         initData();
         initView();
@@ -56,29 +55,12 @@ public class BottomNavActivity extends AppCompatActivity {
     private void initData() {
         fragments = new ArrayList<>(4);
 
-        // create music fragment and add it
+        // create fragment and add it
         Fragment musicFragment = new HomepageFragment();
-//        Bundle bundle = new Bundle();
-//        bundle.putString("title", getString(R.string.music));
-//        musicFragment.setArguments(bundle);
-
-        // create backup fragment and add it
         Fragment backupFragment = new BookFragment();
-//        bundle = new Bundle();
-//        bundle.putString("title", getString(R.string.backup));
-//        backupFragment.setArguments(bundle);
-
-        // create friends fragment and add it
         Fragment favorFragment = new FavoriteFragment();
-//        bundle = new Bundle();
-//        bundle.putString("title", getString(R.string.favor));
-//        favorFragment.setArguments(bundle);
-
-        // create friends fragment and add it
         Fragment visibilityFragment = new ProfileFragment();
-//        bundle = new Bundle();
-//        bundle.putString("title", getString(R.string.visibility));
-//        visibilityFragment.setArguments(bundle);
+
 
 
         // add to fragments for adapter
@@ -94,9 +76,12 @@ public class BottomNavActivity extends AppCompatActivity {
      */
     private void initView() {
         bind.bnve.enableItemShiftingMode(false);
-        bind.bnve.enableShiftingMode(false);
+        bind.bnve.enableShiftingMode(true);
         bind.bnve.enableAnimation(false);
-
+//        int item=5;
+//        for(int i = 0; i < item; i++) {
+//            bind.bnve.setItemBackground(i, R.color.color_nav_back);
+//        }
         // set adapter
         adapter = new VpAdapter(getSupportFragmentManager(), fragments);
         bind.vp.setAdapter(adapter);
@@ -140,7 +125,7 @@ public class BottomNavActivity extends AppCompatActivity {
             }
         });
 
-        // set listener to change the current checked item of bottom nav when scroll view pager
+        // set listener to change the current checked item of bottom nav when scroll view pager 左右滑動屏幕切換
         bind.vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

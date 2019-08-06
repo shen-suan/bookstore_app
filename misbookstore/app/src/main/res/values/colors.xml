@@ -5,4 +5,6 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="colorGray">#ccc</color>
+    <color name="color_nav_back">#DDDDDD</color>
+    <color name="color_nab_item">#FF0000</color>
 </resources>

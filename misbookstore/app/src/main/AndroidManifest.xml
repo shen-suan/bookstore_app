@@ -26,8 +26,6 @@
 
         <activity android:name=".ForgetPassword" />
 
-        <activity android:name=".HomePage"/>
-
         <activity android:name=".BottomNavActivity"/>
 
     </application>
