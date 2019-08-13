@@ -8,5 +8,14 @@
     <color name="colorGray">#ccc</color>
     <color name="color_nav_back">#DDDDDD</color>
     <color name="color_nab_item">#FF0000</color>
+    <color name="colorGrey">#aaaaaa</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colorGreyLight">#f8f8f8</color>
+    <color name="colorBlack">#000000</color>
+    <color name="neutral_70">@color/gray_70</color>
+    <color name="gray_70">#3d444b</color>
+    <color name="neutral">@color/gray_50</color>
+    <color name="gray_50">#676a74</color>
 
 </resources>
