@@ -40,7 +40,8 @@
             android:button="@null"
             android:layout_marginRight="20dp"
             android:background="@drawable/bg_mi_btn"
-            android:textColor="@drawable/color_mi_btn"/>
+            android:textColor="@drawable/color_mi_btn"
+            android:checked="true"/>
         <RadioButton
             android:id="@+id/edit_radio_female"
             android:layout_width="80dp"
