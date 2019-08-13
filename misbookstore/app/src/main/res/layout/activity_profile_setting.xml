@@ -10,11 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:padding="50dp">
         <RelativeLayout
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginBottom="30dp">
             <com.example.bookstore.MemberInformation.CircleImageView
                 android:id="@+id/mi_pic"
                 android:layout_width="100dp"
@@ -38,7 +40,7 @@
             android:textSize="35sp"
             android:drawableRight="@drawable/edit"
             android:drawablePadding="15dp"
-            android:layout_marginTop="5dp" />
+            android:layout_marginBottom="50dp" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -170,17 +172,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorGrey"/>
-
-
-        <Button
-            android:id="@+id/mi_btn_log_out"
-            android:layout_width="135dp"
-            android:layout_height="wrap_content"
-            android:text="登出"
-            android:background="@drawable/bg_btn"
-            android:textSize="15sp"
-            android:textColor="@color/colorWhite"
-            android:layout_marginTop="10dp"/>
 
     </LinearLayout>
 
