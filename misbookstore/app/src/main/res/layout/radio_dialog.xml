@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="25dp">
+
+
+    <TextView
+        android:id="@+id/radio_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:textColor="@color/neutral_70"
+        android:labelFor="@+id/my_profile_dialog_input"
+        android:textSize="@dimen/text_sz_extra_large"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/radio_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:textColor="@color/neutral"
+        android:textSize="@dimen/text_sz_small"/>
+
+    <RadioGroup
+        android:id="@+id/edit_radio_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <RadioButton
+            android:id="@+id/edit_radio_male"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:gravity="center"
+            android:text="男"
+            android:button="@null"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/bg_mi_btn"
+            android:textColor="@drawable/color_mi_btn"/>
+        <RadioButton
+            android:id="@+id/edit_radio_female"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:gravity="center"
+            android:button="@null"
+            android:text="女"
+            android:background="@drawable/bg_mi_btn"
+            android:textColor="@drawable/color_mi_btn"/>
+    </RadioGroup>
+
+
+
+</LinearLayout>

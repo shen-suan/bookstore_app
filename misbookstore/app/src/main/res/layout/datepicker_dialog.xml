@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="25dp">
+    <TextView
+        android:id="@+id/date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:textColor="@color/neutral_70"
+        android:labelFor="@+id/my_profile_dialog_input"
+        android:textSize="@dimen/text_sz_extra_large"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/date_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:textColor="@color/neutral"
+        android:textSize="@dimen/text_sz_small"/>
+    <DatePicker
+        android:id="@+id/edit_birth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"/>
+
+</LinearLayout>
