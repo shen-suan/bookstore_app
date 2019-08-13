@@ -1,9 +1,14 @@
 package com.example.bookstore;
 
+import android.content.Intent;
+import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -23,6 +28,8 @@ import android.support.annotation.NonNull;
 
 
 import com.example.bookstore.databinding.ActivityBottomNavBinding;
+import com.ferfalk.simplesearchview.SimpleSearchView;
+import com.ferfalk.simplesearchview.utils.DimensUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +39,8 @@ public class BottomNavActivity extends AppCompatActivity {
     private static final String TAG = BottomNavActivity.class.getSimpleName();
     private ActivityBottomNavBinding bind;
     private VpAdapter adapter;
+    public static final int EXTRA_REVEAL_CENTER_PADDING = 40;
+    private SimpleSearchView searchView;
 
     // collections
     private List<Fragment> fragments;// used for ViewPager adapter
@@ -46,7 +55,34 @@ public class BottomNavActivity extends AppCompatActivity {
         initView();
         initEvent();
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        searchView = findViewById(R.id.searchView);
+
+
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+
+        setupSearchView(menu);
+        return true;
+    }
+
+    private void setupSearchView(Menu menu) {
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
+
+
+        // Adding padding to the animation because of the hidden menu item
+        Point revealCenter = searchView.getRevealAnimationCenter();
+        revealCenter.x -= DimensUtils.convertDpToPx(EXTRA_REVEAL_CENTER_PADDING, this);
+    }
+
 
 
     /**
@@ -176,4 +212,24 @@ public class BottomNavActivity extends AppCompatActivity {
             return data.get(position);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        if (searchView.onBackPressed()) {
+            return;
+        }
+
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (searchView.onActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
 }

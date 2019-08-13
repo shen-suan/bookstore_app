@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.bookstore"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -20,6 +20,11 @@ android {
     dataBinding {
         enabled true
     }
+    compileOptions{
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {
@@ -35,5 +40,8 @@ dependencies {
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support:support-vector-drawable:28.0.0'
+
+    implementation 'com.github.Ferfalk:SimpleSearchView:0.1.4'
+
 
 }

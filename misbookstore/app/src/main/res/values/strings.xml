@@ -12,6 +12,13 @@
     <string name="profile">個人檔案</string>
     <string name="bookscan">掃描書籍</string>
 
+
+
+    <string name="app_subtitle">SimpleSearchView</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="example">Example</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
