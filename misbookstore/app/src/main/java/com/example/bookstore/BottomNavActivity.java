@@ -73,6 +73,20 @@ public class BottomNavActivity extends AppCompatActivity {
         return true;
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.action_example:
+                Intent intent = new Intent(this, Voice_Assistant.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
     private void setupSearchView(Menu menu) {
         MenuItem item = menu.findItem(R.id.action_search);
         searchView.setMenuItem(item);

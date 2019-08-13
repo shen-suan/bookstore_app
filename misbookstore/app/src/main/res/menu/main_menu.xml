@@ -9,8 +9,18 @@
         app:iconTint="@android:color/white"
         app:showAsAction="ifRoom" />
 
+
+
     <item
+        android:id="@+id/action_example"
+        android:icon="@drawable/voice_assistant"
+        app:iconTint="@android:color/white"
         android:title="@string/example"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom"/>
+
+
+
+
+
 
 </menu>

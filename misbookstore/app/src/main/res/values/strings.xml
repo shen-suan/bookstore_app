@@ -19,10 +19,9 @@
     <string name="input_book_type">請選擇喜歡的書籍類型</string>
 
 
-
-    <string name="app_subtitle">SimpleSearchView</string>
+    <string name="app_subtitle">Read your mind</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="example">Example</string>
+    <string name="example">Open your heart</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

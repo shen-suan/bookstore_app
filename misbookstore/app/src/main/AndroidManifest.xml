@@ -9,9 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyProfileActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".startActivity"
+        <activity android:name=".Voice_Assistant"></activity>
+        <activity
+            android:name=".MyProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".startActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,16 +23,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Introduction"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Login"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Signup"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ForgetPassword"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".BottomNavActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Introduction"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Signup"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ForgetPassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BottomNavActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
