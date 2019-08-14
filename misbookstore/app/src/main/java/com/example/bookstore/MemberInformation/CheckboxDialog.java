@@ -1,7 +1,6 @@
 package com.example.bookstore.MemberInformation;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -10,7 +9,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bookstore.R;
 
@@ -20,8 +21,6 @@ public class CheckboxDialog extends AppCompatDialogFragment{
     private static final String HINT_TAG = "hint";
     private static final String CALLBACK_ID_TAG = "callback_id";
 
-    private CheckBox book_type;
-    private View promptView;
 
     public static CheckboxDialog newInstance(String title,
                                           String initialText,
@@ -44,11 +43,21 @@ public class CheckboxDialog extends AppCompatDialogFragment{
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        promptView = inflater.inflate(R.layout.checkbox_dialog,null);
+        View promptView = inflater.inflate(R.layout.checkbox_dialog, null);
         builder.setView(promptView);
 
         final TextView textView = promptView.findViewById(R.id.checkbox_label);
         final TextView hintView = promptView.findViewById(R.id.checkbox_hint);
+        CheckBox ch1 = promptView.findViewById(R.id.ch1);
+        CheckBox ch2 = promptView.findViewById(R.id.ch2);
+        CheckBox ch3 = promptView.findViewById(R.id.ch3);
+        CheckBox ch4 = promptView.findViewById(R.id.ch4);
+        CheckBox ch5 = promptView.findViewById(R.id.ch5);
+        CheckBox ch6 = promptView.findViewById(R.id.ch6);
+        CheckBox ch7 = promptView.findViewById(R.id.ch7);
+        CheckBox ch8 = promptView.findViewById(R.id.ch8);
+        final LinearLayout checkbox_list1 = promptView.findViewById(R.id.checkbox_list_col1);
+        final LinearLayout checkbox_list2 = promptView.findViewById(R.id.checkbox_list_col2);
 
         Bundle args = getArguments();
         String title = args.getString(TITLE_TAG);
@@ -66,10 +75,45 @@ public class CheckboxDialog extends AppCompatDialogFragment{
         builder.setCancelable(true)
                 .setPositiveButton("確認", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        StringBuilder liked_booktype = new StringBuilder();
+                        int count1 = checkbox_list1.getChildCount();
+                        int count2 = checkbox_list2.getChildCount();
+                        boolean isEmpty = true;
+                        for(int i = 0;i < count1;i++){
+                            //获得子控件对象
+                            View child = checkbox_list1.getChildAt(i);
+                            //判断是否是CheckBox
+                            if(child instanceof CheckBox){
+                            //转为CheckBox对象
+                                CheckBox cb = (CheckBox)child;
+                                if(cb.isChecked()){
+                                    liked_booktype.append(cb.getText()).append(" ");
+                                    isEmpty = false;
+                                }
+                            }
+                        }
+                        for(int i = 0;i < count2;i++){
+                            //获得子控件对象
+                            View child = checkbox_list2.getChildAt(i);
+                            //判断是否是CheckBox
+                            if(child instanceof CheckBox){
+                                //转为CheckBox对象
+                                CheckBox cb = (CheckBox)child;
+                                if(cb.isChecked()){
+                                    liked_booktype.append(cb.getText()).append(" ");
+                                    isEmpty = false;
+                                }
+                            }
+                        }
                         if (getTargetFragment() instanceof Callback) {
-                            // String nickname = edit_nickname.getText().toString();
-                            ((Callback) getTargetFragment())
-                                    .onSuccessfulCheckbox("ok", callbackId);
+                            if(!isEmpty) {
+                                Toast.makeText(getActivity(), "你選擇的是:"+liked_booktype.toString(), Toast.LENGTH_SHORT).show();
+                                ((Callback) getTargetFragment())
+                                        .onSuccessfulCheckbox(liked_booktype.toString(), callbackId);
+                            }
+                            else{
+                                Toast.makeText(getActivity(), "請至少選擇一項", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             throw new ClassCastException("Target fragment doesn't implement CheckboxDialog.Callback");
                         }

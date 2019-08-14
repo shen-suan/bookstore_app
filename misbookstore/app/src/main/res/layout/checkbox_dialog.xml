@@ -29,7 +29,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="8dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:id="@+id/checkbox_list_col1">
             <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,6 +42,7 @@
                 android:gravity="center"
                 android:text="文學小說"
                 android:textColor="@drawable/color_mi_btn"
+                android:id="@+id/ch1"
                 />
             <CheckBox
                 android:layout_width="match_parent"
@@ -53,6 +55,7 @@
                 android:gravity="center"
                 android:text="旅遊"
                 android:textColor="@drawable/color_mi_btn"
+                android:id="@+id/ch2"
                 />
             <CheckBox
                 android:layout_width="match_parent"
@@ -65,6 +68,7 @@
                 android:gravity="center"
                 android:text="愛情小說"
                 android:textColor="@drawable/color_mi_btn"
+                android:id="@+id/ch3"
                 />
             <CheckBox
                 android:layout_width="match_parent"
@@ -77,6 +81,7 @@
                 android:gravity="center"
                 android:text="飲食"
                 android:textColor="@drawable/color_mi_btn"
+                android:id="@+id/ch4"
                 />
             <CheckBox
                 android:layout_width="match_parent"
@@ -89,6 +94,7 @@
                 android:gravity="center"
                 android:text="科幻小說"
                 android:textColor="@drawable/color_mi_btn"
+                android:id="@+id/ch5"
                 />
         </LinearLayout>
         <LinearLayout
@@ -96,7 +102,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="1"
-            android:padding="8dp">
+            android:padding="8dp"
+            android:id="@+id/checkbox_list_col2">
             <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -108,6 +115,7 @@
                 android:gravity="center"
                 android:text="商業理財"
                 android:textColor="@drawable/color_mi_btn"
+                android:id="@+id/ch6"
                 />
             <CheckBox
                 android:layout_width="match_parent"
@@ -120,6 +128,7 @@
                 android:gravity="center"
                 android:text="心靈勵志"
                 android:textColor="@drawable/color_mi_btn"
+                android:id="@+id/ch7"
                 />
             <CheckBox
                 android:layout_width="match_parent"
@@ -132,6 +141,7 @@
                 android:gravity="center"
                 android:text="懸疑/驚悚"
                 android:textColor="@drawable/color_mi_btn"
+                android:id="@+id/ch8"
                 />
         </LinearLayout>
 

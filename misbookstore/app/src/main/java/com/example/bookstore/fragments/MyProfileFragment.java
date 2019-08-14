@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.bookstore.MemberInformation.CheckboxDialog;
@@ -186,6 +187,7 @@ public class MyProfileFragment extends Fragment implements
 
     private void updateLabel(TextView textView, String text) {
         textView.setText(text);
+        Toast.makeText(getActivity(), " 修改成功", Toast.LENGTH_SHORT).show();
         if (TextUtils.isEmpty(text)) {
             textView.setVisibility(View.GONE);
         } else {
@@ -201,6 +203,7 @@ public class MyProfileFragment extends Fragment implements
         }
         TextView textView = rootView.findViewById(callbackId);
         textView.setText(input);
+        Toast.makeText(getActivity(), " 修改性別成功", Toast.LENGTH_SHORT).show();
         if (TextUtils.isEmpty(input)) {
             textView.setVisibility(View.GONE);
         } else {
@@ -216,6 +219,8 @@ public class MyProfileFragment extends Fragment implements
         }
         TextView textView = rootView.findViewById(callbackId);
         textView.setText(input);
+        String format = "您設定的日期為:"+ input;
+        Toast.makeText(getActivity(), format, Toast.LENGTH_SHORT).show();
         if (TextUtils.isEmpty(input)) {
             textView.setVisibility(View.GONE);
         } else {
