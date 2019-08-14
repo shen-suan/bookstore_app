@@ -10,23 +10,18 @@ android:background="@color/colorGreyLight">
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical">
+
     <LinearLayout
         android:id="@+id/ps_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/mi_btn_log_out"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/bg_shadow"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingLeft="40dp"
-        android:padding="40dp">
-        <!--<TextView
-            android:id="@+id/fp_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="我的主頁"
-            android:gravity="center"
-            android:textSize="20sp"/>-->
+        android:paddingHorizontal="40dp"
+        android:paddingVertical="30dp">
 
         <com.example.bookstore.MemberInformation.CircleImageView
             android:layout_width="100dp"
@@ -34,6 +29,7 @@ android:background="@color/colorGreyLight">
             android:layout_marginTop="15dp"
             android:layout_marginBottom="20dp"
             android:src="@drawable/cat" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +37,8 @@ android:background="@color/colorGreyLight">
             android:layout_marginBottom="5dp"
             android:text="郁馨"
             android:textColor="@color/colorBlack"
-            android:textSize="25sp"/>
+            android:textSize="25sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,118 +47,126 @@ android:background="@color/colorGreyLight">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="姓名"
                 android:gravity="center"
-                android:textSize="21sp"/>
+                android:text="姓名"
+                android:textSize="19sp" />
+
             <TextView
                 android:id="@+id/fp_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="黃郁馨"
-                android:gravity="right"
                 android:layout_gravity="center"
-                android:textSize="21sp"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:gravity="right"
+                android:text="黃郁馨"
+                android:textSize="19sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="性別"
                 android:gravity="center"
-                android:textSize="21sp"/>
+                android:text="性別"
+                android:textSize="19sp" />
+
             <TextView
                 android:id="@+id/mi_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="女"
-                android:gravity="right"
                 android:layout_gravity="center"
-                android:textSize="21sp"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:gravity="right"
+                android:text="女"
+                android:textSize="19sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="生日"
                 android:gravity="center"
-                android:textSize="21sp"/>
+                android:text="生日"
+                android:textSize="19sp" />
+
             <TextView
                 android:id="@+id/fp_birth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1998-03-08"
-                android:gravity="right"
                 android:layout_gravity="center"
-                android:textSize="21sp"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:gravity="right"
+                android:text="1998-03-08"
+                android:textSize="19sp" />
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="50dp"
-            android:text="書籍類型"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:gravity="left"
-            android:textSize="21sp"/>
+            android:text="書籍類型"
+            android:textSize="19sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
+
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_booktype"
+                android:gravity="center"
+                android:padding="8dp"
                 android:text="靈異"
-                android:padding="8dp"
-                android:gravity="center"
-                android:layout_margin="8dp"
-                android:textColor="@color/colorBlack"
-                android:background="@drawable/bg_booktype"
-                />
+                android:textColor="@color/colorBlack" />
+
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_booktype"
+                android:gravity="center"
+                android:padding="8dp"
                 android:text="都市言情"
-                android:padding="8dp"
-                android:gravity="center"
-                android:layout_margin="8dp"
-                android:textColor="@color/colorBlack"
-                android:background="@drawable/bg_booktype"
-                />
+                android:textColor="@color/colorBlack" />
+
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="科學"
-                android:padding="8dp"
-                android:gravity="center"
                 android:layout_margin="8dp"
-                android:textColor="@color/colorBlack"
                 android:background="@drawable/bg_booktype"
-                />
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="科學"
+                android:textColor="@color/colorBlack" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/my_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorRed"
-            android:gravity="center"
             android:layout_marginTop="15dp"
             android:clickable="true"
-            android:text="編輯個人檔案" />
+            android:gravity="center"
+            android:text="編輯個人檔案"
+            android:textColor="@color/colorRed" />
 
         <!-- android:drawableRight="@drawable/rightarrow"
          android:drawablePadding="20dp" -->
@@ -174,8 +179,8 @@ android:background="@color/colorGreyLight">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="22dp"
         android:background="@drawable/bg_btn"
+        android:layout_marginHorizontal="10dp"
         android:text="登出"
         android:textColor="@color/colorWhite"
         android:textSize="15sp" />
