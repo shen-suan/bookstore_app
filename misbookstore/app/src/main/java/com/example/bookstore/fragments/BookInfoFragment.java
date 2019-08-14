@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.bookstore.BookInformation.BookInformation;
 import com.example.bookstore.R;
 
 /**

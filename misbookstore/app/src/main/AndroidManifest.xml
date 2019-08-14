@@ -39,7 +39,6 @@
         <activity
             android:name=".BottomNavActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".BookInformation.BookInformation" />
     </application>
 
 </manifest>
