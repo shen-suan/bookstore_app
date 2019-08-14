@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Voice_Assistant"></activity>
+        <activity android:name=".BookInfoActivity"></activity>
+        <activity android:name=".Voice_Assistant" />
         <activity
             android:name=".MyProfileActivity"
             android:screenOrientation="portrait" />
@@ -38,6 +39,7 @@
         <activity
             android:name=".BottomNavActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".BookInformation.BookInformation" />
     </application>
 
 </manifest>

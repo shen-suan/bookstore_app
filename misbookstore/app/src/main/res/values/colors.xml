@@ -17,5 +17,6 @@
     <color name="gray_70">#3d444b</color>
     <color name="neutral">@color/gray_50</color>
     <color name="gray_50">#676a74</color>
+    <color name="colorGreyDark">#363636</color>
 
 </resources>

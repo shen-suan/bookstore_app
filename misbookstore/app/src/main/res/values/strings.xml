@@ -17,11 +17,16 @@
     <string name="input_gender">請選擇性別</string>
     <string name="input_birth">請輸入生日</string>
     <string name="input_book_type">請選擇喜歡的書籍類型</string>
-
+    <!--book_information-->
+    <string name="bi_content">content</string>
+    <string name="bi_author">bi_author</string>
 
     <string name="app_subtitle">Read your mind</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="example">Open your heart</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
