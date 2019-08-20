@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.Button;
 
 public class Introduction extends AppCompatActivity {
 
@@ -14,8 +15,8 @@ public class Introduction extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_introduction);
 
-        CardView cardView_introduction = findViewById(R.id.CardView_introduction);
-        cardView_introduction.setOnClickListener(new View.OnClickListener() {
+        Button textView_itroductionBtn = findViewById(R.id.textView_itroductionBtn);
+        textView_itroductionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openLogin();

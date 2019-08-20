@@ -17,7 +17,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"/>
 
-    <android.support.v7.widget.CardView
+   <!-- <android.support.v7.widget.CardView
         android:id="@+id/CardView_introduction"
         android:layout_width="315dp"
         android:layout_height="60dp"
@@ -25,7 +25,7 @@
         app:cardElevation="2dp"
         android:layout_below="@+id/textView_introduction"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="330dp">
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -45,6 +45,18 @@
 
         </RelativeLayout>
 
-    </android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>-->
+    <Button
+        android:id="@+id/textView_itroductionBtn"
+        android:layout_width="315dp"
+        android:layout_height="50dp"
+        android:text="Let's get started"
+        android:layout_below="@+id/textView_introduction"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="330dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="25sp"
+        android:background="@color/colorRed"
+        />
 
 </RelativeLayout>

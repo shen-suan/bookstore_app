@@ -27,7 +27,7 @@ public class BookInfoFragment extends Fragment {
     private String title;
     private int price;
 
-    private TextView content_title,content_info,author_title,author_info;
+    private TextView content_title,content_info;
     private int clickId;
 
     public static BookInfoFragment newInstance(String isbn,String title,int price) {
@@ -64,8 +64,7 @@ public class BookInfoFragment extends Fragment {
         //尋找控件
         content_title = view.findViewById(R.id.bi_content_title);
         content_info = view.findViewById(R.id.bi_content_info);
-        author_title = view.findViewById(R.id.bi_author_title);
-        author_info = view.findViewById(R.id.bi_author_info);
+
         //設置延遲時間
         final LinearLayout transitionsContainer = view.findViewById(R.id.bi_container_down);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -74,7 +73,6 @@ public class BookInfoFragment extends Fragment {
         //設置點擊事件
         BookInfoFragment.OnClick onClick = new BookInfoFragment.OnClick();
         content_title.setOnClickListener(onClick);
-        author_title.setOnClickListener(onClick);
 
         return view;
     }
@@ -90,9 +88,7 @@ public class BookInfoFragment extends Fragment {
                     //toggleContent(content_info);
                     //Toast.makeText(getApplicationContext(),"ok",Toast.LENGTH_LONG).show();
                     break;
-                case R.id.bi_author_title:
-                    toggleText(author_info,v);
-                    break;
+
             }
         }
     }

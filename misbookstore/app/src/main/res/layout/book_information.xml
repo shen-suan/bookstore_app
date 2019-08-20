@@ -16,16 +16,27 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
             <ImageView
+                android:id="@+id/bi_book_pic"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:src="@drawable/book_info"/>
+            <View
+                android:layout_width="20dp"
+                android:layout_height="match_parent"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.9"
                 android:orientation="vertical"
                 android:gravity="center">
+                <CheckBox
+                    android:id="@+id/bi_like_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_checkbox_like"
+                    android:button="@null"
+                    android:layout_gravity="right"/>
                 <TextView
                     android:id="@+id/bi_book_name"
                     android:layout_width="match_parent"
@@ -115,12 +126,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <CheckBox
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:button="@drawable/bg_checkbox_like"
-                        />
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -168,29 +173,7 @@
                     android:textSize="19sp"
                     android:textColor="@color/colorBlack"
                     android:visibility="gone"/>
-                <TextView
-                    android:id="@+id/bi_author_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="作者介紹"
-                    android:gravity="center_vertical"
-                    android:textSize="21sp"
-                    android:textColor="@color/colorBlack"
-                    android:drawableRight="@drawable/downarrow"
-                    android:drawablePadding="20dp"
-                    android:clickable="true" />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorGrey"/>
-                <TextView
-                    android:id="@+id/bi_author_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bi_author"
-                    android:textSize="19sp"
-                    android:textColor="@color/colorBlack"
-                    android:visibility="gone"/>
+
             </LinearLayout>
         </ScrollView>
 

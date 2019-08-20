@@ -34,8 +34,18 @@
                     android:textSize="19sp"
                     android:layout_toRightOf="@+id/bli_img"
                     android:layout_below="@+id/bli_title"/>
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/bl_btn"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="17dp"
+                    android:layout_marginBottom="10dp"
+                    android:button="@drawable/bg_checkbox_like"/>
 
                 <Button
+                    android:id="@+id/bl_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

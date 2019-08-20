@@ -83,7 +83,7 @@
 
 
      </RelativeLayout>
-
+<!--
     <android.support.v7.widget.CardView
         android:id="@+id/CardView_login"
         android:layout_width="315dp"
@@ -111,7 +111,19 @@
 
         </RelativeLayout>
 
-    </android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>-->
+    <Button
+        android:id="@+id/textView_loginBtn"
+        android:layout_width="315dp"
+        android:layout_height="50dp"
+        android:text="Login"
+        android:layout_below="@+id/editText2_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="25sp"
+        android:background="@drawable/bg_btn"
+        />
 
 
 
@@ -120,7 +132,7 @@
         android:id="@+id/textView_login_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/CardView_login"
+        android:layout_below="@+id/textView_loginBtn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:clickable="true"
