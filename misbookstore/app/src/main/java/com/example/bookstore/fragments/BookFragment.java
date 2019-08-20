@@ -68,9 +68,6 @@ public class BookFragment extends Fragment implements RadioGroup.OnCheckedChange
 //                Toast.makeText(getActivity(),"click..."+isbn,Toast.LENGTH_SHORT).show();
             }
         }));
-//        bl_main.setOnClickListener(
-//                createOnClickListener(
-//                        ));
 
         //依分類的下拉選單
         bl_category = view.findViewById(R.id.bl_category);
