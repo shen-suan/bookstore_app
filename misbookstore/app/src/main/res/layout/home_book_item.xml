@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="140dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <!--書籍圖片-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="134dp"
+        app:srcCompat="@drawable/rbook_item1" />
+
+    <!--書籍名稱-->
+    <TextView
+        android:id="@+id/hb_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="7dp"
+        android:text="輕輕鬆鬆讓人聽你"
+        android:textAlignment="center"/>
+
+    <!--書籍價格-->
+    <TextView
+        android:id="@+id/hb_price"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="7dp"
+        android:text="$180"
+        android:textAlignment="center"/>
+
+</LinearLayout>
