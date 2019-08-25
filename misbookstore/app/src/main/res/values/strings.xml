@@ -18,8 +18,9 @@
     <string name="input_birth">請輸入生日</string>
     <string name="input_book_type">請選擇喜歡的書籍類型</string>
     <!--book_information-->
-    <string name="bi_content">content</string>
-    <string name="bi_author">bi_author</string>
+    <string name="bi_content">能源，是支撐人類追求高品質生活的動力，但也是地球上最珍貴的資源之一。 台達電創立將近40年頭以來，一直在追求以更高效率使用能源的方式，帶給企業和人們不中斷又環保的電源供應。 身為世界最大交換式電源供應廠商，台達電不僅在專業領域得到供應商與顧客肯定，也在環保及企業社會責任上得到社會認同，這都源自在業界有「節能教父」之稱的董事長及創辦人鄭崇華先生，長期以來的先進理念和堅持精神。
+
+　　本書透過鄭董事長的自述，讓讀者感受第一代創業家白手起家的堅持；透過其中的精采故事，讓讀者了解台達電的企業文化底蘊和全球經營思惟。</string>
 
     <string name="app_subtitle">Read your mind</string>
     <string name="section_format">Hello World from section: %1$d</string>
