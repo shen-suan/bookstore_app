@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login">
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/imageView_Logo"
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:paddingTop="7dp"
-                android:text="Login"
+                android:text="LoginActivity"
                 android:textColor="@color/cardview_light_background"
                 android:textSize="25dp" />
 
