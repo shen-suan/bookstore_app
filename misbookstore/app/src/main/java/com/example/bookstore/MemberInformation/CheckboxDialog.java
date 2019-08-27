@@ -99,7 +99,7 @@ public class CheckboxDialog extends AppCompatDialogFragment{
                 arraySelected[5] = bookType.getTravel();
                 arraySelected[6] = bookType.getPsychology();
                 arraySelected[7] = bookType.getSociology();
-                for(int i=0;i<8;i++) System.out.println(arraySelected[i]);
+//                for(int i=0;i<8;i++) System.out.println(arraySelected[i]);
                 //System.arraycopy(來源, 起始索引, 目的, 起始索引, 複製長度)
 //                System.arraycopy(arraySelected, 0, priviousSelected, 0, arraySelected.length);
                 if(arraySelected[0]) ch1.setChecked(true);
@@ -189,7 +189,7 @@ public class CheckboxDialog extends AppCompatDialogFragment{
                                 bookupdate .put("travel",arraySelected[5]);
                                 bookupdate .put("psychology",arraySelected[6]);
                                 bookupdate .put("sociology",arraySelected[7]);
-                                for(int i=0;i<8;i++) System.out.println(arraySelected[i]);
+//                                for(int i=0;i<8;i++) System.out.println(arraySelected[i]);
                                 myRef.child("book_type").updateChildren(bookupdate);
                                 Toast.makeText(getActivity(), "你選擇的是:"+liked_booktype.toString(), Toast.LENGTH_SHORT).show();
                                 ((Callback) getTargetFragment())

@@ -3,6 +3,7 @@ package com.example.bookstore.MemberInformation;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.text.TextUtils;
@@ -10,12 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bookstore.R;
+import com.example.bookstore.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +33,6 @@ public class DatepickerDialog extends AppCompatDialogFragment{
     private static final String HINT_TAG = "hint";
     private static final String CALLBACK_ID_TAG = "callback_id";
     private View promptView;
-    private DatePicker edit_birth;
 
     public static DatepickerDialog newInstance(String title,
                                           String initialText,
@@ -55,6 +60,7 @@ public class DatepickerDialog extends AppCompatDialogFragment{
 
         final TextView textView = promptView.findViewById(R.id.date_label);
         final TextView hintView = promptView.findViewById(R.id.date_hint);
+        final DatePicker edit_birth = promptView.findViewById(R.id.edit_birth);
 
         Bundle args = getArguments();
         String title = args.getString(TITLE_TAG);
@@ -65,6 +71,27 @@ public class DatepickerDialog extends AppCompatDialogFragment{
         String uid = user.getUid();
         DatabaseReference myRef = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/user_profile/"+uid);
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                String birth_date = user.getbirthday();
+                String[] tokens = birth_date.split("-");
+                int year = Integer.valueOf(tokens[0]);
+                int month = Integer.valueOf(tokens[1]);
+                int day = Integer.valueOf(tokens[2]);
+                if(month==1) {
+                    month=13;
+                    year=year-1;
+                }
+                edit_birth.init(year, month-1, day, null);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getActivity(), " Database Error", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         textView.setText(title);
         if (!TextUtils.isEmpty(hint)) {
@@ -77,7 +104,6 @@ public class DatepickerDialog extends AppCompatDialogFragment{
                 .setPositiveButton("確認", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         if (getTargetFragment() instanceof Callback) {
-                            edit_birth = promptView.findViewById(R.id.edit_birth);
                             int month = edit_birth.getMonth(); //一月是0
                             month +=1;
                             String birth = edit_birth.getYear()+"-"+month+"-"+edit_birth.getDayOfMonth();
