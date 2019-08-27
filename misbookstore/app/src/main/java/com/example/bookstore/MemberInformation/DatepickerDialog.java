@@ -12,6 +12,13 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.example.bookstore.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class DatepickerDialog extends AppCompatDialogFragment{
 
@@ -54,6 +61,10 @@ public class DatepickerDialog extends AppCompatDialogFragment{
         String hint = args.getString(HINT_TAG);
 
         final int callbackId = args.getInt(CALLBACK_ID_TAG);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        DatabaseReference myRef = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/user_profile/"+uid);
 
         textView.setText(title);
         if (!TextUtils.isEmpty(hint)) {
@@ -70,6 +81,9 @@ public class DatepickerDialog extends AppCompatDialogFragment{
                             int month = edit_birth.getMonth(); //一月是0
                             month +=1;
                             String birth = edit_birth.getYear()+"-"+month+"-"+edit_birth.getDayOfMonth();
+                            Map<String, Object> childUpdates = new HashMap<>();
+                            childUpdates.put("birthday",birth);
+                            myRef.updateChildren(childUpdates);
                             ((Callback) getTargetFragment())
                                     .onSuccessfulDate(birth, callbackId);
                         } else {

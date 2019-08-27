@@ -1,10 +1,11 @@
 package com.example.bookstore.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.bookstore.Book_types;
 import com.example.bookstore.MemberInformation.CheckboxDialog;
 import com.example.bookstore.MemberInformation.DatepickerDialog;
 import com.example.bookstore.MemberInformation.RadioDialog;
 import com.example.bookstore.R;
+import com.example.bookstore.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -33,7 +43,7 @@ public class MyProfileFragment extends Fragment implements
     private TextView mi_gender;
     private TextView mi_birth;
     private TextView mi_book_type;
-
+    private TextView mi_account;
 
     public static MyProfileFragment newInstance() {
         return new MyProfileFragment();
@@ -65,19 +75,45 @@ public class MyProfileFragment extends Fragment implements
         mi_gender = view.findViewById(R.id.mi_gender);
         mi_birth = view.findViewById(R.id.mi_birth);
         mi_book_type = view.findViewById(R.id.mi_book_type);
+        mi_account = view.findViewById(R.id.profile_set_account);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        //連接資料庫
+        DatabaseReference myRef = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/user_profile/"+uid);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                Book_types bookType = dataSnapshot.child("book_type").getValue(Book_types.class);
+                mi_account.setText(user.getAccount());
+                mi_nickname.setText(user.getNickname());
+                mi_name.setText(user.getName());
+                mi_gender.setText(user.getUserGender());
+                mi_birth.setText(user.getbirthday());
+                mi_book_type.setText(user.getBooks());
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getActivity(), " Database Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         mi_nickname.setOnClickListener(
                 createOnClickListener(
                         getString(R.string.input_nickname),
                         null,
                         mi_nickname,
-                        false));
+                        "nickname"));
         mi_name.setOnClickListener(
                 createOnClickListener(
                         getString(R.string.input_name),
                         null,
                         mi_name,
-                        false));
+                        "username"));
         mi_gender.setOnClickListener(
                 radioOnClickListener(
                         getString(R.string.input_gender),
@@ -91,7 +127,7 @@ public class MyProfileFragment extends Fragment implements
         mi_book_type.setOnClickListener(
                 checkboxOnClickListener(
                         getString(R.string.input_book_type),
-                        null,
+                        getString(R.string.input_book_type_hint),
                         mi_book_type));
 
 
@@ -102,14 +138,14 @@ public class MyProfileFragment extends Fragment implements
     private View.OnClickListener createOnClickListener(final String dialogTitle,
                                                        final String hint,
                                                        final TextView textView,
-                                                       final boolean isMultiline) {
+                                                       final String nameornickname) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ProfileInputDialogFragment inputDialog = ProfileInputDialogFragment.newInstance(dialogTitle,
                         textView.getText()
                                 .toString(),
-                        hint, isMultiline,
+                        hint, nameornickname,
                         textView.getId());
                 inputDialog.setTargetFragment(MyProfileFragment.this, 0);
                 inputDialog.show(getFragmentManager(), DIALOG_TAG);

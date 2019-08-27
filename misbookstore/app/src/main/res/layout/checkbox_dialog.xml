@@ -92,7 +92,7 @@
                 android:layout_marginBottom="7dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="哲學累"
+                android:text="哲學類"
                 android:textColor="@drawable/color_mi_btn"
                 android:id="@+id/ch5"
                 />

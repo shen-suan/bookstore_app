@@ -41,12 +41,14 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
+
             <TextView
+                android:id="@+id/profile_set_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="thisiscin"
-                android:layout_marginBottom="15dp" />
+                android:layout_marginBottom="15dp"
+                android:text="thisiscin" />
             <TextView
                 android:id="@+id/mi_nickname"
                 android:layout_width="wrap_content"

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Book_types {
-    private boolean search_tools;
+    private boolean searchtools;
     private boolean education;
     private boolean biography;
     private boolean kid;
@@ -21,8 +21,8 @@ public class Book_types {
         // Default constructor required for calls to DataSnapshot.getValue()
     }
 
-    public Book_types(boolean search_tools, boolean education, boolean biography, boolean kid, boolean philosophy, boolean travel, boolean psychology, boolean sociology) {
-        this.search_tools = search_tools;
+    public Book_types(boolean searchtools, boolean education, boolean biography, boolean kid, boolean philosophy, boolean travel, boolean psychology, boolean sociology) {
+        this.searchtools = searchtools;
         this.education = education;
         this.biography = biography;
         this.kid = kid;
@@ -33,7 +33,7 @@ public class Book_types {
         //this.test = test;
     }
 
-    public boolean getSearchtools(){return search_tools;}
+    public boolean getSearchtools(){return searchtools;}
     public boolean getEducation(){return education;}
     public boolean getBiography(){return biography;}
     public boolean getKid(){return kid;}
