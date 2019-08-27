@@ -40,7 +40,7 @@
                 android:layout_marginBottom="7dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="文學小說"
+                android:text="查詢工具類"
                 android:textColor="@drawable/color_mi_btn"
                 android:id="@+id/ch1"
                 />
@@ -53,7 +53,7 @@
                 android:layout_marginBottom="7dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="旅遊"
+                android:text="教育類"
                 android:textColor="@drawable/color_mi_btn"
                 android:id="@+id/ch2"
                 />
@@ -66,7 +66,7 @@
                 android:layout_marginBottom="7dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="愛情小說"
+                android:text="傳記類"
                 android:textColor="@drawable/color_mi_btn"
                 android:id="@+id/ch3"
                 />
@@ -79,7 +79,7 @@
                 android:layout_marginBottom="7dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="飲食"
+                android:text="兒童文學類"
                 android:textColor="@drawable/color_mi_btn"
                 android:id="@+id/ch4"
                 />
@@ -92,7 +92,7 @@
                 android:layout_marginBottom="7dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="科幻小說"
+                android:text="哲學累"
                 android:textColor="@drawable/color_mi_btn"
                 android:id="@+id/ch5"
                 />
@@ -113,7 +113,7 @@
                 android:layout_marginBottom="7dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="商業理財"
+                android:text="觀光類"
                 android:textColor="@drawable/color_mi_btn"
                 android:id="@+id/ch6"
                 />
@@ -126,7 +126,7 @@
                 android:layout_marginBottom="7dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="心靈勵志"
+                android:text="心理學類"
                 android:textColor="@drawable/color_mi_btn"
                 android:id="@+id/ch7"
                 />
@@ -139,7 +139,7 @@
                 android:layout_marginBottom="7dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="懸疑/驚悚"
+                android:text="社會學類"
                 android:textColor="@drawable/color_mi_btn"
                 android:id="@+id/ch8"
                 />

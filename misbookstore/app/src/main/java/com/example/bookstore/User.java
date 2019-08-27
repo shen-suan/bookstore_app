@@ -5,8 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class User {
+    public String account;
     public String name;
-    public String mail;
+    public String nickname;
     public String userGender;
     public String birthday;
     public String books;
@@ -19,18 +20,20 @@ public class User {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String name, String mail ,String userGender,  String birthday, String books) {
+    public User(String account, String name, String nickname ,String userGender,  String birthday, String books) {
+        this.account = account;
         this.name = name;
-        this.mail = mail;
+        this.nickname = nickname;
         this.userGender = userGender;
         this.birthday = birthday;
         this.books = books;
     }
+    public String getAccount() { return account; }
     public String getName() {
         return name;
     }
-    public String getMail() {
-        return mail;
+    public String getNickname() {
+        return nickname;
     }
     public String getUserGender(){ return userGender; }
     public String getbirthday(){
@@ -40,8 +43,9 @@ public class User {
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
+        result.put("account", account);
         result.put("name", name);
-        result.put("mail", mail);
+        result.put("nickname", nickname);
         result.put("userGender", userGender);
         result.put("birthday", birthday);
         result.put("books", books);
