@@ -17,6 +17,7 @@ import android.databinding.DataBindingUtil;
 
 import android.support.v4.app.Fragment;
 
+import com.example.bookstore.arContent.augmentedimage.AugmentedImageActivity;
 import com.example.bookstore.fragments.BookFragment;
 import com.example.bookstore.fragments.FavoriteFragment;
 import com.example.bookstore.fragments.HomepageFragment;
@@ -200,7 +201,9 @@ public class BottomNavActivity extends AppCompatActivity {
         bind.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(BottomNavActivity.this, "掃描書籍", Toast.LENGTH_SHORT).show();
+                Intent pass = new Intent();
+                pass.setClass(BottomNavActivity.this, AugmentedImageActivity.class);
+                startActivity(pass);
             }
         });
     }

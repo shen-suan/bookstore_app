@@ -41,6 +41,9 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support:support-vector-drawable:28.0.0'
 
+    //AR
+    implementation "com.google.ar.sceneform.ux:sceneform-ux:1.8.0"
+
     implementation 'com.github.Ferfalk:SimpleSearchView:0.1.4'
 
     //dependency for using firebase database
@@ -54,4 +57,4 @@ dependencies {
 
 // Add the following line to the bottom of the file:
 apply plugin: 'com.google.gms.google-services' // Google Play services Gradle plugin
-
+apply plugin: 'com.google.ar.sceneform.plugin' //AR
