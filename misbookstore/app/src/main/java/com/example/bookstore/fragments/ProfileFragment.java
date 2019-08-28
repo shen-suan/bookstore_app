@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.bookstore.LoginActivity;
 import com.example.bookstore.MyProfileActivity;
@@ -36,6 +37,18 @@ public class ProfileFragment extends Fragment {
 
         View myProfileView = view.findViewById(R.id.my_profile);
         View logout = view.findViewById(R.id.mi_btn_log_out);
+        TextView pf_account = view.findViewById(R.id.profile_account);
+        TextView pf_nickname = view.findViewById(R.id.profile_nickname);
+        TextView pf_name = view.findViewById(R.id.profile_name);
+        TextView pf_gender = view.findViewById(R.id.profile_gender);
+        TextView pf_birth = view.findViewById(R.id.profile_birth);
+
+
+
+
+
+
+
         myProfileView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,8 +60,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent();
-                intent.setClass(getActivity(), LoginActivity.class);
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
             }
         });

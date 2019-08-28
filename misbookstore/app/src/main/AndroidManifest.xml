@@ -43,6 +43,9 @@
         <activity
             android:name=".BottomNavActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ResetPassword"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

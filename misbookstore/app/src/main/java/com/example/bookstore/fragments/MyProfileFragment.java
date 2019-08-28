@@ -1,11 +1,11 @@
 package com.example.bookstore.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +18,7 @@ import com.example.bookstore.MemberInformation.CheckboxDialog;
 import com.example.bookstore.MemberInformation.DatepickerDialog;
 import com.example.bookstore.MemberInformation.RadioDialog;
 import com.example.bookstore.R;
+import com.example.bookstore.ResetPassword;
 import com.example.bookstore.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,6 +45,7 @@ public class MyProfileFragment extends Fragment implements
     private TextView mi_birth;
     private TextView mi_book_type;
     private TextView mi_account;
+    private TextView mi_edit_password;
 
     public static MyProfileFragment newInstance() {
         return new MyProfileFragment();
@@ -76,6 +78,8 @@ public class MyProfileFragment extends Fragment implements
         mi_birth = view.findViewById(R.id.mi_birth);
         mi_book_type = view.findViewById(R.id.mi_book_type);
         mi_account = view.findViewById(R.id.profile_set_account);
+        mi_edit_password = view.findViewById(R.id.mi_edit_password);
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
@@ -129,6 +133,14 @@ public class MyProfileFragment extends Fragment implements
                         getString(R.string.input_book_type),
                         getString(R.string.input_book_type_hint),
                         mi_book_type));
+
+        mi_edit_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ResetPassword.class);
+                startActivity(intent);
+            }
+        });
 
 
         return view;
