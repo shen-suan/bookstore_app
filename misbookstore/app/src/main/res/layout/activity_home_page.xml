@@ -27,7 +27,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="38dp">
+                android:layout_marginTop="40dp">
 
 
                 <!--須設定1920x1080尺寸之照片-->
