@@ -127,37 +127,38 @@ android:background="@color/colorGreyLight">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:id="@+id/profile_book_type">
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/bg_booktype"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="靈異"
-                android:textColor="@color/colorBlack" />
+            <!--<TextView-->
+                <!--android:layout_width="80dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="8dp"-->
+                <!--android:background="@drawable/bg_booktype"-->
+                <!--android:gravity="center"-->
+                <!--android:padding="8dp"-->
+                <!--android:text="靈異"-->
+                <!--android:textColor="@color/colorBlack" />-->
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/bg_booktype"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="都市言情"
-                android:textColor="@color/colorBlack" />
+            <!--<TextView-->
+                <!--android:layout_width="80dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="8dp"-->
+                <!--android:background="@drawable/bg_booktype"-->
+                <!--android:gravity="center"-->
+                <!--android:padding="8dp"-->
+                <!--android:text="都市言情"-->
+                <!--android:textColor="@color/colorBlack" />-->
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/bg_booktype"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="科學"
-                android:textColor="@color/colorBlack" />
+            <!--<TextView-->
+                <!--android:layout_width="80dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="8dp"-->
+                <!--android:background="@drawable/bg_booktype"-->
+                <!--android:gravity="center"-->
+                <!--android:padding="8dp"-->
+                <!--android:text="科學"-->
+                <!--android:textColor="@color/colorBlack" />-->
         </LinearLayout>
 
         <TextView

@@ -90,7 +90,7 @@ public class MyProfileFragment extends Fragment implements
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                Book_types bookType = dataSnapshot.child("book_type").getValue(Book_types.class);
+//                Book_types bookType = dataSnapshot.child("book_type").getValue(Book_types.class);
                 mi_account.setText(user.getAccount());
                 mi_nickname.setText(user.getNickname());
                 mi_name.setText(user.getName());
