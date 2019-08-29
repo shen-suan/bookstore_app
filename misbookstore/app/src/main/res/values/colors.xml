@@ -20,5 +20,6 @@
     <color name="colorGreyDark">#363636</color>
     <color name="colorRedDark">#880000</color>
     <color name="colorYellow">	#FFFF33</color>
+    <color name="colorBlueLight">#D9EBFF</color>
 
 </resources>
