@@ -1,18 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Voice_Assistant">
+    android:background="@color/colorGreyDark"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:id="@+id/chatScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:layout_marginBottom="55dp">
 
-    <TextView
+            <LinearLayout
+                android:id="@+id/chatLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+
+        </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorWhite"
+            android:orientation="horizontal">
+
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/queryEditText"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="請輸入文字..."
+                android:paddingHorizontal="15dp" />
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/sendBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@color/colorBlueLight"
+                android:text="傳送"
+                android:textColor="@color/gray_50"
+                android:textSize="12sp"
+                android:layout_weight="4"
+                android:layout_marginVertical="10dp" />
+            <RelativeLayout
+                android:id="@+id/mic"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="4"
+                android:layout_margin="5dp"
+                android:background="@color/colorBlueLight">
+                <ImageButton
+                    android:id="@+id/listenButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:onClick="listenButtonOnClick"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/mic"
+                    />
+            </RelativeLayout>
+            <CheckBox
+                android:id="@+id/swith_btn"
+                android:layout_width="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:button="@drawable/btn_switch"
+                android:src="@drawable/keyboard"
+                android:layout_marginVertical="5dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+  <!--  <TextView
         android:layout_width="125dp"
         android:layout_height="123dp"
         android:text="hello world"
         android:textSize="30dp"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="150dp"
-        tools:layout_editor_absoluteY="206dp" />
+        tools:layout_editor_absoluteY="206dp" />-->
 
-</android.support.constraint.ConstraintLayout>
+
+</LinearLayout>
