@@ -67,13 +67,14 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                Book_types bookType = dataSnapshot.child("book_type").getValue(Book_types.class);
+//                Book_types bookType = dataSnapshot.child("book_type").getValue(Book_types.class);
                 pf_account.setText(user.getAccount());
                 pf_nickname.setText(user.getNickname());
                 pf_name.setText(user.getName());
                 pf_gender.setText(user.getUserGender());
                 pf_birth.setText(user.getbirthday());
                 LinearLayout linearLayout = view.findViewById(R.id.profile_book_type);
+                linearLayout.removeAllViews();
 //                arraySelected[0] = bookType.getSearchtools();
 //                arraySelected[1] = bookType.getEducation();
 //                arraySelected[2] = bookType.getBiography();
@@ -84,10 +85,6 @@ public class ProfileFragment extends Fragment {
 //                arraySelected[7] = bookType.getSociology();
                 String book_type = user.getBooks();
                 String[] tokens = book_type.split(" ");
-                System.out.println(user.getBooks());
-                for (String element:tokens){
-                    System.out.println(element);
-                }
                 int margin_in_dp = 5;
                 final float scale = getResources().getDisplayMetrics().density;
                 int margin_in_px = (int) (margin_in_dp * scale + 0.5f);
@@ -104,12 +101,10 @@ public class ProfileFragment extends Fragment {
                     textView.setTextColor(Color.BLACK);
                     textView.setBackgroundResource(R.drawable.bg_booktype);
                     textView.setText(tokens[i]);
-                    System.out.println(tokens[i]);
                     textView.setLayoutParams(layoutParams);
                     linearLayout.addView(textView);
                 }
                 int count = linearLayout.getChildCount();
-                System.out.println(count);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
