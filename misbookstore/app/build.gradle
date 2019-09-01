@@ -10,6 +10,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -67,7 +68,7 @@ dependencies {
     // for Remote Procedure Call to avoid "No functional channel service provider found" error while creating SessionsClient
     implementation 'io.grpc:grpc-okhttp:1.13.1'
 
-
+    implementation 'com.android.support:multidex:1.0.3'
 }
 
 // Add the following line to the bottom of the file:
