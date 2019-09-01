@@ -121,7 +121,7 @@ public class CheckboxDialog extends AppCompatDialogFragment{
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getActivity(), " Database Error", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), " Database Error", Toast.LENGTH_SHORT).show();
             }
         });
 

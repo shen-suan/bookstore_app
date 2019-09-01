@@ -2,9 +2,11 @@ package com.example.bookstore.fragments;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,27 +74,46 @@ public class ProfileFragment extends Fragment {
                 pf_gender.setText(user.getUserGender());
                 pf_birth.setText(user.getbirthday());
                 LinearLayout linearLayout = view.findViewById(R.id.profile_book_type);
-                arraySelected[0] = bookType.getSearchtools();
-                arraySelected[1] = bookType.getEducation();
-                arraySelected[2] = bookType.getBiography();
-                arraySelected[3] = bookType.getKid();
-                arraySelected[4] = bookType.getPhilosophy();
-                arraySelected[5] = bookType.getTravel();
-                arraySelected[6] = bookType.getPsychology();
-                arraySelected[7] = bookType.getSociology();
-//                for(int i = 0;i<8;i++) {
-//                    if(arraySelected[i]) {
-//                        TextView textView = new TextView(view.getContext());
-//                        textView.setLa;
-//
-//                        linearLayout.addView(textView);
-//                    }
-//                }
+//                arraySelected[0] = bookType.getSearchtools();
+//                arraySelected[1] = bookType.getEducation();
+//                arraySelected[2] = bookType.getBiography();
+//                arraySelected[3] = bookType.getKid();
+//                arraySelected[4] = bookType.getPhilosophy();
+//                arraySelected[5] = bookType.getTravel();
+//                arraySelected[6] = bookType.getPsychology();
+//                arraySelected[7] = bookType.getSociology();
+                String book_type = user.getBooks();
+                String[] tokens = book_type.split(" ");
+                System.out.println(user.getBooks());
+                for (String element:tokens){
+                    System.out.println(element);
+                }
+                int margin_in_dp = 5;
+                final float scale = getResources().getDisplayMetrics().density;
+                int margin_in_px = (int) (margin_in_dp * scale + 0.5f);
+                int padding_in_dp = 8;
+                final float scale2 = getResources().getDisplayMetrics().density;
+                int padding_in_px = (int) (padding_in_dp * scale2 + 0.5f);
 
+                for(int i = 0;i<tokens.length;i++) {
+                    TextView textView = new TextView(view.getContext());
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(10*padding_in_px,LinearLayout.LayoutParams.WRAP_CONTENT,0);
+                    layoutParams.setMargins(margin_in_px,margin_in_px,margin_in_px,margin_in_px);
+                    textView.setGravity(Gravity.CENTER);
+                    textView.setPadding(0,padding_in_px,0,padding_in_px);
+                    textView.setTextColor(Color.BLACK);
+                    textView.setBackgroundResource(R.drawable.bg_booktype);
+                    textView.setText(tokens[i]);
+                    System.out.println(tokens[i]);
+                    textView.setLayoutParams(layoutParams);
+                    linearLayout.addView(textView);
+                }
+                int count = linearLayout.getChildCount();
+                System.out.println(count);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getActivity(), " Database Error", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), " Database Error", Toast.LENGTH_SHORT).show();
             }
         });
 
