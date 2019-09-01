@@ -73,3 +73,19 @@ dependencies {
 // Add the following line to the bottom of the file:
 apply plugin: 'com.google.gms.google-services' // Google Play services Gradle plugin
 apply plugin: 'com.google.ar.sceneform.plugin' //AR
+
+
+sceneform.asset('sampledata/models/frame_lower_right.obj',
+        'default',
+        'sampledata/models/frame_lower_right.sfa',
+        'src/main/assets/frame_lower_right')
+
+sceneform.asset('sampledata/models/frame_upper_left.obj',
+        'default',
+        'sampledata/models/frame_upper_left.sfa',
+        'src/main/assets/frame_upper_left')
+
+sceneform.asset('sampledata/models/frame_upper_right.obj',
+        'default',
+        'sampledata/models/frame_upper_right.sfa',
+        'src/main/assets/frame_upper_right')
