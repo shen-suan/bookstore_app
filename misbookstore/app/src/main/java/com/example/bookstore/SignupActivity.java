@@ -78,7 +78,7 @@ public class SignupActivity extends AppCompatActivity {
                             DatabaseReference myRef = firebaseDatabase.getReference("user_profile");
 //                            DatabaseReference myRef = FirebaseDatabase.getInstance()
 //                                    .getReferenceFromUrl("https://unmanned-bookst.firebaseio.com");
-                            User user = new User(account, "","", "男","2010-01-01","");
+                            User user = new User(account, "尚未填寫","尚未填寫", "尚未選擇","2000-01-01","尚未選擇");
                             Book_types bookType = new Book_types(false,false,false,false,false,false,false,false);
                             myRef.child(uid).setValue(user);
                             myRef.child(uid).child("book_type").setValue(bookType);
