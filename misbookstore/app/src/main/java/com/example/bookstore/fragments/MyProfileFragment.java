@@ -156,8 +156,6 @@ public class MyProfileFragment extends Fragment implements
                 .load(user.getPhotoUrl())
                 .apply(new RequestOptions().centerCrop().circleCrop().placeholder(R.drawable.head))
                 .into(mi_pic);
-        System.out.println(user);
-        System.out.println(user.getPhotoUrl());
 
 
         mi_nickname.setOnClickListener(
