@@ -9,13 +9,16 @@ import android.widget.TextView;
 
 import com.example.bookstore.R;
 
+import java.util.ArrayList;
+
 public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearViewHolder>{
 
-    private ListData[] listData;
+    private ArrayList listData;
+    private ListData data;
     private Context mContext;
     private OnItemClickListener mlistener;
 
-    public LinearAdapter(Context context, ListData[] list, OnItemClickListener listener){
+    public LinearAdapter(Context context, ArrayList list, OnItemClickListener listener){
         this.mContext = context;
         this.listData = list;
         this.mlistener = listener;
@@ -27,8 +30,11 @@ public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearView
 
     @Override
     public void onBindViewHolder( LinearAdapter.LinearViewHolder viewHolder,final int position) {
-        viewHolder.title.setText(listData[position].getTitle());
-        viewHolder.price.setText("$ "+listData[position].getPrice());
+        data = (ListData) listData.get(position);
+        viewHolder.title.setText(data.getTitle());
+        viewHolder.price.setText("$ "+ data.getPrice());
+        //viewHolder.title.setText(listData[position].getTitle());
+        //viewHolder.price.setText("$ "+listData[position].getPrice());
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,7 +45,7 @@ public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearView
 
     @Override
     public int getItemCount() {
-        return listData.length;
+        return listData.size();
     }
     class LinearViewHolder extends RecyclerView.ViewHolder{
 
