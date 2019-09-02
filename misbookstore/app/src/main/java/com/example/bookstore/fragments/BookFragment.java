@@ -21,6 +21,8 @@ import com.example.bookstore.BookInformation.LinearAdapter;
 import com.example.bookstore.BookInformation.ListData;
 import com.example.bookstore.R;
 
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -44,20 +46,27 @@ public class BookFragment extends Fragment implements RadioGroup.OnCheckedChange
         View view = inflater.inflate(R.layout.fragment_book, container, false);
 
         // 設定要給 Adapter 的陣列為 listData
-        ListData[] listData = {
-                new ListData("沉默的遊行", 180, "11"),
-                new ListData("訂閱經濟", 250, "22"),
-                new ListData("不賣東西賣體驗", 175, "33"),
-        };
+//        ListData[] listData = {
+//                new ListData("沉默的遊行", 180, "11"),
+//                new ListData("訂閱經濟", 250, "22"),
+//                new ListData("不賣東西賣體驗", 175, "33"),
+//        };
+        ArrayList<ListData> listData = new ArrayList<>();
+        listData.add(new ListData("沉默的遊行",1,"44"));
+        listData.add(new ListData("訂閱經濟",2,"55"));
+        listData.add(new ListData("不賣東西賣體驗",3,"66"));
+        listData.add(new ListData("沉默的遊行",4,"77"));
+        listData.add(new ListData("訂閱經濟",5,"88"));
+        listData.add(new ListData("不賣東西賣體驗",6,"99"));
         // Recyclerview的設定
         bl_main = view.findViewById(R.id.bl_main);
         bl_main.setLayoutManager(new LinearLayoutManager(getActivity()));
         bl_main.setAdapter(new LinearAdapter(getActivity(), listData ,new LinearAdapter.OnItemClickListener() {
             @Override
             public void onClick(int pos) {
-                String isbn=listData[pos].getIsbn();
-                String book_name=listData[pos].getTitle();
-                int book_price=listData[pos].getPrice();
+                String isbn=listData.get(pos).getIsbn();
+                String book_name=listData.get(pos).getTitle();
+                int book_price=listData.get(pos).getPrice();
                 Intent intent = new Intent(getActivity(), BookInfoActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("isbn",isbn);//傳遞String

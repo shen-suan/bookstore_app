@@ -140,6 +140,7 @@ public class CheckboxDialog extends AppCompatDialogFragment{
                 .setPositiveButton("確認", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         StringBuilder liked_booktype = new StringBuilder();
+                        int count = 0;
                         int count1 = checkbox_list1.getChildCount();
                         int count2 = checkbox_list2.getChildCount();
                         int select_id = 0;
@@ -154,6 +155,7 @@ public class CheckboxDialog extends AppCompatDialogFragment{
                                 if(cb.isChecked()){
                                     liked_booktype.append(cb.getText()).append(" ");
                                     arraySelected[select_id]=true;
+                                    count++;
                                     isEmpty = false;
                                 } else arraySelected[select_id]=false;
                                 select_id++;
@@ -169,13 +171,19 @@ public class CheckboxDialog extends AppCompatDialogFragment{
                                 if(cb.isChecked()){
                                     liked_booktype.append(cb.getText()).append(" ");
                                     arraySelected[select_id]=true;
+                                    count++;
                                     isEmpty = false;
                                 }   else arraySelected[select_id]=false;
                                 select_id++;
                             }
                         }
+                        System.out.println(count);
                         if (getTargetFragment() instanceof Callback) {
-                            if(!isEmpty) {
+                            if(count>3) {
+                                Toast.makeText(getActivity(), "最多選擇三項", Toast.LENGTH_SHORT).show();
+                                System.arraycopy(priviousSelected, 0, arraySelected, 0, arraySelected.length);
+                            }
+                            else if(!isEmpty) {
                                 Map<String, Object> childUpdates = new HashMap<>();
                                 childUpdates.put("books",liked_booktype.toString());
                                 myRef.updateChildren(childUpdates);
