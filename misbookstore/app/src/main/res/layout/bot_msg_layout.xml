@@ -8,12 +8,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp">
-        <com.example.bookstore.MemberInformation.CircleImageView
+        <ImageView
             android:id="@+id/left_img"
             android:layout_marginHorizontal="10dp"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@drawable/cat"/>
+            android:src="@drawable/va"/>
         <LinearLayout
             android:id="@+id/botMsgLayout"
             android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
                 android:id="@+id/chatMsg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="6dp"
                 android:paddingHorizontal="10dp"
                 android:textColor="@color/colorBlack"
                 android:text="abcdefgh"

@@ -79,8 +79,8 @@ public class BottomNavActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.action_example:
-//                Intent intent = new Intent(this, Voice_Assistant.class);
-//                startActivity(intent);
+                Intent intent = new Intent(this, Voice_Assistant.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
