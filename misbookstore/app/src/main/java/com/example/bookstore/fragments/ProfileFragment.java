@@ -14,8 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.bookstore.Book_types;
 import com.example.bookstore.LoginActivity;
+import com.example.bookstore.MemberInformation.CircleImageView;
 import com.example.bookstore.MyProfileActivity;
 import com.example.bookstore.R;
 import com.example.bookstore.User;
@@ -57,9 +60,15 @@ public class ProfileFragment extends Fragment {
         TextView pf_name = view.findViewById(R.id.profile_name);
         TextView pf_gender = view.findViewById(R.id.profile_gender);
         TextView pf_birth = view.findViewById(R.id.profile_birth);
+        CircleImageView pf_pic = view.findViewById(R.id.profile_pic);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
+        //頭貼
+        Glide.with(getActivity())
+                .load(user.getPhotoUrl())
+                .apply(new RequestOptions().centerCrop().circleCrop().placeholder(R.drawable.head))
+                .into(pf_pic);
         //連接資料庫
         DatabaseReference myRef = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/user_profile/"+uid);
