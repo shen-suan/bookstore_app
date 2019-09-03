@@ -8,20 +8,30 @@ public class ListData {
 //    private final String isbn;
 //
     public String title;
-    public int price;
-    public String isbn;
+    private int price;
+    private String isbn;
     public String photoUrl;
+    private String Author;
+    private String Publisher;
+    private String PublishDate;
+    private String Version;
+    private String Outline;
 
 
     public ListData() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public ListData(String title,int price,String isbn, String photoUrl) {
+    public ListData(String title,int price,String isbn, String photoUrl,String Author, String Publisher, String PublisherDate, String Version, String Outline) {
         this.title = title;
         this.price = price;
         this.isbn = isbn;
         this.photoUrl = photoUrl;
+        this.Author = Author;
+        this.Publisher = Publisher;
+        this.PublishDate = PublisherDate;
+        this.Version = Version;
+        this.Outline = Outline;
     }
     public String getTitle(){
         return title;
@@ -33,4 +43,9 @@ public class ListData {
         return isbn;
     }
     public String getUrl(){return photoUrl;}
+    public String getAuthor(){return Author;}
+    public String getPublisher(){return Publisher;}
+    public String getPublishDate(){return PublishDate;}
+    public String getVersion(){return Version;}
+    public String getOutline(){return Outline;}
 }

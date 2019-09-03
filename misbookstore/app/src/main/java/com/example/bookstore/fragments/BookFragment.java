@@ -139,10 +139,13 @@ public class BookFragment extends Fragment{
 
                 for (DataSnapshot ds : dataSnapshot.getChildren() ){
                     ListData bookList = ds.getValue(ListData.class);
-                    listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl()));
-                    //System.out.println("title"  + listData.get(0).getTitle());
-
+                    listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline()));
                 }
+                System.out.println("Url"  +  listData.get(0).getUrl());
+                System.out.println("Url"  +  listData.get(1).getUrl());
+                System.out.println("Url"  +  listData.get(2).getUrl());
+                System.out.println("Url"  +  listData.get(3).getUrl());
 
                 // Recyclerview的設定
                 bl_main = view.findViewById(R.id.bl_main);
@@ -153,7 +156,6 @@ public class BookFragment extends Fragment{
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w("onCancelled",databaseError.toException());
-
             }
         });
     }
@@ -169,7 +171,8 @@ public class BookFragment extends Fragment{
 
                 for (DataSnapshot ds : dataSnapshot.getChildren() ){
                     ListData bookList = ds.getValue(ListData.class);
-                    listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl()));
+                    listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline()));
                     //System.out.println("title"  + listData.get(0).getTitle());
 
                 }
@@ -198,7 +201,8 @@ public class BookFragment extends Fragment{
 
                 for (DataSnapshot ds : dataSnapshot.getChildren() ){
                     ListData bookList = ds.getValue(ListData.class);
-                    listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl()));
+                    listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline()));
                     //System.out.println("title"  + listData.get(0).getTitle());
 
                 }

@@ -4,15 +4,25 @@ package com.example.bookstore.fragments;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.example.bookstore.BookInformation.ListData;
 import com.example.bookstore.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,15 +61,44 @@ public class BookInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.book_information, container, false);
+        ImageView book_pic = view.findViewById(R.id.bi_book_pic);
         TextView book_name = view.findViewById(R.id.bi_book_name);
         TextView book_price = view.findViewById(R.id.bi_book_price);
+        TextView book_author = view.findViewById(R.id.bi_book_author);
+        TextView book_version = view.findViewById(R.id.bi_book_version);
+        TextView book_publisher = view.findViewById(R.id.bi_book_publisher);
+        TextView book_publishdate = view.findViewById(R.id.bi_book_publishdate);
+        TextView book_content_info  = view.findViewById(R.id.bi_content_info);
         if (getArguments() != null) {
             isbn = getArguments().getString(ISBN_TAG);
             title = getArguments().getString(TITLE_TAG);
             price = getArguments().getInt(PRICE_TAG);
         }
-        book_name.setText(title);
-        book_price.setText(price+" 元");
+
+        //連資料庫
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/bookList/" + isbn);
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ListData bookInfo = dataSnapshot.getValue(ListData.class);
+                Glide.with(BookInfoFragment.this)
+                        .load(bookInfo.getUrl())
+                        .into(book_pic);
+                book_name.setText(bookInfo.getTitle());
+                book_price.setText(bookInfo.getPrice()+" 元");
+                book_author.setText(bookInfo.getAuthor());
+                book_version.setText(bookInfo.getVersion());
+                book_publisher.setText(bookInfo.getPublisher());
+                book_publishdate.setText(bookInfo.getPublishDate());
+                book_content_info.setText(bookInfo.getOutline());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("onCancelled",databaseError.toException());
+            }
+        });
+
 
         //尋找控件
         content_title = view.findViewById(R.id.bi_content_title);

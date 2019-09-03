@@ -38,12 +38,12 @@ public class FavoriteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
 
         ArrayList<ListData> listData = new ArrayList<>();
-        listData.add(new ListData("沉默的遊行",1,"44","t"));
-        listData.add(new ListData("訂閱經濟",2,"55","t"));
-        listData.add(new ListData("不賣東西賣體驗",3,"66","t"));
-        listData.add(new ListData("沉默的遊行",4,"77","t"));
-        listData.add(new ListData("訂閱經濟",5,"88","t"));
-        listData.add(new ListData("不賣東西賣體驗",6,"99","t"));
+        listData.add(new ListData("沉默的遊行",1,"44","t","t","t","t","t","t"));
+//        listData.add(new ListData("訂閱經濟",2,"55","t"));
+//        listData.add(new ListData("不賣東西賣體驗",3,"66","t"));
+//        listData.add(new ListData("沉默的遊行",4,"77","t"));
+//        listData.add(new ListData("訂閱經濟",5,"88","t"));
+//        listData.add(new ListData("不賣東西賣體驗",6,"99","t"));
 
 
         fl_main = view.findViewById(R.id.fl_main);

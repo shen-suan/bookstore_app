@@ -88,26 +88,28 @@
                             android:text="作者:"
                             android:textSize="20sp"
                             />
+
                         <TextView
+                            android:id="@+id/bi_book_author"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="東野圭吾"
-                            android:textSize="20sp"
-                            />
+                            android:textSize="20sp" />
                     </TableRow>
                     <TableRow android:layout_marginBottom="5dp">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="譯者:"
+                            android:text="書籍版本:"
                             android:textSize="20sp"
                             />
+
                         <TextView
+                            android:id="@+id/bi_book_version"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="王蘊潔"
-                            android:textSize="20sp"
-                            />
+                            android:text="初版"
+                            android:textSize="20sp" />
                     </TableRow>
                     <TableRow android:layout_marginBottom="5dp">
                         <TextView
@@ -116,12 +118,13 @@
                             android:text="出版社:"
                             android:textSize="20sp"
                             />
+
                         <TextView
+                            android:id="@+id/bi_book_publisher"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="皇冠文化"
-                            android:textSize="20sp"
-                            />
+                            android:textSize="20sp" />
                     </TableRow>
                     <TableRow android:layout_marginBottom="5dp">
                         <TextView
@@ -130,12 +133,13 @@
                             android:text="出版日期:"
                             android:textSize="20sp"
                             />
+
                         <TextView
+                            android:id="@+id/bi_book_publishdate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="2019-07-29"
-                            android:textSize="20sp"
-                            />
+                            android:textSize="20sp" />
                     </TableRow>
                     <TableRow android:layout_marginBottom="5dp">
                         <TextView
@@ -200,7 +204,7 @@
                     android:id="@+id/bi_content_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/bi_content"
+                    android:text="無內容簡介"
                     android:textSize="19sp"
                     android:textColor="@color/colorBlack"
                     android:visibility="gone"/>
