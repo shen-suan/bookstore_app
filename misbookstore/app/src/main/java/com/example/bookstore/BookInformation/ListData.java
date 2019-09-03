@@ -16,13 +16,14 @@ public class ListData {
     private String PublishDate;
     private String Version;
     private String Outline;
+    private String Classification;
 
 
     public ListData() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public ListData(String title,int price,String isbn, String photoUrl,String Author, String Publisher, String PublisherDate, String Version, String Outline) {
+    public ListData(String title,int price,String isbn, String photoUrl,String Author, String Publisher, String PublisherDate, String Version, String Outline, String Classification) {
         this.title = title;
         this.price = price;
         this.isbn = isbn;
@@ -32,6 +33,7 @@ public class ListData {
         this.PublishDate = PublisherDate;
         this.Version = Version;
         this.Outline = Outline;
+        this.Classification = Classification;
     }
     public String getTitle(){
         return title;
@@ -48,4 +50,5 @@ public class ListData {
     public String getPublishDate(){return PublishDate;}
     public String getVersion(){return Version;}
     public String getOutline(){return Outline;}
+    public String getClassification(){return Classification;}
 }
