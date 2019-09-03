@@ -32,11 +32,7 @@ public class BookInfoActivity extends AppCompatActivity {
         title = bundle.getString("title");
         price = bundle.getInt("price");
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("返回");
+
 
     }
 
