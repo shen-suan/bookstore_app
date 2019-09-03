@@ -26,66 +26,18 @@ public class BookInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_back_button);
         Bundle bundle = getIntent().getExtras();
         isbn = bundle.getString("isbn");
         title = bundle.getString("title");
         price = bundle.getInt("price");
 
-        Toolbar toolbar_info = findViewById(R.id.toolbar_bookinfo);
-        setSupportActionBar(toolbar_info);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("返回");
 
-        searchView_info = findViewById(R.id.searchView_bookinfo);
-
-    }
-
-    //跑不進去此fuc
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.onback_menu, menu);
-        System.out.println("1111111111111111111111111111");
-        setupSearchView(menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.action_example_info:
-//                Intent intent = new Intent(this, Voice_Assistant.class);
-//                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void setupSearchView(Menu menu) {
-        MenuItem item = menu.findItem(R.id.action_search_info);
-        searchView_info.setMenuItem(item);
-
-
-        // Adding padding to the animation because of the hidden menu item
-        Point revealCenter = searchView_info.getRevealAnimationCenter();
-        revealCenter.x -= DimensUtils.convertDpToPx(EXTRA_REVEAL_CENTER_PADDING, this);
-    }
-
-//    @Override
-//    public void onBackPressed() {
-//        if (searchView_info.onBackPressed()) {
-//            return;
-//        }
-//
-//        super.onBackPressed();
-//    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (searchView_info.onActivityResult(requestCode, resultCode, data)) {
-            return;
-        }
-
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -101,5 +53,25 @@ public class BookInfoActivity extends AppCompatActivity {
                     .add(android.R.id.content, bookinfoFragment, KEY_BOOK_INFO_FRAGMENT)
                     .commit();
         }
+    }
+
+    //返回上個fragment
+    @Override
+    public void onBackPressed() {
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+        } else {
+            getSupportFragmentManager().popBackStack();
+        }
+    }
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

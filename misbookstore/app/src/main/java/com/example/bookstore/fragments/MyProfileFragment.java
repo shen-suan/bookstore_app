@@ -116,6 +116,7 @@ public class MyProfileFragment extends Fragment implements
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.activity_profile_setting, container, false);
         ButterKnife.bind(this,view);
+
         mCompressor = new FileCompressor(view.getContext());
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mi_pic = view.findViewById(R.id.mi_pic);

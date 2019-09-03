@@ -6,34 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.BookInfoFragment">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar_bookinfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <FrameLayout
-            android:id="@+id/toolbar_container_bookinfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_bookinfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:subtitle="@string/app_subtitle"
-                app:title="Example" />
-
-            <com.ferfalk.simplesearchview.SimpleSearchView
-                android:id="@+id/searchView_bookinfo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimary" />
-        </FrameLayout>
-
-    </android.support.design.widget.AppBarLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

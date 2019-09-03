@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.example.bookstore.fragments.MyProfileFragment;
 
@@ -15,7 +17,12 @@ public class MyProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_back_button);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("返回");
 
     }
 
@@ -44,6 +51,14 @@ public class MyProfileActivity extends AppCompatActivity {
         } else {
             getSupportFragmentManager().popBackStack();
         }
+    }
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
