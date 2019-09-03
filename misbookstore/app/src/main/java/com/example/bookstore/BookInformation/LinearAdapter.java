@@ -5,9 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.bookstore.R;
+import com.example.bookstore.fragments.BookFragment;
 
 import java.util.ArrayList;
 
@@ -17,6 +21,7 @@ public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearView
     private ListData data;
     private Context mContext;
     private OnItemClickListener mlistener;
+
 
     public LinearAdapter(Context context, ArrayList list, OnItemClickListener listener){
         this.mContext = context;
@@ -31,6 +36,9 @@ public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearView
     @Override
     public void onBindViewHolder( LinearAdapter.LinearViewHolder viewHolder,final int position) {
         data = (ListData) listData.get(position);
+        Glide.with(mContext)
+                .load(data.getUrl())
+                .into(viewHolder.photoUrl);
         viewHolder.title.setText(data.getTitle());
         viewHolder.price.setText("$ "+ data.getPrice());
         //viewHolder.title.setText(listData[position].getTitle());
@@ -50,11 +58,13 @@ public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearView
     class LinearViewHolder extends RecyclerView.ViewHolder{
 
         private TextView title,price;
+        private ImageView photoUrl;
 
         public LinearViewHolder(View itemView){
             super(itemView);
             title = itemView.findViewById(R.id.bli_title);
             price = itemView.findViewById(R.id.bli_price);
+            photoUrl = itemView.findViewById(R.id.bli_img);
         }
     }
 

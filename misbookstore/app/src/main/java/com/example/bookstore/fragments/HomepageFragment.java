@@ -57,15 +57,15 @@ public class HomepageFragment extends Fragment {
 
         // Recyclerview的設定
         ListData[] listData = {
-                new ListData("沉默的遊行", 180, "11"),
-                new ListData("訂閱經濟", 250, "22"),
-                new ListData("不賣東西賣體驗", 175, "33"),
-                new ListData("沉默的遊行", 180, "11"),
-                new ListData("訂閱經濟", 250, "22"),
-                new ListData("不賣東西賣體驗", 175, "33"),
-                new ListData("沉默的遊行", 180, "11"),
-                new ListData("訂閱經濟", 250, "22"),
-                new ListData("不賣東西賣體驗", 175, "33"),
+                new ListData("沉默的遊行", 180, "11","t"),
+                new ListData("訂閱經濟", 250, "22","t"),
+                new ListData("不賣東西賣體驗", 175, "33","t"),
+                new ListData("沉默的遊行", 180, "11","t"),
+                new ListData("訂閱經濟", 250, "22","t"),
+                new ListData("不賣東西賣體驗", 175, "33","t"),
+                new ListData("沉默的遊行", 180, "11","t"),
+                new ListData("訂閱經濟", 250, "22","t"),
+                new ListData("不賣東西賣體驗", 175, "33","t"),
         };
         home_new = v.findViewById(R.id.home_new);
         home_search = v.findViewById(R.id.home_search);
