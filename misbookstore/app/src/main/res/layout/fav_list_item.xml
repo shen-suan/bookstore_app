@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="140dp"
-    android:padding="10dp">
+    android:layout_height="120dp"
+    android:layout_margin="10dp"
+    android:background="@drawable/bg_shadow">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="5dp"
-        android:background="@drawable/bg_shadow">
+        android:background="?attr/selectableItemBackground">
         <ImageView
             android:id="@+id/fli_img"
             android:src="@drawable/book_info"
             android:scaleType="centerInside"
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"/>
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="5dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"/>
 
         <TextView
             android:id="@+id/fli_title"
@@ -25,10 +26,9 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
             android:textSize="18sp"
-            android:clickable="true"
             android:layout_toRightOf="@+id/fli_img"
-            android:gravity="left"
-            android:layout_marginVertical="15dp"/>
+            android:gravity="left|center_vertical"
+            android:layout_marginVertical="10dp"/>
         <TextView
             android:id="@+id/fli_price"
             android:layout_width="wrap_content"
@@ -57,9 +57,12 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="right"
             android:layout_marginRight="9dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="20dp"
             android:text="導航"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:background="@drawable/nav_btn"
+            android:textColor="@color/colorPrimaryDark"
+            android:stateListAnimator="@null"/>
 
 
     </RelativeLayout>

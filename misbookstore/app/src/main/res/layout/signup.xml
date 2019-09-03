@@ -166,6 +166,7 @@
             android:textColor="@color/colorWhite"
             android:textSize="25sp"
             android:background="@drawable/bg_btn"
+            android:textAllCaps="false"
             />
 
         <TextView
