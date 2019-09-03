@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -38,6 +40,7 @@ public class BookFragment extends Fragment{
     private RadioGroup bl_menu;
     private RadioButton bl_category;
     private PopupWindow bl_pop;
+
 
 
     public BookFragment() {
@@ -96,14 +99,49 @@ public class BookFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 View viewlist = getLayoutInflater().inflate(R.layout.book_list_category,null);
+
                 bl_pop = new PopupWindow(viewlist,bl_menu.getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT);
                 bl_pop.setFocusable(true);
                 bl_pop.showAsDropDown(bl_menu);
                 //取消popwindow後更新書籍資料
                 bl_pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    CheckBox b1 = viewlist.findViewById(R.id.B1);
+                    CheckBox b2 = viewlist.findViewById(R.id.B2);
+                    CheckBox b3 = viewlist.findViewById(R.id.B3);
+                    CheckBox b4 = viewlist.findViewById(R.id.B4);
+                    CheckBox b5 = viewlist.findViewById(R.id.B5);
+                    CheckBox b6 = viewlist.findViewById(R.id.B6);
+                    CheckBox b7 = viewlist.findViewById(R.id.B7);
+                    CheckBox b8 = viewlist.findViewById(R.id.B8);
+                    StringBuilder category_list = new StringBuilder();
                     @Override
                     public void onDismiss() {
-                        BookCreate_category(view);
+                            if(b1.isChecked()){
+                                category_list.append(b1.getText()).append(" ");
+                            }
+                            if(b2.isChecked()){
+                                category_list.append(b2.getText()).append(" ");
+                            }
+                            if(b3.isChecked()){
+                                category_list.append(b3.getText()).append(" ");
+                            }
+                            if(b4.isChecked()){
+                                category_list.append(b4.getText()).append(" ");
+                            }
+                            if(b5.isChecked()){
+                                category_list.append(b5.getText()).append(" ");
+                            }
+                            if(b6.isChecked()){
+                                category_list.append(b6.getText()).append(" ");
+                            }
+                            if(b7.isChecked()){
+                                category_list.append(b7.getText()).append(" ");
+                            }
+                            if(b8.isChecked()){
+                                category_list.append(b8.getText()).append(" ");
+                        }//end for
+                        System.out.println("選擇: " + category_list);
+                        BookCreate_category(view,category_list);
                     }
                 });
             }
@@ -140,12 +178,9 @@ public class BookFragment extends Fragment{
                 for (DataSnapshot ds : dataSnapshot.getChildren() ){
                     ListData bookList = ds.getValue(ListData.class);
                     listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
-                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline()));
+                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(), bookList.getClassification()));
                 }
-                System.out.println("Url"  +  listData.get(0).getUrl());
-                System.out.println("Url"  +  listData.get(1).getUrl());
-                System.out.println("Url"  +  listData.get(2).getUrl());
-                System.out.println("Url"  +  listData.get(3).getUrl());
+                //System.out.println("Url"  +  listData.get(0).getUrl());
 
                 // Recyclerview的設定
                 bl_main = view.findViewById(R.id.bl_main);
@@ -172,7 +207,7 @@ public class BookFragment extends Fragment{
                 for (DataSnapshot ds : dataSnapshot.getChildren() ){
                     ListData bookList = ds.getValue(ListData.class);
                     listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
-                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline()));
+                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(), bookList.getClassification()));
                     //System.out.println("title"  + listData.get(0).getTitle());
 
                 }
@@ -190,7 +225,11 @@ public class BookFragment extends Fragment{
         });
     }
     //分類書籍
-    public void BookCreate_category (View view){
+    public void BookCreate_category (View view, StringBuilder choose_list){
+        //分割choose_list
+        String choose = choose_list.toString();
+        String[] tokens = choose.split(" ");
+
         //用於存放Firebase取回的資料，限定型態為ListData。
         ArrayList<ListData> listData = new ArrayList<>();
         //連資料庫
@@ -201,10 +240,13 @@ public class BookFragment extends Fragment{
 
                 for (DataSnapshot ds : dataSnapshot.getChildren() ){
                     ListData bookList = ds.getValue(ListData.class);
-                    listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
-                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline()));
+                    for(String c : tokens){
+                        if(bookList.getClassification().equals(c)){
+                            listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                                    bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(), bookList.getClassification()));
+                        }
+                    }
                     //System.out.println("title"  + listData.get(0).getTitle());
-
                 }
 
                 // Recyclerview的設定

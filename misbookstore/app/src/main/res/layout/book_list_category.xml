@@ -9,104 +9,120 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <CheckBox
+            android:id="@+id/B1"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_weight="1"
             android:layout_margin="8dp"
-            android:text="文學小說"
-            android:textSize="17dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_category_btn"
             android:button="@null"
             android:gravity="center"
+            android:text="查詢工具類"
             android:textColor="@drawable/color_category_btn"
-            android:background="@drawable/bg_category_btn"/>
+            android:textSize="17dp" />
+
         <CheckBox
+            android:id="@+id/B2"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_weight="1"
             android:layout_margin="8dp"
-            android:text="商業理財"
-            android:textSize="17dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_category_btn"
             android:button="@null"
             android:gravity="center"
+            android:text="教育類"
             android:textColor="@drawable/color_category_btn"
-            android:background="@drawable/bg_category_btn"/>
+            android:textSize="17dp" />
+
         <CheckBox
+            android:id="@+id/B3"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_weight="1"
             android:layout_margin="8dp"
-            android:text="懸疑/驚悚"
-            android:textSize="17dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_category_btn"
             android:button="@null"
             android:gravity="center"
+            android:text="傳記類"
             android:textColor="@drawable/color_category_btn"
-            android:background="@drawable/bg_category_btn"/>
+            android:textSize="17dp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <CheckBox
+            android:id="@+id/B4"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_weight="1"
             android:layout_margin="8dp"
-            android:text="旅遊"
-            android:textSize="17dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_category_btn"
             android:button="@null"
             android:gravity="center"
+            android:text="兒童文學類"
             android:textColor="@drawable/color_category_btn"
-            android:background="@drawable/bg_category_btn"/>
+            android:textSize="17dp" />
+
         <CheckBox
+            android:id="@+id/B5"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_weight="1"
             android:layout_margin="8dp"
-            android:text="科幻小說"
-            android:textSize="17dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_category_btn"
             android:button="@null"
             android:gravity="center"
+            android:text="哲學類"
             android:textColor="@drawable/color_category_btn"
-            android:background="@drawable/bg_category_btn"/>
+            android:textSize="17dp" />
+
         <CheckBox
+            android:id="@+id/B6"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_weight="1"
             android:layout_margin="8dp"
-            android:text="心理勵志"
-            android:textSize="17dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_category_btn"
             android:button="@null"
             android:gravity="center"
+            android:text="觀光類"
             android:textColor="@drawable/color_category_btn"
-            android:background="@drawable/bg_category_btn"/>
+            android:textSize="17dp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <CheckBox
+            android:id="@+id/B7"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_weight="1"
             android:layout_margin="8dp"
-            android:text="愛情小說"
-            android:textSize="17dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_category_btn"
             android:button="@null"
             android:gravity="center"
+            android:text="心理學類"
             android:textColor="@drawable/color_category_btn"
-            android:background="@drawable/bg_category_btn"/>
+            android:textSize="17dp" />
+
         <CheckBox
+            android:id="@+id/B8"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_weight="1"
             android:layout_margin="8dp"
-            android:text="飲食"
-            android:textSize="17dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_category_btn"
             android:button="@null"
             android:gravity="center"
+            android:text="社會學類"
             android:textColor="@drawable/color_category_btn"
-            android:background="@drawable/bg_category_btn"/>
+            android:textSize="17dp" />
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
