@@ -20,6 +20,7 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".Voice_Assistant"></activity>
+        <activity android:name=".IntroActivity"></activity>
         <activity
             android:name=".BookInfoActivity"
             android:screenOrientation="portrait" /> <!-- <activity android:name=".Voice_Assistant" -->

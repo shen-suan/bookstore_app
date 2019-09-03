@@ -20,7 +20,7 @@ public class startActivity extends AppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Intent intent = new Intent(startActivity.this, Introduction.class);
+                Intent intent = new Intent(startActivity.this, IntroActivity.class);
                 startActivity(intent);
                 finish();
             }
