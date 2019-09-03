@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 import android.support.v4.view.ViewPager;
 import android.databinding.DataBindingUtil;
 

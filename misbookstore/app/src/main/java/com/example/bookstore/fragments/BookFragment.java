@@ -4,10 +4,12 @@ package com.example.bookstore.fragments;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,11 @@ import com.example.bookstore.BookInfoActivity;
 import com.example.bookstore.BookInformation.LinearAdapter;
 import com.example.bookstore.BookInformation.ListData;
 import com.example.bookstore.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -45,34 +52,34 @@ public class BookFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_book, container, false);
 
         // 設定要給 Adapter 的陣列為 listData
-        ArrayList<ListData> listData1 = new ArrayList<>();
-        listData1.add(new ListData("熱銷排行",1,"44"));
-        listData1.add(new ListData("熱銷排行",2,"55"));
-        listData1.add(new ListData("熱銷排行",3,"66"));
-        listData1.add(new ListData("熱銷排行",4,"77"));
-        listData1.add(new ListData("熱銷排行",5,"88"));
-        listData1.add(new ListData("熱銷排行",6,"99"));
+//        ArrayList<ListData> listData1 = new ArrayList<>();
+//        listData1.add(new ListData("熱銷排行",1,"44"));
+//        listData1.add(new ListData("熱銷排行",2,"55"));
+//        listData1.add(new ListData("熱銷排行",3,"66"));
+//        listData1.add(new ListData("熱銷排行",4,"77"));
+//        listData1.add(new ListData("熱銷排行",5,"88"));
+//        listData1.add(new ListData("熱銷排行",6,"99"));
 
-        ArrayList<ListData> listData2 = new ArrayList<>();
-        listData2.add(new ListData("依分類",1,"44"));
-        listData2.add(new ListData("依分類",2,"55"));
-        listData2.add(new ListData("依分類",3,"66"));
-        listData2.add(new ListData("依分類",4,"77"));
-        listData2.add(new ListData("依分類",5,"88"));
-        listData2.add(new ListData("依分類",6,"99"));
-
-        ArrayList<ListData> listData3 = new ArrayList<>();
-        listData3.add(new ListData("新書榜",1,"44"));
-        listData3.add(new ListData("新書榜",2,"55"));
-        listData3.add(new ListData("新書榜",3,"66"));
-        listData3.add(new ListData("新書榜",4,"77"));
-        listData3.add(new ListData("新書榜",5,"88"));
-        listData3.add(new ListData("新書榜",6,"99"));
+//        ArrayList<ListData> listData2 = new ArrayList<>();
+//        listData2.add(new ListData("依分類",1,"44"));
+//        listData2.add(new ListData("依分類",2,"55"));
+//        listData2.add(new ListData("依分類",3,"66"));
+//        listData2.add(new ListData("依分類",4,"77"));
+//        listData2.add(new ListData("依分類",5,"88"));
+//        listData2.add(new ListData("依分類",6,"99"));
+//
+//        ArrayList<ListData> listData3 = new ArrayList<>();
+//        listData3.add(new ListData("新書榜",1,"44"));
+//        listData3.add(new ListData("新書榜",2,"55"));
+//        listData3.add(new ListData("新書榜",3,"66"));
+//        listData3.add(new ListData("新書榜",4,"77"));
+//        listData3.add(new ListData("新書榜",5,"88"));
+//        listData3.add(new ListData("新書榜",6,"99"));
 
         // Recyclerview的初始設定(熱銷排行)
         bl_main = view.findViewById(R.id.bl_main);
         bl_main.setLayoutManager(new LinearLayoutManager(getActivity()));
-        BookCreate(listData1);
+        BookCreate_hot(view);
 
         //依分類的下拉選單
         bl_category = view.findViewById(R.id.bl_category);
@@ -96,7 +103,7 @@ public class BookFragment extends Fragment{
                 bl_pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
                     @Override
                     public void onDismiss() {
-                        BookCreate(listData2);
+                        BookCreate_category(view);
                     }
                 });
             }
@@ -109,10 +116,10 @@ public class BookFragment extends Fragment{
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId){
                     case R.id.bl_hot:
-                        BookCreate(listData1);
+                        BookCreate_hot(view);
                         break;
                     case R.id.bl_new:
-                        BookCreate(listData3);
+                        BookCreate_new(view);
                         break;
                 }
             }
@@ -120,8 +127,96 @@ public class BookFragment extends Fragment{
 
         return view;
     }
+    //熱銷排行
+    public void BookCreate_hot (View view){
+        //用於存放Firebase取回的資料，限定型態為ListData。
+        ArrayList<ListData> listData = new ArrayList<>();
+        //連資料庫
+        DatabaseReference Book_list = FirebaseDatabase.getInstance().getReference("bookList");
+        Book_list.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-    public void BookCreate (ArrayList listData){
+                for (DataSnapshot ds : dataSnapshot.getChildren() ){
+                    ListData bookList = ds.getValue(ListData.class);
+                    listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl()));
+                    //System.out.println("title"  + listData.get(0).getTitle());
+
+                }
+
+                // Recyclerview的設定
+                bl_main = view.findViewById(R.id.bl_main);
+                bl_main.setLayoutManager(new LinearLayoutManager(getActivity()));
+                Bookrecyclerview(listData);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("onCancelled",databaseError.toException());
+
+            }
+        });
+    }
+    //新書排行
+    public void BookCreate_new (View view){
+        //用於存放Firebase取回的資料，限定型態為ListData。
+        ArrayList<ListData> listData = new ArrayList<>();
+        //連資料庫
+        DatabaseReference Book_list = FirebaseDatabase.getInstance().getReference("bookList");
+        Book_list.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren() ){
+                    ListData bookList = ds.getValue(ListData.class);
+                    listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl()));
+                    //System.out.println("title"  + listData.get(0).getTitle());
+
+                }
+
+                // Recyclerview的設定
+                bl_main = view.findViewById(R.id.bl_main);
+                bl_main.setLayoutManager(new LinearLayoutManager(getActivity()));
+                Bookrecyclerview(listData);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("onCancelled",databaseError.toException());
+            }
+        });
+    }
+    //分類書籍
+    public void BookCreate_category (View view){
+        //用於存放Firebase取回的資料，限定型態為ListData。
+        ArrayList<ListData> listData = new ArrayList<>();
+        //連資料庫
+        DatabaseReference Book_list = FirebaseDatabase.getInstance().getReference("bookList");
+        Book_list.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren() ){
+                    ListData bookList = ds.getValue(ListData.class);
+                    listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl()));
+                    //System.out.println("title"  + listData.get(0).getTitle());
+
+                }
+
+                // Recyclerview的設定
+                bl_main = view.findViewById(R.id.bl_main);
+                bl_main.setLayoutManager(new LinearLayoutManager(getActivity()));
+                Bookrecyclerview(listData);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("onCancelled",databaseError.toException());
+            }
+        });
+    }
+
+    public void Bookrecyclerview (ArrayList listData) {
         bl_main.setAdapter(new LinearAdapter(getActivity(), listData ,new LinearAdapter.OnItemClickListener() {
             @Override
             public void onClick(int pos) {
