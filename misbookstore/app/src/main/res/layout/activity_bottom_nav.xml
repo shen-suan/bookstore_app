@@ -29,8 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:popupTheme="@style/AppTheme.PopupOverlay"
-                    app:subtitle="@string/app_subtitle"
-                    app:title="Example" />
+                    app:title="BookStore" />
 
                 <com.ferfalk.simplesearchview.SimpleSearchView
                     android:id="@+id/searchView"
