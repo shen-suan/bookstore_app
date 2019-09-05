@@ -23,6 +23,8 @@ import com.example.bookstore.BookInfoActivity;
 import com.example.bookstore.BookInformation.LinearAdapter;
 import com.example.bookstore.BookInformation.ListData;
 import com.example.bookstore.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,19 +42,39 @@ public class BookFragment extends Fragment{
     private RadioGroup bl_menu;
     private RadioButton bl_category;
     private PopupWindow bl_pop;
-
+    private FirebaseUser user;
+    private String uid;
 
 
     public BookFragment() {
         // Required empty public constructor
     }
 
+//    public void initData(){
+//        user = FirebaseAuth.getInstance().getCurrentUser();
+//        uid = user.getUid();
+//        DatabaseReference favorite_book = FirebaseDatabase.getInstance().getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/favorite_book/" + uid);
+//        favorite_book.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot ds : dataSnapshot.getChildren()){
+//                    System.out.println("我的最愛: " + ds.getValue());
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//            }
+//        });
+//    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //initData();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_book, container, false);
+
 
         // 設定要給 Adapter 的陣列為 listData
 //        ArrayList<ListData> listData1 = new ArrayList<>();
@@ -116,29 +138,29 @@ public class BookFragment extends Fragment{
                     StringBuilder category_list = new StringBuilder();
                     @Override
                     public void onDismiss() {
-                            if(b1.isChecked()){
-                                category_list.append(b1.getText()).append(" ");
-                            }
-                            if(b2.isChecked()){
-                                category_list.append(b2.getText()).append(" ");
-                            }
-                            if(b3.isChecked()){
-                                category_list.append(b3.getText()).append(" ");
-                            }
-                            if(b4.isChecked()){
-                                category_list.append(b4.getText()).append(" ");
-                            }
-                            if(b5.isChecked()){
-                                category_list.append(b5.getText()).append(" ");
-                            }
-                            if(b6.isChecked()){
-                                category_list.append(b6.getText()).append(" ");
-                            }
-                            if(b7.isChecked()){
-                                category_list.append(b7.getText()).append(" ");
-                            }
-                            if(b8.isChecked()){
-                                category_list.append(b8.getText()).append(" ");
+                        if(b1.isChecked()){
+                            category_list.append(b1.getText()).append(" ");
+                        }
+                        if(b2.isChecked()){
+                            category_list.append(b2.getText()).append(" ");
+                        }
+                        if(b3.isChecked()){
+                            category_list.append(b3.getText()).append(" ");
+                        }
+                        if(b4.isChecked()){
+                            category_list.append(b4.getText()).append(" ");
+                        }
+                        if(b5.isChecked()){
+                            category_list.append(b5.getText()).append(" ");
+                        }
+                        if(b6.isChecked()){
+                            category_list.append(b6.getText()).append(" ");
+                        }
+                        if(b7.isChecked()){
+                            category_list.append(b7.getText()).append(" ");
+                        }
+                        if(b8.isChecked()){
+                            category_list.append(b8.getText()).append(" ");
                         }//end for
                         System.out.println("選擇: " + category_list);
                         BookCreate_category(view,category_list);
@@ -171,6 +193,7 @@ public class BookFragment extends Fragment{
         ArrayList<ListData> listData = new ArrayList<>();
         //連資料庫
         DatabaseReference Book_list = FirebaseDatabase.getInstance().getReference("bookList");
+        //抓書本資料
         Book_list.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -178,7 +201,8 @@ public class BookFragment extends Fragment{
                 for (DataSnapshot ds : dataSnapshot.getChildren() ){
                     ListData bookList = ds.getValue(ListData.class);
                     listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
-                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(), bookList.getClassification()));
+                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                            bookList.getClassification(), bookList.getIndex()));
                 }
                 //System.out.println("Url"  +  listData.get(0).getUrl());
 
@@ -207,7 +231,8 @@ public class BookFragment extends Fragment{
                 for (DataSnapshot ds : dataSnapshot.getChildren() ){
                     ListData bookList = ds.getValue(ListData.class);
                     listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
-                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(), bookList.getClassification()));
+                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                            bookList.getClassification(), bookList.getIndex()));
                     //System.out.println("title"  + listData.get(0).getTitle());
 
                 }
@@ -243,7 +268,8 @@ public class BookFragment extends Fragment{
                     for(String c : tokens){
                         if(bookList.getClassification().equals(c)){
                             listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
-                                    bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(), bookList.getClassification()));
+                                    bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                                    bookList.getClassification(), bookList.getIndex()));
                         }
                     }
                     //System.out.println("title"  + listData.get(0).getTitle());
