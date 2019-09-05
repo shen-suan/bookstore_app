@@ -1,18 +1,29 @@
 package com.example.bookstore.BookInformation;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.bookstore.R;
 import com.example.bookstore.fragments.BookFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearViewHolder>{
@@ -21,6 +32,10 @@ public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearView
     private ListData data;
     private Context mContext;
     private OnItemClickListener mlistener;
+    private FirebaseUser user;
+    private String uid;
+    public String[] fav_list ;
+    public boolean a = false;
 
 
     public LinearAdapter(Context context, ArrayList list, OnItemClickListener listener){
@@ -30,8 +45,34 @@ public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearView
     }
 
     public LinearAdapter.LinearViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+
+//        //連我的最愛資料庫
+//        user = FirebaseAuth.getInstance().getCurrentUser();
+//        uid = user.getUid();
+//
+//        DatabaseReference favorite_book = FirebaseDatabase.getInstance().getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/favorite_book/" + uid);
+//        favorite_book.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                int i = 0;
+//                fav_list = new String[(int)dataSnapshot.getChildrenCount()];
+//                for (DataSnapshot ds : dataSnapshot.getChildren()){
+//                    //System.out.println("書本 : " + ds.getValue());
+//                    fav_list[i] = ds.getValue().toString();
+//                    i++;
+//                }
+//                //System.out.println("長度" + fav_list.length);
+//                for(String a : fav_list){
+//                    System.out.println("陣列:" + a);
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//            }
+//        });
         return new LinearViewHolder(LayoutInflater.from(mContext).inflate(R.layout.book_list_item,parent,false));
     }
+
 
     @Override
     public void onBindViewHolder( LinearAdapter.LinearViewHolder viewHolder,final int position) {
@@ -43,6 +84,15 @@ public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearView
         viewHolder.price.setText("$ "+ data.getPrice());
         //viewHolder.title.setText(listData[position].getTitle());
         //viewHolder.price.setText("$ "+listData[position].getPrice());
+//        viewHolder.favorite.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //viewHolder.favorite.setChecked(true);
+//                DatabaseReference favorite_book = FirebaseDatabase.getInstance().getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/favorite_book/" + uid);
+//                favorite_book.child(data.getIsbn()).setValue(data.getIsbn());
+//                System.out.println("點擊" + position);
+//            }
+//        });
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,12 +109,15 @@ public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearView
 
         private TextView title,price;
         private ImageView photoUrl;
+        private CheckBox favorite;
 
         public LinearViewHolder(View itemView){
             super(itemView);
             title = itemView.findViewById(R.id.bli_title);
             price = itemView.findViewById(R.id.bli_price);
             photoUrl = itemView.findViewById(R.id.bli_img);
+            favorite = itemView.findViewById(R.id.bli_checkbox);
+
         }
     }
 
