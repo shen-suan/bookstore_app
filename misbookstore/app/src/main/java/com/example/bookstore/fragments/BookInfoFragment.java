@@ -13,13 +13,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.bookstore.BookInformation.ListData;
 import com.example.bookstore.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +42,8 @@ public class BookInfoFragment extends Fragment {
     private String isbn;
     private String title;
     private int price;
+    private FirebaseUser user;
+    private String uid;
 
     private TextView content_title,content_info;
     private int clickId;
@@ -55,6 +61,8 @@ public class BookInfoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
 
     }
 
@@ -71,6 +79,7 @@ public class BookInfoFragment extends Fragment {
         TextView book_publisher = view.findViewById(R.id.bi_book_publisher);
         TextView book_publishdate = view.findViewById(R.id.bi_book_publishdate);
         TextView book_content_info  = view.findViewById(R.id.bi_content_info);
+        CheckBox book_like_btn = view.findViewById(R.id.bi_like_btn);
         if (getArguments() != null) {
             isbn = getArguments().getString(ISBN_TAG);
             title = getArguments().getString(TITLE_TAG);
@@ -100,6 +109,36 @@ public class BookInfoFragment extends Fragment {
                 book_publisher.setText(bookInfo.getPublisher());
                 book_publishdate.setText(bookInfo.getPublishDate());
                 book_content_info.setText(bookInfo.getOutline());
+                //預先載入書籤
+                DatabaseReference fav = FirebaseDatabase.getInstance().getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/favorite_book/" + uid);
+                fav.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds :dataSnapshot.getChildren()){
+                            if(isbn.equals(ds.getValue())){
+                                book_like_btn.setChecked(true);
+                                book_like_btn.setEnabled(false);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                //加入我的最愛資料庫
+                book_like_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DatabaseReference add = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid);
+                        add.child(isbn).setValue(isbn);
+                        Toast.makeText(getContext(),"已加入我的最愛",Toast.LENGTH_LONG).show();
+                        //System.out.println( bookInfo.getTitle() + "加入我的最愛");
+                        book_like_btn.setEnabled(false);
+                    }
+                });
+
             }
 
             @Override
@@ -134,7 +173,7 @@ public class BookInfoFragment extends Fragment {
                 case R.id.bi_content_title:
                     toggleText(content_info,v);
                     //toggleContent(content_info);
-                    //Toast.makeText(getApplicationContext(),"ok",Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(),"ok",Toast.LENGTH_LONG).show();
                     break;
 
             }
