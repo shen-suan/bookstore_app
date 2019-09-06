@@ -295,12 +295,12 @@ public class BookFragment extends Fragment{
                 ListData data = (ListData) listData.get(pos);
                 String isbn= data.getIsbn();
                 String book_name= data.getTitle();
-                int book_price= data.getPrice();
+                String book_price= data.getPrice();
                 Intent intent = new Intent(getActivity(), BookInfoActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("isbn",isbn);//傳遞String
                 bundle.putString("title",book_name);
-                bundle.putInt("price",book_price);
+                bundle.putString("price",book_price);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

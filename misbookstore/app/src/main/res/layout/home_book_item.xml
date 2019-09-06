@@ -6,6 +6,7 @@
     android:orientation="vertical">
     <!--書籍圖片-->
     <ImageView
+        android:id="@+id/hb_image"
         android:layout_width="match_parent"
         android:layout_height="134dp"
         app:srcCompat="@drawable/rbook_item1" />

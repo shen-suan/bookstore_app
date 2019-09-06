@@ -85,7 +85,7 @@ public class BookInfoFragment extends Fragment {
         toolbar.bringToFront();
 
         //連資料庫
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/bookList/" + isbn);
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/book_info/" + isbn);
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

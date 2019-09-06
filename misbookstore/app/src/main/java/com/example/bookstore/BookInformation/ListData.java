@@ -8,7 +8,7 @@ public class ListData {
 //    private final String isbn;
 //
     public String BookName;
-    private int Price;
+    private String Price;
     private String ISBN;
     public String photoUrl;
     private String Author;
@@ -24,7 +24,7 @@ public class ListData {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public ListData(String BookName,int Price,String ISBN, String photoUrl,String Author, String Publisher,
+    public ListData(String BookName,String Price,String ISBN, String photoUrl,String Author, String Publisher,
                     String PublisherDate, String Version, String Outline, String Classification, int Index) {
         this.BookName = BookName;
         this.Price = Price;
@@ -41,7 +41,7 @@ public class ListData {
     public String getTitle(){
         return BookName;
     }
-    public int getPrice(){
+    public String getPrice(){
         return Price;
     }
     public String getIsbn(){

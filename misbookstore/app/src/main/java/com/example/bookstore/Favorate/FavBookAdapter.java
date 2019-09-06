@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.bookstore.BookInformation.ListData;
 import com.example.bookstore.R;
 
@@ -37,6 +39,9 @@ public class FavBookAdapter extends RecyclerView.Adapter<FavBookAdapter.FavLinea
     @Override
     public void onBindViewHolder( FavBookAdapter.FavLinearViewHolder viewHolder,final int position) {
         data = (ListData) listData.get(position);
+        Glide.with(mContext)
+                .load(data.getUrl())
+                .into(viewHolder.photo);
         viewHolder.title.setText(data.getTitle());
         viewHolder.price.setText("$ "+ data.getPrice());
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -82,12 +87,14 @@ public class FavBookAdapter extends RecyclerView.Adapter<FavBookAdapter.FavLinea
 
         private TextView title,price;
         private CheckBox unlike;
+        private ImageView photo;
 
         public FavLinearViewHolder(View itemView){
             super(itemView);
             title = itemView.findViewById(R.id.fli_title);
             price = itemView.findViewById(R.id.fli_price);
             unlike = itemView.findViewById(R.id.fl_like_btn);
+            photo = itemView.findViewById(R.id.fli_img);
         }
     }
 

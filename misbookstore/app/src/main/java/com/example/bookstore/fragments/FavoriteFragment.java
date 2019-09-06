@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.example.bookstore.BookInfoActivity;
+import com.example.bookstore.BookInformation.LinearAdapter;
 import com.example.bookstore.BookInformation.ListData;
 import com.example.bookstore.Favorate.FavBookAdapter;
 import com.example.bookstore.R;
@@ -50,57 +52,72 @@ public class FavoriteFragment extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
         ArrayList<ListData> listData = new ArrayList<>();
-        listData.add(new ListData("沉默的遊行",1,"44","t","t","t","t","t","t","t",0));
-//        listData.add(new ListData("訂閱經濟",2,"55","t"));
-//        listData.add(new ListData("不賣東西賣體驗",3,"66","t"));
-//        listData.add(new ListData("沉默的遊行",4,"77","t"));
-//        listData.add(new ListData("訂閱經濟",5,"88","t"));
-//        listData.add(new ListData("不賣東西賣體驗",6,"99","t"));
+        //listData.add(new ListData("沉默的遊行",1,"44","t","t","t","t","t","t","t",0));
         //連資料庫
-        DatabaseReference fav_list = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid);
-        fav_list.addValueEventListener(new ValueEventListener() {
+        DatabaseReference Book_list = FirebaseDatabase.getInstance().getReference("bookList");
+        //抓書本資料
+        Book_list.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int i = 0;
-                isbn_list = new String[(int)dataSnapshot.getChildrenCount()];
-                for(DataSnapshot ds :dataSnapshot.getChildren()){
-                    isbn_list[i] = ds.getValue().toString();
-                    i++;
+
+                for (DataSnapshot ds : dataSnapshot.getChildren() ){
+                    ListData bookList = ds.getValue(ListData.class);
+                    listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                            bookList.getClassification(), bookList.getIndex()));
                 }
-                for(String a : isbn_list){
-                    System.out.println("陣列:" + a);
-                    DatabaseReference bookInfo = FirebaseDatabase.getInstance().getReference("").child(uid);
-                }
+                //System.out.println("Url"  +  listData.get(0).getUrl());
+
+                // Recyclerview的設定
+                fl_main = view.findViewById(R.id.fl_main);
+                fl_main.setLayoutManager(new LinearLayoutManager(getActivity()));
+                Bookrecyclerview(listData);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.w("onCancelled",databaseError.toException());
             }
         });
 
-
-
-        fl_main = view.findViewById(R.id.fl_main);
-        fl_main.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        fl_main = view.findViewById(R.id.fl_main);
+//        fl_main.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        fl_main.setAdapter(new FavBookAdapter(getActivity(), listData ,new FavBookAdapter.OnItemClickListener() {
+//            @Override
+//            public void onClick(int pos) {
+//                String isbn=listData.get(pos).getIsbn();
+//                String book_name=listData.get(pos).getTitle();
+//                int book_price=listData.get(pos).getPrice();
+//                Intent intent = new Intent(getActivity(), BookInfoActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("isbn",isbn);//傳遞String
+//                bundle.putString("title",book_name);
+//                bundle.putInt("price",book_price);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+////                Toast.makeText(getActivity(),"click..."+pos,Toast.LENGTH_SHORT).show();
+//            }
+//        }));
+//
+        return view;
+    }
+    public void Bookrecyclerview (ArrayList listData) {
         fl_main.setAdapter(new FavBookAdapter(getActivity(), listData ,new FavBookAdapter.OnItemClickListener() {
             @Override
             public void onClick(int pos) {
-                String isbn=listData.get(pos).getIsbn();
-                String book_name=listData.get(pos).getTitle();
-                int book_price=listData.get(pos).getPrice();
+                ListData data = (ListData) listData.get(pos);
+                String isbn=data.getIsbn();
+                String book_name=data.getTitle();
+                String book_price=data.getPrice();
                 Intent intent = new Intent(getActivity(), BookInfoActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("isbn",isbn);//傳遞String
                 bundle.putString("title",book_name);
-                bundle.putInt("price",book_price);
+                bundle.putString("price",book_price);
                 intent.putExtras(bundle);
                 startActivity(intent);
 //                Toast.makeText(getActivity(),"click..."+pos,Toast.LENGTH_SHORT).show();
             }
         }));
-
-        return view;
     }
-
 }
