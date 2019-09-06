@@ -33,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,28 +71,23 @@ public class HomepageFragment extends Fragment {
 //                new ListData("沉默的遊行", 180, "11","t","t","t","t","t","t","t",0),
 //
 //        };
-        //新書
+        //新書排行
         //用於存放Firebase取回的資料，限定型態為ListData。
         ArrayList<ListData> listData = new ArrayList<>();
         //連資料庫
-        DatabaseReference Book_new= FirebaseDatabase.getInstance().getReference("bookList_new");
-        Book_new.addValueEventListener(new ValueEventListener() {
+        DatabaseReference Book_new= FirebaseDatabase.getInstance().getReference("book_info");
+        Book_new.orderByChild("PublishDate").limitToLast(10).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren() ){
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
                     ListData bookList = ds.getValue(ListData.class);
                     listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
                             bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
                             bookList.getClassification(), bookList.getIndex()));
                 }
-                home_search = v.findViewById(R.id.home_search);
-                home_hot = v.findViewById(R.id.home_hot);
-                home_like = v.findViewById(R.id.home_like);
+                Collections.reverse(listData);
                 home_new = v.findViewById(R.id.home_new);
                 BookItem(home_new,listData);
-                BookItem(home_search,listData);
-                BookItem(home_hot,listData);
-                BookItem(home_like,listData);
             }
 
             @Override
@@ -99,10 +95,75 @@ public class HomepageFragment extends Fragment {
                 Log.w("onCancelled",databaseError.toException());
             }
         });
-        //抓書本資料
         //最近搜尋
-        //熱門
+        //用於存放Firebase取回的資料，限定型態為ListData。
+        ArrayList<ListData> listData_search = new ArrayList<>();
+        //連資料庫
+        DatabaseReference Book_search= FirebaseDatabase.getInstance().getReference("book_info");
+        Book_new.orderByChild("Price").limitToFirst(10).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    ListData bookList = ds.getValue(ListData.class);
+                    listData_search.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                            bookList.getClassification(), bookList.getIndex()));
+                }
+                home_search = v.findViewById(R.id.home_search);
+                BookItem(home_search,listData_search);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("onCancelled",databaseError.toException());
+            }
+        });
+        //熱門書籍
+        ArrayList<ListData> listData_hot = new ArrayList<>();
+        //連資料庫
+        DatabaseReference Book_hot= FirebaseDatabase.getInstance().getReference("bookList_hot");
+        Book_hot.limitToFirst(10).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    ListData bookList = ds.getValue(ListData.class);
+                    //System.out.println("日期: " + bookList.getPublishDate());
+                    listData_hot.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                            bookList.getClassification(), bookList.getIndex()));
+                }
+                home_hot = v.findViewById(R.id.home_hot);
+                BookItem(home_hot,listData_hot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("onCancelled",databaseError.toException());
+            }
+        });
         //猜你喜歡
+        //用於存放Firebase取回的資料，限定型態為ListData。
+        ArrayList<ListData> listData_like = new ArrayList<>();
+        //連資料庫
+        DatabaseReference Book_like= FirebaseDatabase.getInstance().getReference("book_info");
+        Book_new.orderByChild("Price").limitToLast(10).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    ListData bookList = ds.getValue(ListData.class);
+                    listData_like.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                            bookList.getClassification(), bookList.getIndex()));
+                }
+                home_like = v.findViewById(R.id.home_like);
+                BookItem(home_like,listData_like);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("onCancelled",databaseError.toException());
+            }
+        });
         //home_new = v.findViewById(R.id.home_new);
 //        home_search = v.findViewById(R.id.home_search);
 //        home_hot = v.findViewById(R.id.home_hot);
