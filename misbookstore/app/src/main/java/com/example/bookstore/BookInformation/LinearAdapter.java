@@ -65,9 +65,6 @@ public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearView
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     String isbn = ((ListData) listData.get(position)).getIsbn();
-//                    System.out.println("比對的書: " + isbn);
-//                    System.out.println("ISBN: " + ds.getValue());
-//                    System.out.println(isbn.equals(ds.getValue().toString()));
                     if(isbn.equals(ds.getValue().toString())){
                         viewHolder.favorite.setChecked(true);
                         viewHolder.favorite.setEnabled(false);
@@ -77,6 +74,16 @@ public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearView
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        viewHolder.favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String isbn = ((ListData) listData.get(position)).getIsbn();
+                DatabaseReference add = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid);
+                add.child(isbn).setValue(isbn);
+                Toast.makeText(mContext,"已加入我的最愛",Toast.LENGTH_LONG).show();
+                //System.out.println( bookInfo.getTitle() + "加入我的最愛");
             }
         });
         //viewHolder.title.setText(listData[position].getTitle());
