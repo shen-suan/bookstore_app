@@ -37,7 +37,6 @@ public class FavoriteFragment extends Fragment {
     private CheckBox fl_like_btn;
     private FirebaseUser user;
     private String uid;
-    public String[] isbn_list;
 
     public FavoriteFragment() {
         // Required empty public constructor
@@ -51,34 +50,20 @@ public class FavoriteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
-        ArrayList<ListData> listData = new ArrayList<>();
+//        ArrayList<ListData> listData = new ArrayList<>();
         //listData.add(new ListData("沉默的遊行",1,"44","t","t","t","t","t","t","t",0));
-        //連資料庫
-        DatabaseReference Book_list = FirebaseDatabase.getInstance().getReference("bookList");
-        //抓書本資料
-        Book_list.addValueEventListener(new ValueEventListener() {
+
+        readData(new MyCallback() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot ds : dataSnapshot.getChildren() ){
-                    ListData bookList = ds.getValue(ListData.class);
-                    listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
-                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
-                            bookList.getClassification(), bookList.getIndex()));
-                }
-                //System.out.println("Url"  +  listData.get(0).getUrl());
-
-                // Recyclerview的設定
+            public void onCallback(ArrayList value) {
                 fl_main = view.findViewById(R.id.fl_main);
                 fl_main.setLayoutManager(new LinearLayoutManager(getActivity()));
-                Bookrecyclerview(listData);
+                Bookrecyclerview(value);
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w("onCancelled",databaseError.toException());
-            }
         });
+
+
 
 //        fl_main = view.findViewById(R.id.fl_main);
 //        fl_main.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -101,6 +86,45 @@ public class FavoriteFragment extends Fragment {
 //
         return view;
     }
+    public void readData(MyCallback myCallback) {
+        ArrayList<ListData> listData = new ArrayList<>();
+        listData.clear();
+        //連資料庫
+        DatabaseReference ISBN_list = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid);
+        //抓ISBN
+        ISBN_list.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //根據ISBN抓書籍資訊
+                for (DataSnapshot ds : dataSnapshot.getChildren() ){
+                    DatabaseReference book_info = FirebaseDatabase.getInstance().getReference("book_info").child(ds.getValue().toString());
+                    book_info.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            ListData bookList = dataSnapshot.getValue(ListData.class);
+                            listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                                    bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                                    bookList.getClassification(), bookList.getIndex()));
+                            myCallback.onCallback(listData);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.w("onCancelled",databaseError.toException());
+                        }
+                    });//end book_info ValueEventListener
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("onCancelled",databaseError.toException());
+            }
+        });//end  ISBN_list ValueEventListener
+    }
+
+    public interface MyCallback{
+        void onCallback(ArrayList value);
+    }
+
     public void Bookrecyclerview (ArrayList listData) {
         fl_main.setAdapter(new FavBookAdapter(getActivity(), listData ,new FavBookAdapter.OnItemClickListener() {
             @Override

@@ -15,6 +15,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.bookstore.BookInformation.ListData;
 import com.example.bookstore.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -25,6 +29,8 @@ public class FavBookAdapter extends RecyclerView.Adapter<FavBookAdapter.FavLinea
     private ListData data;
     private Context mContext;
     private OnItemClickListener mlistener;
+    private FirebaseUser user;
+    private String uid;
 
     public FavBookAdapter(Context context, ArrayList list, OnItemClickListener listener){
         this.mContext = context;
@@ -33,6 +39,8 @@ public class FavBookAdapter extends RecyclerView.Adapter<FavBookAdapter.FavLinea
     }
 
     public FavBookAdapter.FavLinearViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
         return new FavLinearViewHolder(LayoutInflater.from(mContext).inflate(R.layout.fav_list_item,parent,false));
     }
 
@@ -53,13 +61,22 @@ public class FavBookAdapter extends RecyclerView.Adapter<FavBookAdapter.FavLinea
         viewHolder.unlike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                Toast.makeText(mContext,"刪除" + ((ListData) listData.get(position)).getTitle(),Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setTitle("確定要從我的收藏中移除")
                         .setIcon(R.drawable.alert)
                         .setPositiveButton("確定", new DialogInterface.OnClickListener()
                         {
                             @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {  removeData(position); }
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String isbn = ((ListData) listData.get(position)).getIsbn();
+                                System.out.println("選擇: " + isbn);
+                                DatabaseReference delete = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid).child(isbn);
+                                delete.removeValue();
+                                Toast.makeText(mContext,"已移除",Toast.LENGTH_SHORT).show();
+                                removeData(position);
+                                listData.clear();
+                            }
                         })
                         .setNegativeButton("取消", new DialogInterface.OnClickListener()
                         {
