@@ -50,28 +50,11 @@ public class BookFragment extends Fragment{
         // Required empty public constructor
     }
 
-//    public void initData(){
-//        user = FirebaseAuth.getInstance().getCurrentUser();
-//        uid = user.getUid();
-//        DatabaseReference favorite_book = FirebaseDatabase.getInstance().getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/favorite_book/" + uid);
-//        favorite_book.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot ds : dataSnapshot.getChildren()){
-//                    System.out.println("我的最愛: " + ds.getValue());
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//            }
-//        });
-//    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //initData();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_book, container, false);
 

@@ -88,13 +88,14 @@ public class FavoriteFragment extends Fragment {
     }
     public void readData(MyCallback myCallback) {
         ArrayList<ListData> listData = new ArrayList<>();
-        listData.clear();
+//        listData.clear();
         //連資料庫
         DatabaseReference ISBN_list = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid);
         //抓ISBN
         ISBN_list.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listData.clear();
                 //根據ISBN抓書籍資訊
                 for (DataSnapshot ds : dataSnapshot.getChildren() ){
                     DatabaseReference book_info = FirebaseDatabase.getInstance().getReference("book_info").child(ds.getValue().toString());

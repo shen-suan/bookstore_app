@@ -45,31 +45,6 @@ public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearView
     }
 
     public LinearAdapter.LinearViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
-
-//        //連我的最愛資料庫
-//        user = FirebaseAuth.getInstance().getCurrentUser();
-//        uid = user.getUid();
-//
-//        DatabaseReference favorite_book = FirebaseDatabase.getInstance().getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/favorite_book/" + uid);
-//        favorite_book.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                int i = 0;
-//                fav_list = new String[(int)dataSnapshot.getChildrenCount()];
-//                for (DataSnapshot ds : dataSnapshot.getChildren()){
-//                    //System.out.println("書本 : " + ds.getValue());
-//                    fav_list[i] = ds.getValue().toString();
-//                    i++;
-//                }
-//                //System.out.println("長度" + fav_list.length);
-//                for(String a : fav_list){
-//                    System.out.println("陣列:" + a);
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//            }
-//        });
         return new LinearViewHolder(LayoutInflater.from(mContext).inflate(R.layout.book_list_item,parent,false));
     }
 
@@ -82,6 +57,28 @@ public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearView
                 .into(viewHolder.photoUrl);
         viewHolder.title.setText(data.getTitle());
         viewHolder.price.setText("$ "+ data.getPrice());
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
+        DatabaseReference favorite_book = FirebaseDatabase.getInstance().getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/favorite_book/" + uid);
+        favorite_book.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    String isbn = ((ListData) listData.get(position)).getIsbn();
+//                    System.out.println("比對的書: " + isbn);
+//                    System.out.println("ISBN: " + ds.getValue());
+//                    System.out.println(isbn.equals(ds.getValue().toString()));
+                    if(isbn.equals(ds.getValue().toString())){
+                        viewHolder.favorite.setChecked(true);
+                        viewHolder.favorite.setEnabled(false);
+                    }
+                    //System.out.println("我的最愛: " + ds.getValue());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
         //viewHolder.title.setText(listData[position].getTitle());
         //viewHolder.price.setText("$ "+listData[position].getPrice());
 //        viewHolder.favorite.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +93,7 @@ public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearView
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               mlistener.onClick(position);
+                mlistener.onClick(position);
             }
         });
     }
