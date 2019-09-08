@@ -32,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -175,7 +176,7 @@ public class BookFragment extends Fragment{
         //用於存放Firebase取回的資料，限定型態為ListData。
         ArrayList<ListData> listData = new ArrayList<>();
         //連資料庫
-        DatabaseReference Book_list = FirebaseDatabase.getInstance().getReference("bookList");
+        DatabaseReference Book_list = FirebaseDatabase.getInstance().getReference("bookList_hot");
         //抓書本資料
         Book_list.addValueEventListener(new ValueEventListener() {
             @Override
@@ -206,8 +207,8 @@ public class BookFragment extends Fragment{
         //用於存放Firebase取回的資料，限定型態為ListData。
         ArrayList<ListData> listData = new ArrayList<>();
         //連資料庫
-        DatabaseReference Book_list = FirebaseDatabase.getInstance().getReference("bookList");
-        Book_list.addValueEventListener(new ValueEventListener() {
+        DatabaseReference Book_list = FirebaseDatabase.getInstance().getReference("book_info");
+        Book_list.orderByChild("PublishDate").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -219,6 +220,7 @@ public class BookFragment extends Fragment{
                     //System.out.println("title"  + listData.get(0).getTitle());
 
                 }
+                Collections.reverse(listData);
 
                 // Recyclerview的設定
                 bl_main = view.findViewById(R.id.bl_main);
@@ -241,18 +243,24 @@ public class BookFragment extends Fragment{
         //用於存放Firebase取回的資料，限定型態為ListData。
         ArrayList<ListData> listData = new ArrayList<>();
         //連資料庫
-        DatabaseReference Book_list = FirebaseDatabase.getInstance().getReference("bookList");
+        DatabaseReference Book_list = FirebaseDatabase.getInstance().getReference("book_info");
         Book_list.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot ds : dataSnapshot.getChildren() ){
                     ListData bookList = ds.getValue(ListData.class);
-                    for(String c : tokens){
-                        if(bookList.getClassification().equals(c)){
-                            listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
-                                    bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
-                                    bookList.getClassification(), bookList.getIndex()));
+                    if(choose.length() == 0){
+                        listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                                bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                                bookList.getClassification(), bookList.getIndex()));
+                    }else{
+                        for(String c : tokens){
+                            if(bookList.getClassification().equals(c)){
+                                listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                                        bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                                        bookList.getClassification(), bookList.getIndex()));
+                            }
                         }
                     }
                     //System.out.println("title"  + listData.get(0).getTitle());
