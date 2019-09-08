@@ -11,8 +11,29 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginTop="60dp">
+       <RelativeLayout
+            android:id="@+id/ff_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/box_pic"
+                android:layout_centerInParent="true"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:src="@drawable/empty"/>
+            <TextView
+                android:layout_below="@+id/box_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="目前還沒有最愛的書籍"
+                android:layout_marginTop="30dp"/>
+
+        </RelativeLayout>
 
         <ScrollView
+            android:id="@+id/ff_sc"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

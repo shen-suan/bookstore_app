@@ -24,7 +24,7 @@
             android:layout_centerHorizontal="true"
             android:text="Sign up"
             android:textSize="30dp"
-            android:textColor="#FF1B06"
+            android:textColor="@color/colorPrimaryDark"
             />
 
         <android.support.design.widget.TextInputLayout

@@ -23,6 +23,7 @@ public class MyProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("返回");
+        toolbar.bringToFront();
 
     }
 

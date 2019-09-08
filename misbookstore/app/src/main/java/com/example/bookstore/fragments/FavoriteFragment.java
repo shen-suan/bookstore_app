@@ -12,6 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.bookstore.BookInfoActivity;
@@ -34,9 +37,11 @@ import java.util.ArrayList;
  */
 public class FavoriteFragment extends Fragment {
     private RecyclerView fl_main;
+    private RelativeLayout ff_empty;
     private CheckBox fl_like_btn;
     private FirebaseUser user;
     private String uid;
+    ArrayList<ListData> listData = new ArrayList<>();
 
     public FavoriteFragment() {
         // Required empty public constructor
@@ -62,6 +67,14 @@ public class FavoriteFragment extends Fragment {
             }
 
         });
+      /*  ff_empty = view.findViewById(R.id.ff_empty);
+        System.out.println(listData.size());
+        if (listData.size() == 0){
+            System.out.println("空的");
+            ff_empty.setVisibility(View.VISIBLE);
+        }else{
+            ff_empty.setVisibility(View.GONE);
+        }*/
 
 
 
@@ -87,6 +100,7 @@ public class FavoriteFragment extends Fragment {
         return view;
     }
     public void readData(MyCallback myCallback) {
+
         ArrayList<ListData> listData = new ArrayList<>();
 //        listData.clear();
         //連資料庫
@@ -96,6 +110,7 @@ public class FavoriteFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listData.clear();
+                int count = 0;
                 //根據ISBN抓書籍資訊
                 for (DataSnapshot ds : dataSnapshot.getChildren() ){
                     DatabaseReference book_info = FirebaseDatabase.getInstance().getReference("book_info").child(ds.getValue().toString());
@@ -113,6 +128,13 @@ public class FavoriteFragment extends Fragment {
                             Log.w("onCancelled",databaseError.toException());
                         }
                     });//end book_info ValueEventListener
+                    count++;
+                }
+                ff_empty = getActivity().findViewById(R.id.ff_empty);
+                if(count>0){
+                    ff_empty.setVisibility(View.GONE);
+                }else if (count == 0){
+                    ff_empty.setVisibility(View.VISIBLE);
                 }
             }
             @Override
@@ -126,11 +148,11 @@ public class FavoriteFragment extends Fragment {
         void onCallback(ArrayList value);
     }
 
-    public void Bookrecyclerview (ArrayList listData) {
-        fl_main.setAdapter(new FavBookAdapter(getActivity(), listData ,new FavBookAdapter.OnItemClickListener() {
+    public void Bookrecyclerview (ArrayList listdata) {
+        fl_main.setAdapter(new FavBookAdapter(getActivity(), listdata ,new FavBookAdapter.OnItemClickListener() {
             @Override
             public void onClick(int pos) {
-                ListData data = (ListData) listData.get(pos);
+                ListData data = (ListData) listdata.get(pos);
                 String isbn=data.getIsbn();
                 String book_name=data.getTitle();
                 String book_price=data.getPrice();
