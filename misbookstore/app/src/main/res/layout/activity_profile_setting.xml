@@ -11,15 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center"
-        android:padding="30dp"
+        android:gravity="center_horizontal"
+        android:padding="8dp"
         android:background="@color/colorGreyLight"
-        android:layout_marginTop="55dp">
+        android:layout_marginTop="17dp">
         <LinearLayout
+            android:id="@+id/ps_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_shadow"
+            android:background="@drawable/bg_shadow_frame"
             android:gravity="center"
             android:padding="30dp"
             android:layout_marginBottom="10dp">
@@ -67,13 +68,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_ps"
+            android:background="@drawable/bg_shadow_frame"
             android:gravity="center"
-            android:layout_margin="15dp">
+            android:layout_marginVertical="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:padding="12dp"
                 android:orientation="horizontal">
                 <TextView
@@ -81,7 +82,7 @@
                     android:layout_height="match_parent"
                     android:text="姓名"
                     android:gravity="center"
-                    android:textSize="21sp"/>
+                    android:textSize="19sp"/>
                 <TextView
                     android:id="@+id/mi_name"
                     android:layout_width="match_parent"
@@ -90,7 +91,7 @@
                     android:gravity="right"
                     android:layout_gravity="center"
                     android:textSize="21sp"
-                    android:drawableRight="@drawable/rightarrow"
+                    android:drawableRight="@drawable/edit"
                     android:drawablePadding="20dp"
                     android:clickable="true"/>
             </LinearLayout>
@@ -100,7 +101,7 @@
                 android:background="@color/colorGrey"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:padding="12dp"
                 android:orientation="horizontal">
                 <TextView
@@ -108,7 +109,7 @@
                     android:layout_height="match_parent"
                     android:text="性別"
                     android:gravity="center"
-                    android:textSize="21sp"/>
+                    android:textSize="19sp"/>
                 <TextView
                     android:id="@+id/mi_gender"
                     android:layout_width="match_parent"
@@ -117,7 +118,7 @@
                     android:gravity="right"
                     android:layout_gravity="center"
                     android:textSize="21sp"
-                    android:drawableRight="@drawable/rightarrow"
+                    android:drawableRight="@drawable/edit"
                     android:drawablePadding="20dp"
                     android:clickable="true"/>
             </LinearLayout>
@@ -127,7 +128,7 @@
                 android:background="@color/colorGrey"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:padding="12dp"
                 android:orientation="horizontal">
                 <TextView
@@ -135,7 +136,7 @@
                     android:layout_height="match_parent"
                     android:text="生日"
                     android:gravity="center"
-                    android:textSize="21sp"/>
+                    android:textSize="19sp"/>
                 <TextView
                     android:id="@+id/mi_birth"
                     android:layout_width="match_parent"
@@ -144,7 +145,7 @@
                     android:gravity="right"
                     android:layout_gravity="center"
                     android:textSize="21sp"
-                    android:drawableRight="@drawable/rightarrow"
+                    android:drawableRight="@drawable/edit"
                     android:drawablePadding="20dp"
                     android:clickable="true"/>
             </LinearLayout>
@@ -154,7 +155,7 @@
                 android:background="@color/colorGrey"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:padding="12dp"
                 android:orientation="horizontal">
                 <TextView
@@ -162,7 +163,7 @@
                     android:layout_height="match_parent"
                     android:text="喜歡書籍類型"
                     android:gravity="center_vertical"
-                    android:textSize="21sp"
+                    android:textSize="19sp"
                     android:layout_weight="1"/>
                 <TextView
                     android:id="@+id/mi_book_type"
@@ -172,17 +173,21 @@
                     android:gravity="right"
                     android:layout_gravity="center"
                     android:textSize="21sp"
-                    android:drawableRight="@drawable/rightarrow"
+                    android:drawableRight="@drawable/edit"
                     android:drawablePadding="20dp"
                     android:layout_weight="1"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:clickable="true"/>
             </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorGrey"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_shadow_frame"
+            android:gravity="center"
+            android:layout_marginVertical="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"

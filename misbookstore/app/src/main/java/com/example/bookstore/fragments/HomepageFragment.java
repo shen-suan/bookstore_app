@@ -47,7 +47,7 @@ public class HomepageFragment extends Fragment {
     private int dotscount;
     private ImageView[] dots;
     //recycleview
-    private RecyclerView home_new,home_search,home_hot,home_like;
+    private RecyclerView home_new,home_search,home_hot,home_like,home_rank;
 
     public HomepageFragment() {
         // Required empty public constructor
@@ -164,6 +164,29 @@ public class HomepageFragment extends Fragment {
                 Log.w("onCancelled",databaseError.toException());
             }
         });
+
+        //首頁排行的recyclerview
+        home_rank = v.findViewById(R.id.home_rank);
+        home_rank.setLayoutManager(new LinearLayoutManager(getActivity()));
+        home_rank.setAdapter(new RankAdapter(getActivity(), listData ,new RankAdapter.OnItemClickListener(){
+            @Override
+            public void onClick(int pos) {
+
+                ListData data = (ListData) listData.get(pos);
+                String isbn=data.getIsbn();
+                String book_name=data.getTitle();
+                int book_price = Integer.parseInt((data.getPrice()));
+                Intent intent = new Intent(getActivity(), BookInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("isbn",isbn);//傳遞String
+                bundle.putString("title",book_name);
+                bundle.putInt("price",book_price);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                //                Toast.makeText(getActivity(),"click..."+isbn,Toast.LENGTH_SHORT).show();
+            }
+        }));
+
         //home_new = v.findViewById(R.id.home_new);
 //        home_search = v.findViewById(R.id.home_search);
 //        home_hot = v.findViewById(R.id.home_hot);
@@ -316,6 +339,62 @@ class HorAdapter extends RecyclerView.Adapter<HorAdapter.HorViewHolder>{
             title = itemView.findViewById(R.id.hb_title);
             price = itemView.findViewById(R.id.hb_price);
             photo = itemView.findViewById(R.id.hb_image);
+        }
+    }
+
+    public interface OnItemClickListener{
+        void onClick(int pos);
+    }
+}
+class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder>{
+
+    private ArrayList listData;
+    private ListData data;
+    private Context rContext;
+    private RankAdapter.OnItemClickListener rlistener;
+
+    public RankAdapter(Context context, ArrayList list, RankAdapter.OnItemClickListener listener){
+        this.rContext = context;
+        this.listData = list;
+        this.rlistener = listener;
+    }
+
+    public RankViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new RankViewHolder(LayoutInflater.from(rContext).inflate(R.layout.home_book_rank,parent,false));
+    }
+
+    @Override
+    public void onBindViewHolder(RankAdapter.RankViewHolder viewHolder, final int position) {
+        data = (ListData) listData.get(position);
+        Glide.with(rContext)
+                .load(data.getUrl())
+                .into(viewHolder.photo);
+        viewHolder.title.setText(data.getTitle());
+        viewHolder.price.setText("$ "+data.getPrice());
+        viewHolder.rank.setText(Integer.toString(position+1));
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rlistener.onClick(position);
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return listData.size();
+    }
+    class RankViewHolder extends RecyclerView.ViewHolder{
+
+        private TextView title,price,rank;
+        private ImageView photo;
+
+        public RankViewHolder(View itemView){
+            super(itemView);
+            title = itemView.findViewById(R.id.hbr_title);
+            price = itemView.findViewById(R.id.hbr_price);
+            photo = itemView.findViewById(R.id.hbr_img);
+            rank = itemView.findViewById(R.id.hbr_rank);
         }
     }
 

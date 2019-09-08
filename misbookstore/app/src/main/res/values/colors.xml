@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">	#c4302b</color>
+    <color name="colorPrimaryDark">#c4302b</color>
+    <color name="colorAccent">#3d444b</color>
+
+    <color name="colorPrice">#FF4081</color>
+
+    <color name="colorDarkred">#b53e3a</color>
 
     <color name="colorGray">#ccc</color>
     <color name="color_nav_back">#DDDDDD</color>
-    <color name="color_nab_item">#FF0000</color>
+    <color name="color_nab_item">@color/colorPrimaryDark</color>
     <color name="colorGrey">#aaaaaa</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorRed">#FF0000</color>
@@ -21,6 +25,11 @@
     <color name="colorRedDark">#880000</color>
     <color name="colorYellow">	#FFFF33</color>
     <color name="colorBlueLight">#D9EBFF</color>
+    <color name="colorB2">	#003399</color>
+    <color name="colorBG">	#0000FF</color>
+    <color name="colorB">	#007979</color>
+    <color name="colornav">	#00e3e3</color>
+    <color name="colorBtn">#787878</color>
 
 
 

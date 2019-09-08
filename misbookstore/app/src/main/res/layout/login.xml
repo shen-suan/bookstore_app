@@ -12,7 +12,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="150dip"
         android:layout_marginLeft="150dip"
-        android:layout_marginTop="50dip"
+        android:layout_marginTop="70dp"
         app:srcCompat="@drawable/logo" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="45dp"
         android:ems="15"
         app:errorEnabled="true"
         android:visibility="visible">
@@ -93,6 +93,7 @@
 
 
      <RelativeLayout
+         android:id="@+id/remember_lo"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_below="@id/password_layout"
@@ -157,9 +158,9 @@
         android:layout_width="315dp"
         android:layout_height="50dp"
         android:text="Login"
-        android:layout_below="@+id/password_layout"
+        android:layout_below="@+id/remember_lo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="90dp"
         android:textColor="@color/colorWhite"
         android:textSize="25sp"
         android:textAllCaps="false"
@@ -175,11 +176,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView_loginBtn"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:clickable="true"
         android:text="還沒有帳號嗎?點我註冊"
-        android:textColor="#FF1B06"
-        android:textSize="18sp"/>
+        android:textColor="@color/colorBG"
+        android:textSize="16sp"/>
 
 
 

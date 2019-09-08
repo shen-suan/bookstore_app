@@ -10,7 +10,7 @@
         android:layout_height="70dp"
         android:padding="10dp"
         android:orientation="horizontal"
-        android:background="@color/colorRedDark">
+        android:background="@color/colorPrimary">
         <TextView
             android:id="@+id/ar_score_title"
             android:layout_width="wrap_content"

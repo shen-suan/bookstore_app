@@ -13,7 +13,7 @@
             android:layout_height="100dp"
             android:layout_marginStart="150dip"
             android:layout_marginLeft="150dip"
-            android:layout_marginTop="50dip"
+            android:layout_marginTop="70dp"
             app:srcCompat="@drawable/logo" />
 
         <TextView
@@ -162,7 +162,7 @@
             android:text="Sign up"
             android:layout_below="@+id/repassword_layout"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="80dp"
             android:textColor="@color/colorWhite"
             android:textSize="25sp"
             android:background="@drawable/bg_btn"
@@ -177,8 +177,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:text="已經有帳號了?點我登入"
-            android:textColor="#FF1B06"
-            android:textSize="18sp" />
+            android:textColor="@color/colorBG"
+            android:textSize="16sp" />
 
 </RelativeLayout>
 

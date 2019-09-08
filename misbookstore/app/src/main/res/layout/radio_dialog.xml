@@ -32,21 +32,25 @@
         android:gravity="center">
         <RadioButton
             android:id="@+id/edit_radio_male"
-            android:layout_width="80dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="3dp"
+            android:layout_weight="1"
+            android:paddingVertical="8dp"
             android:gravity="center"
             android:text="男"
             android:button="@null"
-            android:layout_marginRight="20dp"
             android:background="@drawable/bg_mi_btn"
             android:textColor="@drawable/color_mi_btn"
             android:checked="true"/>
+        <View
+            android:layout_width="20dp"
+            android:layout_height="match_parent"/>
         <RadioButton
             android:id="@+id/edit_radio_female"
-            android:layout_width="80dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="3dp"
+            android:layout_weight="1"
+            android:paddingVertical="8dp"
             android:gravity="center"
             android:button="@null"
             android:text="女"

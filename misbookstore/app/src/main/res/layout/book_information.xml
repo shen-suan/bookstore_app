@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,197 +9,255 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:scrollbars="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:layout_marginTop="40dp">
-        <!--上半部-->
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <CheckBox
-                    android:id="@+id/bi_like_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@drawable/bg_checkbox_like"
-                    android:button="@null" />
-                <ImageView
-                    android:layout_centerHorizontal="true"
-                    android:id="@+id/bi_book_pic"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_marginVertical="25dp"
-                    android:src="@drawable/book_info"/>
-            </RelativeLayout>
-
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/bi_book_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="沉默的遊行"
-                    android:textSize="22sp"
-                    android:textColor="@color/colorBlack"
-                    />
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp">
-                    <TableRow android:layout_marginBottom="5dp">
-
-                        <TextView
-                            android:layout_width="99dp"
-                            android:layout_height="wrap_content"
-                            android:text="作者:"
-                            android:textSize="19sp" />
-
-                        <TextView
-                            android:id="@+id/bi_book_author"
-                            android:layout_width="262dp"
-                            android:layout_height="wrap_content"
-                            android:text="東野圭吾"
-                            android:textSize="19sp" />
-                    </TableRow>
-                    <TableRow android:layout_marginBottom="5dp">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="書籍版本:"
-                            android:textSize="19sp"
-                            />
-
-                        <TextView
-                            android:id="@+id/bi_book_version"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="初版"
-                            android:textSize="19sp" />
-                    </TableRow>
-                    <TableRow android:layout_marginBottom="5dp">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="出版社:"
-                            android:textSize="19sp"
-                            />
-
-                        <TextView
-                            android:id="@+id/bi_book_publisher"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="皇冠文化"
-                            android:lines="1"
-                            android:textSize="19sp" />
-                    </TableRow>
-                    <TableRow android:layout_marginBottom="5dp">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="出版日期:"
-                            android:textSize="19sp"
-                            />
-
-                        <TextView
-                            android:id="@+id/bi_book_publishdate"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="2019-07-29"
-                            android:textSize="19sp" />
-                    </TableRow>
-                    <TableRow android:layout_marginBottom="5dp">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="定價:"
-                            android:textSize="19sp"
-                            />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="420 元"
-                            android:textSize="19sp"
-                            android:id="@+id/bi_book_price"
-                            />
-                    </TableRow>
-
-                </TableLayout>
+                android:layout_marginTop="40dp">
+                <!--上半部-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <Button
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="38dp"
-                        android:layout_gravity="right"
-                        android:layout_weight="1"
-                        android:background="@drawable/nav_btn2"
-                        android:stateListAnimator="@null"
-                        android:text="導航"
-                        android:textColor="@color/colorWhite" />
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_shadow_frame"
+                        android:padding="13dp"
+                        android:layout_marginBottom="15dp">
+                        <CheckBox
+                            android:id="@+id/bi_like_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginRight="4dp"
+                            android:background="@drawable/bg_checkbox_like"
+                            android:button="@null" />
+                        <ImageView
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/bi_book_pic"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
+                            android:layout_marginVertical="25dp"
+                            android:src="@drawable/book_info"/>
+
+                        <TextView
+                            android:id="@+id/bi_book_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="沉默的遊行"
+                            android:textSize="22sp"
+                            android:textColor="@color/colorBlack"
+                            android:layout_below="@+id/bi_book_pic"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="$ 420"
+                            android:textSize="25sp"
+                            android:textColor="@color/colorAccent"
+                            android:id="@+id/bi_book_price_title"
+                            android:layout_below="@+id/bi_book_name"
+                            />
+                            <Button
+                                android:layout_below="@+id/bi_book_price_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="38dp"
+                                android:layout_gravity="right"
+                                android:layout_weight="1"
+                                android:background="@drawable/nav_btn2"
+                                android:stateListAnimator="@null"
+                                android:layout_marginTop="10dp"
+                                android:text="導航"
+                                android:textColor="@color/colorB2" />
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="12dp"
+                        android:background="@drawable/bg_shadow_frame"
+                        android:layout_marginBottom="15dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="書籍分類"
+                            android:layout_centerVertical="true"
+                            android:textSize="17sp"
+                            android:textColor="@color/colorBlack"/>
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/bi_catogery_tv"
+                            android:gravity="center"
+                            android:layout_alignParentRight="true"
+                            android:paddingVertical="5dp"
+                            android:text="尚未選擇"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:id="@+id/bi_book_type"/>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="13dp"
+                        android:background="@drawable/bg_shadow_frame"
+                        android:layout_marginBottom="5dp">
+                        <TextView
+                            android:id="@+id/bi_info_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="商品資料"
+                            android:gravity="center_vertical"
+                            android:textSize="17sp"
+                            android:textColor="@color/colorBlack"
+                            android:drawableRight="@drawable/downarrow"
+                            android:drawablePadding="20dp"
+                            android:clickable="true"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.7dp"
+                            android:layout_marginVertical="7dp"
+                            android:background="@color/colorGrey"/>
+
+
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp">
+                            <TableRow android:layout_marginBottom="5dp">
+
+                                <TextView
+                                    android:layout_width="99dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="作者:"
+                                    android:textSize="19sp" />
+
+                                <TextView
+                                    android:id="@+id/bi_book_author"
+                                    android:layout_width="262dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="東野圭吾"
+                                    android:textSize="19sp" />
+                            </TableRow>
+                            <TableRow android:layout_marginBottom="5dp">
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="書籍版本:"
+                                    android:textSize="19sp"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/bi_book_version"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="初版"
+                                    android:textSize="19sp" />
+                            </TableRow>
+                            <TableRow android:layout_marginBottom="5dp">
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="出版社:"
+                                    android:textSize="19sp"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/bi_book_publisher"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="皇冠文化"
+                                    android:lines="1"
+                                    android:textSize="19sp" />
+                            </TableRow>
+                            <TableRow android:layout_marginBottom="5dp">
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="出版日期:"
+                                    android:textSize="19sp"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/bi_book_publishdate"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="2019-07-29"
+                                    android:textSize="19sp" />
+                            </TableRow>
+                            <TableRow android:layout_marginBottom="5dp">
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="定價:"
+                                    android:textSize="19sp"
+                                    />
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="420 元"
+                                    android:textSize="19sp"
+                                    android:id="@+id/bi_book_price"
+                                    />
+                            </TableRow>
+
+                        </TableLayout>
+
+                    </LinearLayout>
 
                 </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-        <!--下半部-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/bi_container_down"
-            android:animateLayoutChanges="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="55dp">
-                <TextView
-                    android:id="@+id/bi_content_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="內容簡介"
-                    android:gravity="center_vertical"
-                    android:textSize="21sp"
-                    android:textColor="@color/colorBlack"
-                    android:drawableRight="@drawable/downarrow"
-                    android:drawablePadding="20dp"
-                    android:clickable="true"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.7dp"
-                    android:background="@color/colorGrey"/>
-                <TextView
-                    android:id="@+id/bi_content_info"
+                <!--下半部-->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="6dp"
-                    android:text="無內容簡介"
-                    android:lineSpacingExtra="6dp"
-                    android:textSize="19sp"
-                    android:textColor="@color/colorBlack"/>
+                    android:orientation="vertical"
+                    android:id="@+id/bi_container_down"
+                    android:animateLayoutChanges="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="55dp"
+                    android:background="@drawable/bg_shadow_frame"
+                    android:padding="13dp">
+                    <TextView
+                        android:id="@+id/bi_content_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="內容簡介"
+                        android:gravity="center_vertical"
+                        android:textSize="17sp"
+                        android:textColor="@color/colorBlack"
+                        android:drawableRight="@drawable/downarrow"
+                        android:drawablePadding="20dp"
+                        android:clickable="true"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:layout_marginTop="7dp"
+                        android:background="@color/colorGrey"/>
+                    <TextView
+                        android:id="@+id/bi_content_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="無內容簡介"
+                        android:lineSpacingExtra="6dp"
+                        android:textSize="19sp"/>
 
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
     </FrameLayout>
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"

@@ -49,15 +49,16 @@
     <Button
         android:id="@+id/textView_itroductionBtn"
         android:layout_width="315dp"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:text="Let's get started"
+        android:paddingBottom="5dp"
         android:layout_below="@+id/textView_introduction"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="330dp"
         android:textColor="@color/colorWhite"
         android:textAllCaps="false"
         android:textSize="25sp"
-        android:background="@color/colorRed"
+        android:background="@drawable/bg_first"
         />
 
 </RelativeLayout>

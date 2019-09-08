@@ -2,174 +2,244 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp"
+    android:padding="10dp"
     android:background="@color/colorGreyLight">
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/ps_info"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/mi_btn_log_out"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/bg_shadow"
+            android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingHorizontal="40dp"
-            android:paddingVertical="30dp">
-
-            <com.example.bookstore.MemberInformation.CircleImageView
-                android:id="@+id/profile_pic"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/head" />
-
-            <TextView
-                android:id="@+id/profile_account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
-                android:text=""
-                android:textColor="@color/colorBlack"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/profile_nickname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="尚未填寫" />
+            android:layout_marginTop="48dp"
+            android:paddingBottom="50dp">
 
             <LinearLayout
+                android:id="@+id/ps_info"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_shadow_frame"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="15dp"
+                android:layout_marginBottom="15dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="姓名"
-                    android:textSize="19sp" />
-
-                <TextView
-                    android:id="@+id/profile_name"
                     android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="left|center_vertical"
+                    android:text="頭像與暱稱"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimaryDark"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorPrimaryDark"/>
+
+                <com.example.bookstore.MemberInformation.CircleImageView
+                    android:id="@+id/profile_pic"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="20dp"
+                    android:src="@drawable/head" />
+
+                <TextView
+                    android:id="@+id/profile_nickname"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:clickable="true"
-                    android:gravity="right"
+                    android:layout_marginBottom="5dp"
                     android:text="尚未填寫"
-                    android:textSize="19sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
+                    android:textColor="@color/colorBlack"
+                    android:textSize="25sp" />
 
                 <TextView
+                    android:id="@+id/profile_account"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="性別"
-                    android:textSize="19sp" />
-
-                <TextView
-                    android:id="@+id/profile_gender"
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:clickable="true"
-                    android:gravity="right"
-                    android:text="尚未選擇"
-                    android:textSize="19sp" />
+                    android:text="" />
             </LinearLayout>
-
             <LinearLayout
+                android:id="@+id/ps_info2"
+                android:layout_below="@+id/ps_info"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_shadow_frame"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="15dp"
+                android:layout_marginBottom="15dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="生日"
-                    android:textSize="19sp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="left|center_vertical"
+                    android:text="個人資料"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimaryDark"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorPrimaryDark"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:paddingHorizontal="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="姓名"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/profile_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="true"
+                        android:gravity="right"
+                        android:text="尚未填寫"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="17sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:paddingHorizontal="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="性別"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/profile_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="true"
+                        android:gravity="right"
+                        android:text="尚未選擇"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="17sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:paddingHorizontal="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="生日"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/profile_birth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="true"
+                        android:textColor="@color/colorBlack"
+                        android:gravity="right"
+                        android:text="尚未選擇"
+                        android:textSize="17sp" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ps_info3"
+                android:layout_below="@+id/ps_info2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_shadow_frame"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_marginBottom="15dp"
+                android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/profile_birth"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="left|center_vertical"
+                    android:text="書籍類型"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimaryDark"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorPrimaryDark"/>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:clickable="true"
-                    android:gravity="right"
+                    android:gravity="left"
+                    android:id="@+id/profile_book_type">
+
+                    <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/bg_booktype"
+                    android:gravity="center"
+                    android:paddingVertical="8dp"
                     android:text="尚未選擇"
-                    android:textSize="19sp" />
-            </LinearLayout>
+                    android:textColor="@color/colorBlack" />
+                </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="left"
-                android:text="書籍類型"
-                android:textSize="19sp" />
+                <!-- android:drawableRight="@drawable/rightarrow"
+                 android:drawablePadding="20dp" -->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:id="@+id/profile_book_type">
-
-                <TextView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/bg_booktype"
-                android:gravity="center"
-                android:paddingVertical="8dp"
-                android:text="尚未選擇"
-                android:textColor="@color/colorBlack" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/my_profile"
+                android:layout_below="@+id/ps_info3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:clickable="true"
                 android:gravity="center"
                 android:text="編輯個人檔案"
-                android:textColor="@color/colorRed" />
+                android:textColor="@color/colorBG" />
 
-            <!-- android:drawableRight="@drawable/rightarrow"
-             android:drawablePadding="20dp" -->
-
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/mi_btn_log_out"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/bg_btn"
-            android:layout_marginHorizontal="10dp"
-            android:text="登出"
-            android:textColor="@color/colorWhite"
-            android:textSize="15sp" />
-    </RelativeLayout>
-
+            <Button
+                android:id="@+id/mi_btn_log_out"
+                android:layout_below="@+id/my_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn"
+                android:text="登出"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                android:layout_marginBottom="10dp"/>
+        </RelativeLayout>
+    </ScrollView>
 
 
 

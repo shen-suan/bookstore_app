@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="140dp"
+    android:layout_width="135dp"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="7dp"
+    android:layout_marginHorizontal="2dp">
     <!--書籍圖片-->
     <ImageView
         android:id="@+id/hb_image"
-        android:layout_width="match_parent"
-        android:layout_height="134dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_gravity="center"
         app:srcCompat="@drawable/rbook_item1" />
 
     <!--書籍名稱-->
@@ -17,7 +20,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="7dp"
-        android:text="輕輕鬆鬆讓人聽你"
+        android:text="輕輕鬆讓"
+        android:gravity="left"
+        android:lines="2"
+        android:ellipsize="end"
+        android:textColor="@color/colorBlack"
         android:textAlignment="center"/>
 
     <!--書籍價格-->
@@ -27,6 +34,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="7dp"
         android:text="$180"
+        android:textColor="@color/colorPrice"
         android:textAlignment="center"/>
 
 </LinearLayout>

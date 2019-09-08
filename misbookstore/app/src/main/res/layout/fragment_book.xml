@@ -11,11 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="45dp">
+        android:layout_marginTop="46dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/colorGreyDark">
+            android:layout_height="65dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/categery_shadow">
             <RadioGroup
                 android:id="@+id/bl_menu"
                 android:layout_width="match_parent"
@@ -30,11 +31,11 @@
                     android:text="熱銷排行"
                     android:gravity="center"
                     android:textColor="@drawable/bl_btn_menu_color"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:checked="true"/>
                 <View
                     android:layout_width="0.5dp"
-                    android:layout_height="40dp"
+                    android:layout_height="25dp"
                     android:background="@color/colorGrey"
                     android:layout_gravity="center_vertical"/>
                 <RadioButton
@@ -46,11 +47,11 @@
                     android:text="依分類"
                     android:gravity="center"
                     android:textColor="@drawable/bl_btn_menu_color"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     />
                 <View
                     android:layout_width="0.5dp"
-                    android:layout_height="40dp"
+                    android:layout_height="25dp"
                     android:background="@color/colorGrey"
                     android:layout_marginLeft="15dp"
                     android:layout_gravity="center_vertical"/>
@@ -63,7 +64,7 @@
                     android:text="新書榜"
                     android:gravity="center"
                     android:textColor="@drawable/bl_btn_menu_color"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     />
             </RadioGroup>
         </LinearLayout>

@@ -12,7 +12,8 @@
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorGreyLight">
 
         <!--主要框架-->
 
@@ -29,7 +30,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp">
 
-
                 <!--須設定1920x1080尺寸之照片-->
                 <android.support.v4.view.ViewPager
                     android:id="@+id/viewPager"
@@ -41,94 +41,173 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/viewPager"
+                    android:layout_marginTop="-30dp"
                     android:gravity="center_vertical|center_horizontal"
-                    android:orientation="horizontal" />
+                    android:orientation="horizontal"
+                    />
 
 
                 <LinearLayout
                     android:id="@+id/HomePage_frame"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical"
                     android:layout_below="@id/SliderDots">
-
-
-                    <!--新書推薦-->
-
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="新書推薦"
-                        android:textAlignment="center"
-                        android:textSize="20sp"
-                        android:layout_marginTop="30dp"/>
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_shadow_frame"
+                        android:layout_marginBottom="10dp">
+                        <!--新書推薦-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="新書推薦"
+                            android:drawableLeft="@drawable/home1"
+                            android:drawablePadding="15dp"
+                            android:layout_gravity="center"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorB"
+                            android:layout_marginTop="10dp"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginHorizontal="5dp"
+                            android:background="@color/colorB"/>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_new"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+                        </android.support.v7.widget.RecyclerView>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_shadow_frame"
+                        android:layout_marginBottom="10dp">
+                        <!--最近搜尋-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="最近搜尋"
+                            android:layout_gravity="center"
+                            android:drawableLeft="@drawable/home3"
+                            android:drawablePadding="15dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorB"
+                            android:layout_marginTop="10dp"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginHorizontal="5dp"
+                            android:background="@color/colorB"/>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                        </android.support.v7.widget.RecyclerView>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_shadow_frame"
+                        android:layout_marginBottom="10dp">
+                        <!--熱門書籍-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="熱門書籍"
+                            android:layout_gravity="center"
+                            android:drawableLeft="@drawable/home4"
+                            android:drawablePadding="15dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorB"
+                            android:layout_marginTop="10dp"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginHorizontal="5dp"
+                            android:background="@color/colorB"/>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_hot"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                        </android.support.v7.widget.RecyclerView>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_shadow_frame"
+                        android:layout_marginBottom="10dp">
+
+                        <!--猜你喜歡-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="猜你喜歡"
+                            android:layout_gravity="center"
+                            android:drawableLeft="@drawable/home5"
+                            android:drawablePadding="15dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorB"
+                            android:layout_marginTop="10dp"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginHorizontal="5dp"
+                            android:background="@color/colorB"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/home_like"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                        </android.support.v7.widget.RecyclerView>
+
+                    </LinearLayout>
+
+                    <!--暢銷排名-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="暢銷排名"
+                        android:drawableLeft="@drawable/home2"
+                        android:drawablePadding="15dp"
+                        android:layout_gravity="center"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorB"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"/>
+
 
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/home_new"
+                        android:id="@+id/home_rank"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp">
-
-                    </android.support.v7.widget.RecyclerView>
-
-                    <!--最近搜尋-->
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="最近搜尋"
-                        android:textAlignment="center"
-                        android:textSize="20sp"
-                        android:layout_marginTop="30dp"/>
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/home_search"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp">
-
-                    </android.support.v7.widget.RecyclerView>
-
-                    <!--熱門書籍-->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="熱門書籍"
-                        android:textAlignment="center"
-                        android:textSize="20sp"
-                        android:layout_marginTop="30dp"/>
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/home_hot"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp">
-
-                    </android.support.v7.widget.RecyclerView>
-                    <!--猜你喜歡-->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="猜你喜歡"
-                        android:textAlignment="center"
-                        android:textSize="20sp"
-                        android:layout_marginTop="30dp"/>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/home_like"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp">
-
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="30dp">
                     </android.support.v7.widget.RecyclerView>
 
                 </LinearLayout>
-
             </RelativeLayout>
-
         </ScrollView>
-
     </FrameLayout>
-
 </android.support.constraint.ConstraintLayout>
-
-
-
