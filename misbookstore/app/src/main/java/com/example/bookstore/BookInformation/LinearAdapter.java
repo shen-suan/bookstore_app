@@ -63,6 +63,7 @@ public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearView
         favorite_book.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                viewHolder.favorite.setChecked(false);
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     String isbn = ((ListData) listData.get(position)).getIsbn();
                     if(isbn.equals(ds.getValue().toString())){
