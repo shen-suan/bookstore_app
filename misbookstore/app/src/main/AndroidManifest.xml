@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -18,10 +19,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".Voice_Assistant"
+        <activity android:name=".SearchResultsActivity"
+                  android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".Voice_Assistant"
             android:screenOrientation="portrait" />
-        <activity android:name=".IntroActivity"
+        <activity
+            android:name=".IntroActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".BookInfoActivity"
@@ -53,11 +64,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".BottomNavActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".ResetPassword"
             android:screenOrientation="portrait" />
-        <activity android:name=".arContent.augmentedimage.AugmentedImageActivity"
+        <activity
+            android:name=".arContent.augmentedimage.AugmentedImageActivity"
             android:screenOrientation="portrait" /> <!-- AR要加的 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -68,6 +81,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_paths" />
         </provider>
+
         <meta-data
             android:name="com.google.ar.core"
             android:value="required" />

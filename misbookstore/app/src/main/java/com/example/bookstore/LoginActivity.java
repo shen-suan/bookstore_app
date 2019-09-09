@@ -84,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.setClass(LoginActivity.this, BottomNavActivity.class);
             startActivity(intent);
+            finish();
         }//end else
 
         //忘記密碼

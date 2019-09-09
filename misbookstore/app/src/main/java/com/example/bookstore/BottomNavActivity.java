@@ -1,10 +1,14 @@
 package com.example.bookstore;
 
+import android.app.SearchManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -59,6 +63,26 @@ public class BottomNavActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         searchView = findViewById(R.id.searchView);
+        // perform set on query text listener event
+        searchView.setOnQueryTextListener(new SimpleSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d("SimpleSearchView", "Submit:" + query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d("SimpleSearchView", "Text changed:" + newText);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextCleared() {
+                Log.d("SimpleSearchView", "Text cleared");
+                return false;
+            }
+        });
 
 
     }
@@ -69,7 +93,20 @@ public class BottomNavActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
 
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.action_search).getActionView();
         setupSearchView(menu);
+        ComponentName componentName = new ComponentName(this, SearchResultsActivity.class);
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(componentName));
+
+//        searchView.onActionViewCollapsed();
+//        searchView.setQuery("", false);
+//        searchView.clearFocus();
+
         return true;
     }
 
@@ -81,6 +118,8 @@ public class BottomNavActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, Voice_Assistant.class);
                 startActivity(intent);
                 return true;
+            case R.id.action_search:
+                return super.onSearchRequested();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -90,7 +129,6 @@ public class BottomNavActivity extends AppCompatActivity {
     private void setupSearchView(Menu menu) {
         MenuItem item = menu.findItem(R.id.action_search);
         searchView.setMenuItem(item);
-
 
         // Adding padding to the animation because of the hidden menu item
         Point revealCenter = searchView.getRevealAnimationCenter();
