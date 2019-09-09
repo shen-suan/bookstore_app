@@ -58,17 +58,11 @@
                 <corners android:radius="8dp" />
             </shape>
         </item>
-        <item>
-            <shape>
-                <solid android:color="@color/colorGrey"/>
-                <corners android:radius="8dp"/>
-            </shape>
-        </item>
     </layer-list>
     <!--基本顏色-->
     <item>
         <shape>
-            <solid android:color="#877f6d"/>
+            <solid android:color="@color/gray_50"/>
             <corners android:radius="8dp"/>
         </shape>
     </item>

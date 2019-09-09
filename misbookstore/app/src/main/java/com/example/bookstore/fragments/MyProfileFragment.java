@@ -219,8 +219,8 @@ public class MyProfileFragment extends Fragment implements
 
     // choose gender
     private View.OnClickListener radioOnClickListener(final String dialogTitle,
-                                                       final String hint,
-                                                       final TextView textView) {
+                                                      final String hint,
+                                                      final TextView textView) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,8 +236,8 @@ public class MyProfileFragment extends Fragment implements
 
     // choose date
     private View.OnClickListener dateOnClickListener(final String dialogTitle,
-                                                       final String hint,
-                                                       final TextView textView) {
+                                                     final String hint,
+                                                     final TextView textView) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -253,8 +253,8 @@ public class MyProfileFragment extends Fragment implements
 
     // choose checkbox
     private View.OnClickListener checkboxOnClickListener(final String dialogTitle,
-                                                       final String hint,
-                                                       final TextView textView) {
+                                                         final String hint,
+                                                         final TextView textView) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
