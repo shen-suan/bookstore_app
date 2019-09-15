@@ -4,9 +4,10 @@ package com.example.bookstore.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,18 +15,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.bookstore.BookInfoActivity;
-import com.example.bookstore.BookInformation.LinearAdapter;
 import com.example.bookstore.BookInformation.ListData;
 import com.example.bookstore.R;
-import com.example.bookstore.ViewPagerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,14 +37,17 @@ import java.util.Collections;
  */
 public class HomepageFragment extends Fragment {
 
-
-    TextView mTextMessage;
-    ViewPager viewPager;
-    LinearLayout sliderDotspanel;
-    private int dotscount;
-    private ImageView[] dots;
+    private View v;
     //recycleview
     private RecyclerView home_new,home_search,home_hot,home_like,home_rank;
+    boolean isRunning = false;
+    private ViewPager viewPager;
+    private int[] imageResIds;
+    private ArrayList<ImageView> imageViewList;
+    private LinearLayout ll_point_container;
+    private int previousSelectedPosition = 0;
+    private Handler handler;
+
 
     public HomepageFragment() {
         // Required empty public constructor
@@ -56,7 +56,6 @@ public class HomepageFragment extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -64,8 +63,10 @@ public class HomepageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.activity_home_page, container, false);
-        View v=inflater.inflate(R.layout.activity_home_page, container, false);
+        v=inflater.inflate(R.layout.activity_home_page, container, false);
 
+        handler = new Handler();
+        handler.postDelayed(new TimerRunnable(),3000);
         // Recyclerview的設定
 //        ListData[] listData = {
 //                new ListData("沉默的遊行", 180, "11","t","t","t","t","t","t","t",0),
@@ -172,7 +173,7 @@ public class HomepageFragment extends Fragment {
             @Override
             public void onClick(int pos) {
 
-                ListData data = (ListData) listData.get(pos);
+                ListData data = listData.get(pos);
                 String isbn=data.getIsbn();
                 String book_name=data.getTitle();
                 int book_price = Integer.parseInt((data.getPrice()));
@@ -215,52 +216,13 @@ public class HomepageFragment extends Fragment {
       /*      }
         }));*/
 
-
-        mTextMessage = v.findViewById(R.id.message);
-        viewPager = v.findViewById(R.id.viewPager);
-        sliderDotspanel = v.findViewById(R.id .SliderDots);
-
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity());
-        viewPager.setAdapter(viewPagerAdapter);
-
-        dotscount = viewPagerAdapter.getCount();
-        dots = new ImageView[dotscount];
-
-        for(int i = 0; i < dotscount; i++){
-
-            dots[i] = new ImageView(getActivity());
-            dots[i].setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.nonactive_dot));
-
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-            params.setMargins(8,0 ,8 , 0);
-
-            sliderDotspanel.addView(dots[i], params);
-        }
-
-        dots[0].setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.active_dot));
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-                for(int i=0; i<dotscount; i++){
-                    dots[i].setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.nonactive_dot));
-                }
-
-                dots[position].setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.active_dot));
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        //自動輪播最新消息
+        // 初始化布局 View视图
+        initViews();
+        // Model数据
+        initData();
+        // Controller 控制器
+        initAdapter();
 
         return v;
     }
@@ -288,7 +250,146 @@ public class HomepageFragment extends Fragment {
             }
         }));
     }
+    //輪播
+    class TimerRunnable implements Runnable{
+        @Override
+        public void run() {
+            viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
+            if (handler!=null){
+                handler.postDelayed(this,4000);
+            }
+        }
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        isRunning = false;
+        handler = null;
+    }
+    private void initViews() {
+        viewPager = v.findViewById(R.id.viewPager);
+//      viewPager.setOffscreenPageLimit(1);// 左右各保留几个对象
+        ll_point_container = v.findViewById(R.id.SliderDots);
+    }
+    private void initData() {
+        // 初始化要显示的数据
+        // 图片资源id数组
+        imageResIds = new int[]{R.drawable.slide1, R.drawable.slide2, R.drawable.slide3};
+        // 初始化要展示的5个ImageView
+        imageViewList = new ArrayList<ImageView>();
+        LinearLayout.LayoutParams params;
+        for (int i = 0; i < imageResIds.length; i++) {
+            // 初始化要显示的图片对象
+            ImageView imageView = new ImageView(getActivity());
+            imageView.setBackgroundResource(imageResIds[i]);
+            imageViewList.add(imageView);
+            // 加小白点, 指示器
+            View pointView = new View(getActivity());
+//            if (i == 0) {
+//                pointView.setBackgroundResource(R.drawable.point_select);
+//            } else {
+//                pointView.setBackgroundResource(R.drawable.point_normal);
+//            }
+            pointView.setBackgroundResource(R.drawable.point_normal);
+            params = new LinearLayout.LayoutParams(15, 15);
+            if(i != 0)
+//            params.setMargins(8,8 ,8 , 8);
+            params.leftMargin = 30;
+            // 设置默认所有都不可用
+//            pointView.setEnabled(false);
+            ll_point_container.addView(pointView, params);
+        }
+    }
+    private void initAdapter() {
+//        ll_point_container.getChildAt(0).setEnabled(true);
+        ll_point_container.getChildAt(0).setBackgroundResource(R.drawable.point_select);
+        previousSelectedPosition = 0;
+        // 设置适配器
+        viewPager.setAdapter(new MyAdapter());
+        // 默认设置到中间的某个位置
+//        int pos = Integer.MAX_VALUE / 2 - (Integer.MAX_VALUE / 2 % imageViewList.size());
+        // 2147483647 / 2 = 1073741823 - (1073741823 % 5)
+        viewPager.setCurrentItem(1000*imageViewList.size()); // 设置到某个位置
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                // 新的条目被选中时调用
+                System.out.println("onPageSelected: " + position);
+                int newPosition = position % imageViewList.size();
+//      for (int i = 0; i < ll_point_container.getChildCount(); i++) {
+//          View childAt = ll_point_container.getChildAt(position);
+//          childAt.setEnabled(position == i);
+//      }
+                // 把之前的禁用, 把最新的启用, 更新指示器
+//                ll_point_container.getChildAt(previousSelectedPosition).setEnabled(false);
+//                ll_point_container.getChildAt(newPosition).setEnabled(true);
+//                for (int i = 0; i < imageViewList.size(); i++) {
+//                    if (position == i) {
+//                        imageViewList.get(i).setBackgroundResource(R.drawable.point_select);
+//                    } else {
+//                        imageViewList.get(i).setBackgroundResource(R.drawable.point_normal);
+//                    }
+//                }
+                ll_point_container.getChildAt(newPosition).setBackgroundResource(R.drawable.point_select);
+                ll_point_container.getChildAt(previousSelectedPosition).setBackgroundResource(R.drawable.point_normal);
+                // 记录之前的位置
+                previousSelectedPosition  = newPosition;
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+    class MyAdapter extends PagerAdapter{
+        @Override
+        public int getCount() {
+            return Integer.MAX_VALUE;
+        }
+        // 3. 指定复用的判断逻辑, 固定写法
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+//          System.out.println("isViewFromObject: "+(view == object));
+            // 当划到新的条目, 又返回来, view是否可以被复用.
+            // 返回判断规则
+            return view == object;
+        }
+        // 1. 返回要显示的条目内容, 创建条目
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            System.out.println("instantiateItem初始化: " + position);
+            // container: 容器: ViewPager
+            // position: 当前要显示条目的位置 0 -> 4
+//          newPosition = position % 5
+            int newPosition = position % imageViewList.size();
+            ImageView imageView = imageViewList.get(newPosition);
+            // a. 把View对象添加到container中
+            if (imageView != null) {
+                ViewGroup parentViewGroup = (ViewGroup) imageView.getParent();
+                if (parentViewGroup != null ) {
+                    parentViewGroup.removeView(imageView);
+                }
+            }
+            container.addView(imageView);
+            // b. 把View对象返回给框架, 适配器
+            return imageView; // 必须重写, 否则报异常
+        }
+        // 2. 销毁条目
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            // object 要销毁的对象
+            System.out.println("destroyItem销毁: " + position);
+//            container.removeView((View)object);
+        }
+    }
 
 }
 
@@ -402,3 +503,6 @@ class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder>{
         void onClick(int pos);
     }
 }
+
+
+

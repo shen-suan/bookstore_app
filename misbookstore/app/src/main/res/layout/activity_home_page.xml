@@ -36,16 +36,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="250dp" />
 
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/SliderDots"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@+id/viewPager"-->
+                    <!--android:layout_marginTop="-30dp"-->
+                    <!--android:gravity="center_vertical|center_horizontal"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--/>-->
+
                 <LinearLayout
                     android:id="@+id/SliderDots"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/viewPager"
-                    android:layout_marginTop="-30dp"
-                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="-5dp"
                     android:orientation="horizontal"
-                    />
-
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center_vertical|center_horizontal">
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/HomePage_frame"
@@ -53,7 +62,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical"
-                    android:layout_below="@id/SliderDots">
+                    android:layout_below="@id/viewPager">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
