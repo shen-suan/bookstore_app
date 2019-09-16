@@ -11,8 +11,7 @@
         android:id="@+id/hb_image"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/rbook_item1" />
+        android:layout_gravity="center" />
 
     <!--書籍名稱-->
     <TextView

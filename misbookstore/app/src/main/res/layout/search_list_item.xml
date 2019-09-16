@@ -37,17 +37,17 @@
             android:textSize="15sp"
             android:layout_toRightOf="@+id/sli_img"
             android:layout_below="@+id/sli_title"/>
+
         <CheckBox
             android:id="@+id/sl_like_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/sl_btn"
-            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="17dp"
             android:layout_marginBottom="10dp"
-            android:button="@drawable/bg_checkbox_like_f"
-            android:checked="true"/>
+            android:button="@drawable/bg_checkbox_like" />
 
         <Button
             android:id="@+id/sl_btn"

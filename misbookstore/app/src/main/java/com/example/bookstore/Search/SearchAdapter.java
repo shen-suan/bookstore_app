@@ -2,6 +2,7 @@ package com.example.bookstore.Search;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,8 +18,11 @@ import com.example.bookstore.BookInformation.ListData;
 import com.example.bookstore.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -52,39 +56,68 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchLine
                 .into(viewHolder.photo);
         viewHolder.title.setText(data.getTitle());
         viewHolder.price.setText("$ "+ data.getPrice());
+        DatabaseReference favorite_book = FirebaseDatabase.getInstance().getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/favorite_book/" + uid);
+        favorite_book.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                viewHolder.unlike.setChecked(false);
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    String isbn = ((ListData) listData.get(position)).getIsbn();
+                    if(isbn.equals(ds.getValue().toString())){
+                        viewHolder.unlike.setChecked(true);
+                        viewHolder.unlike.setEnabled(false);
+                    }
+                    //System.out.println("我的最愛: " + ds.getValue());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        viewHolder.unlike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String isbn = ((ListData) listData.get(position)).getIsbn();
+                DatabaseReference add = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid);
+                add.child(isbn).setValue(isbn);
+                Toast.makeText(mContext,"已加入我的最愛",Toast.LENGTH_LONG).show();
+                //System.out.println( bookInfo.getTitle() + "加入我的最愛");
+            }
+        });
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mlistener.onClick(position);
             }
         });
-        viewHolder.unlike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Toast.makeText(mContext,"刪除" + ((ListData) listData.get(position)).getTitle(),Toast.LENGTH_SHORT).show();
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("確定要從我的收藏中移除")
-                        .setIcon(R.drawable.alert)
-                        .setPositiveButton("確定", new DialogInterface.OnClickListener()
-                        {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                String isbn = ((ListData) listData.get(position)).getIsbn();
-                                System.out.println("選擇: " + isbn);
-                                DatabaseReference delete = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid).child(isbn);
-                                delete.removeValue();
-                                Toast.makeText(mContext,"已移除",Toast.LENGTH_SHORT).show();
-                                removeData(position);
-                                listData.clear();
-                            }
-                        })
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener()
-                        {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) { }
-                        }).show();
-            }
-        });
+//        viewHolder.unlike.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Toast.makeText(mContext,"刪除" + ((ListData) listData.get(position)).getTitle(),Toast.LENGTH_SHORT).show();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//                builder.setTitle("確定要從我的收藏中移除")
+//                        .setIcon(R.drawable.alert)
+//                        .setPositiveButton("確定", new DialogInterface.OnClickListener()
+//                        {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                String isbn = ((ListData) listData.get(position)).getIsbn();
+//                                System.out.println("選擇: " + isbn);
+//                                DatabaseReference delete = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid).child(isbn);
+//                                delete.removeValue();
+//                                Toast.makeText(mContext,"已移除",Toast.LENGTH_SHORT).show();
+//                                removeData(position);
+//                                listData.clear();
+//                            }
+//                        })
+//                        .setNegativeButton("取消", new DialogInterface.OnClickListener()
+//                        {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) { }
+//                        }).show();
+//            }
+//        });
     }
     //  删除数据
     public void removeData(int position) {

@@ -98,29 +98,20 @@ public class SearchFragment extends Fragment {
         ArrayList<ListData> listData = new ArrayList<>();
 //        listData.clear();
         //連資料庫
-        DatabaseReference ISBN_list = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid);
-        //抓ISBN
+        DatabaseReference ISBN_list = FirebaseDatabase.getInstance().getReference("book_info");
+        //抓書籍資訊
         ISBN_list.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listData.clear();
-                //根據ISBN抓書籍資訊
                 for (DataSnapshot ds : dataSnapshot.getChildren() ){
-                    DatabaseReference book_info = FirebaseDatabase.getInstance().getReference("book_info").child(ds.getValue().toString());
-                    book_info.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            ListData bookList = dataSnapshot.getValue(ListData.class);
-                            listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
-                                    bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
-                                    bookList.getClassification(), bookList.getIndex()));
-                            myCallback.onCallback(listData);
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Log.w("onCancelled",databaseError.toException());
-                        }
-                    });//end book_info ValueEventListener
+                    ListData bookList = ds.getValue(ListData.class);
+                    if(bookList.getTitle().indexOf(query) != -1){
+                        listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                                bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                                bookList.getClassification(), bookList.getIndex()));
+                    }
+                    myCallback.onCallback(listData);
                 }
             }
             @Override
