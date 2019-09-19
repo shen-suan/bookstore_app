@@ -21,9 +21,10 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,13 +32,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.bookstore.BookInformation.ListData;
 import com.google.ar.core.AugmentedImageDatabase;
 import com.google.ar.core.Config;
 import com.google.ar.core.Session;
 import com.google.ar.sceneform.samples.common.helpers.SnackbarHelper;
 import com.google.ar.sceneform.ux.ArFragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Extend the ArFragment to customize the ARCore session configuration to include Augmented Images.
@@ -48,9 +58,10 @@ public class AugmentedImageFragment extends ArFragment {
   // This is the name of the image in the sample database.  A copy of the image is in the assets
   // directory.  Opening this image on your computer is a good quick way to test the augmented image
   // matching.
-  private static final String DEFAULT_IMAGE_NAME = "blue4.jpg";
+  private static final String DEFAULT_IMAGE_NAME = "blue2.jpg";
   private static final String IMAGE_NAME_TEST1 = "blue2.jpg";
-  private static final String IMAGE_NAME_TEST2 = "blue1.jpg";
+  private static final String IMAGE_NAME_TEST2 = "blue2.jpg";
+  private ListData data;
 
   // This is a pre-created database containing the sample image.
   private static final String SAMPLE_IMAGE_DATABASE = "sample_database.imgdb";
@@ -84,6 +95,11 @@ public class AugmentedImageFragment extends ArFragment {
       SnackbarHelper.getInstance()
           .showError(getActivity(), "Sceneform requires OpenGL ES 3.0 or later");
     }
+    //強制網路連線，UI體驗可能會慢 搜尋android.os.NetworkOnMainThreadException改進
+    if (android.os.Build.VERSION.SDK_INT > 9) {
+      StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+      StrictMode.setThreadPolicy(policy);
+    }
   }
 
   @Override
@@ -95,26 +111,41 @@ public class AugmentedImageFragment extends ArFragment {
     getPlaneDiscoveryController().hide();
     getPlaneDiscoveryController().setInstructionView(null);
     getArSceneView().getPlaneRenderer().setEnabled(false);
+
     return view;
   }
 
   @Override
   protected Config getSessionConfiguration(Session session) {
     Config config = super.getSessionConfiguration(session);
-    if (!setupAugmentedImageDatabase(config, session)) {
-      SnackbarHelper.getInstance()
-          .showError(getActivity(), "Could not setup augmented image database");
-    }
-    return config;
+      try {
+          if (!setupAugmentedImageDatabase(config, session)) {
+            SnackbarHelper.getInstance()
+                .showError(getActivity(), "Could not setup augmented image database");
+          }
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+      return config;
   }
 
-  private boolean setupAugmentedImageDatabase(Config config, Session session) {
+
+
+
+  private boolean setupAugmentedImageDatabase(Config config, Session session) throws IOException {
+    System.out.println(config + "1===========================================================================");
+    readData(new MyCallback() {
+      @Override
+      public void onCallback(ArrayList value) throws IOException {
     AugmentedImageDatabase augmentedImageDatabase;
+//    augmentedImageDatabase = new AugmentedImageDatabase(session);//創建新的資料庫
+//    Bitmap augmentedImageBitmap = null;
+    ImageView imgView = null;
 
     AssetManager assetManager = getContext() != null ? getContext().getAssets() : null;
     if (assetManager == null) {
       Log.e(TAG, "Context is null, cannot intitialize image database.");
-      return false;
+      //return false;
     }
 
     // There are two ways to configure an AugmentedImageDatabase:
@@ -123,35 +154,86 @@ public class AugmentedImageFragment extends ArFragment {
     // Option 2) has
     // * shorter setup time
     // * doesn't require images to be packaged in apk.
+
+
+    //用於存放Firebase取回的資料，限定型態為ListData。
+    ArrayList<ListData> listData = new ArrayList<>();
+    //USE_SINGLE_IMAGE設TRUE才能加入圖片
     if (USE_SINGLE_IMAGE) {
-      //加入第一章圖片
-      Bitmap augmentedImageBitmap = loadAugmentedImageBitmap(assetManager, DEFAULT_IMAGE_NAME);
-      if (augmentedImageBitmap == null) {
-        return false;
-      }
       augmentedImageDatabase = new AugmentedImageDatabase(session);//創建新的資料庫
-      augmentedImageDatabase.addImage(DEFAULT_IMAGE_NAME, augmentedImageBitmap);
-      //augmentedImageDatabase.addImage(IMAGE_NAME_TEST1,augmentedImageBitmap);
-      // If the physical size of the image is known, you can instead use:
-      // augmentedImageDatabase.addImage("image_name", augmentedImageBitmap, widthInMeters);
-      // This will improve the initial detection speed. ARCore will still actively estimate the
-      // physical size of the image as it is viewed from multiple viewpoints.
+      Bitmap augmentedImageBitmap;
+//      for (int i = 0; i <= listData.size(); i ++){
+//        ListData data = (ListData) listData.get(i);
+//        String url = data.getUrl();
+//        URL imgUrl = new URL(url);
+//        //用http連線
+//        HttpURLConnection httpURLConnection = (HttpURLConnection) imgUrl.openConnection();
+//        httpURLConnection.connect();
+//        //轉成inputstream，跟下面function相同
+//        InputStream inputStream = httpURLConnection.getInputStream();
+//        int length = (int) httpURLConnection.getContentLength();
+//        int tmpLength = 512;
+//        int readLen = 0,desPos = 0;
+//        byte[] img = new byte[length];
+//        byte[] tmp = new byte[tmpLength];
+//        if (length != -1) {
+//          while ((readLen = inputStream.read(tmp)) > 0) {
+//            System.arraycopy(tmp, 0, img, desPos, readLen);
+//            desPos += readLen;
+//          }
+//          augmentedImageBitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+//          if(desPos != length){
+//            throw new IOException("Only read" + desPos +"bytes");
+//          }
+//        }
+//        if (augmentedImageBitmap == null) {
+//          return false;
+//        }
+//        augmentedImageDatabase.addImage("test", augmentedImageBitmap);
+//      }
 
-      //加入第二章圖片
-      augmentedImageBitmap = loadAugmentedImageBitmap(assetManager, IMAGE_NAME_TEST1);
-      if (augmentedImageBitmap == null) {
-        return false;
-      }
-      augmentedImageDatabase.addImage(IMAGE_NAME_TEST1, augmentedImageBitmap);
 
 
-      //加入第三章圖片
-      augmentedImageBitmap = loadAugmentedImageBitmap(assetManager, IMAGE_NAME_TEST2);
-      if (augmentedImageBitmap == null) {
-        return false;
-      }
-      augmentedImageDatabase.addImage(IMAGE_NAME_TEST2, augmentedImageBitmap);
 
+              for (int i = 0; i < value.size(); i++){
+                data = (ListData) value.get(i);
+                String url = data.getUrl();
+                String name = data.getIsbn();
+                System.out.println(url+"===========================================================================");
+                System.out.println(name+"===========================================================================");
+                InputStream is = new java.net.URL(url).openStream();
+                try {
+                  is = new URL(url).openStream();
+                  System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+                } catch (IOException e) {
+                  e.printStackTrace();
+                }
+                augmentedImageBitmap = BitmapFactory.decodeStream(is);
+                //augmentedImageDatabase.addImage(name + ".jpg", augmentedImageBitmap);
+              }
+
+              System.out.println("=================================================================================================================");
+              String url = "https://firebasestorage.googleapis.com/v0/b/unmanned-bookst.appspot.com/o/9780593072868.jpg?alt=media&token=02e0a54a-9b5d-49e3-b00e-aee640de06f7";
+              InputStream is = new java.net.URL(url).openStream();
+              augmentedImageBitmap = BitmapFactory.decodeStream(is);
+              augmentedImageDatabase.addImage("9780618243757.jpg", augmentedImageBitmap);
+
+              System.out.println("=================================================================================================================");
+              url = "https://firebasestorage.googleapis.com/v0/b/unmanned-bookst.appspot.com/o/9780618243757.jpg?alt=media&token=a703f5f2-34bb-4dd1-b6e3-f4cf35899819";
+              is = new java.net.URL(url).openStream();
+              String name  = "9780618243757";
+              augmentedImageBitmap = BitmapFactory.decodeStream(is);
+              augmentedImageDatabase.addImage(name + ".jpg", augmentedImageBitmap);
+
+              //config.setAugmentedImageDatabase(augmentedImageDatabase);
+
+
+//      //加入第一章圖片
+//      augmentedImageBitmap = loadAugmentedImageBitmap(assetManager, DEFAULT_IMAGE_NAME);
+//      if (augmentedImageBitmap == null) {
+//        return false;
+//      }
+//      //augmentedImageDatabase.addImage(DEFAULT_IMAGE_NAME, augmentedImageBitmap);
     } else {
       // This is an alternative way to initialize an AugmentedImageDatabase instance,
       // load a pre-existing augmented image database.
@@ -159,13 +241,16 @@ public class AugmentedImageFragment extends ArFragment {
         augmentedImageDatabase = AugmentedImageDatabase.deserialize(session, is);
       } catch (IOException e) {
         Log.e(TAG, "IO exception loading augmented image database.", e);
-        return false;
+        //return false;
       }
     }
-
     config.setAugmentedImageDatabase(augmentedImageDatabase);
+    System.out.println(config + "2===========================================================================");
+      }
+    });
     return true;
   }
+
 
   private Bitmap loadAugmentedImageBitmap(AssetManager assetManager, String image) {
     try (InputStream is = assetManager.open(image)) {
@@ -174,5 +259,36 @@ public class AugmentedImageFragment extends ArFragment {
       Log.e(TAG, "IO exception loading augmented image bitmap.", e);
     }
     return null;
+  }
+
+  public void readData(MyCallback myCallback) {
+    ArrayList<ListData> listData = new ArrayList<>();
+    listData.clear();
+    //連資料庫
+    DatabaseReference Book_list = FirebaseDatabase.getInstance().getReference("bookList");
+    Book_list.addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        for (DataSnapshot ds : dataSnapshot.getChildren() ){
+          ListData bookList = ds.getValue(ListData.class);
+          listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                  bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                  bookList.getClassification(), bookList.getIndex()));
+        }
+        try {
+          myCallback.onCallback(listData);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+
+      @Override
+      public void onCancelled(@NonNull DatabaseError databaseError) {
+        Log.w("onCancelled",databaseError.toException());
+      }
+    });
+  }
+  public interface MyCallback{
+    void onCallback(ArrayList value) throws IOException;
   }
 }

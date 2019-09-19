@@ -17,15 +17,11 @@
 package com.example.bookstore.arContent.augmentedimage;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
-import android.widget.ImageView;
 
 import com.example.bookstore.R;
 import com.google.ar.core.AugmentedImage;
-import com.google.ar.core.Frame;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Quaternion;
@@ -94,7 +90,7 @@ public class AugmentedImageNode extends AnchorNode {
     int imageindex = image.getIndex();
 
     //第一章圖片的index = 0
-    if (imageindex == 2){
+    if (imageindex == 0){
       // Upper left corner.
       localPosition.set(-0.5f * image.getExtentX(), 0.0f, -0.5f * image.getExtentZ());
       //cornerNode = new Node();
@@ -122,7 +118,57 @@ public class AugmentedImageNode extends AnchorNode {
     }
 
     //第三章圖片的index = 2
-    if (imageindex == 0 ){
+    if (imageindex == 2 ){
+      // Lower right corner.
+      localPosition.set(0.5f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
+      //cornerNode = new Node();
+      cornerNode.setParent(this);
+      cornerNode.setLocalPosition(localPosition);
+      cornerNode.setRenderable(view.getNow(null));
+
+      // Lower left corner.
+      localPosition.set(-0.5f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
+      //cornerNode = new Node();
+      cornerNode.setParent(this);
+      cornerNode.setLocalPosition(localPosition);
+      cornerNode.setRenderable(view.getNow(null));
+
+      localPosition.set(-0.2f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
+      //cornerNode = new Node();
+      cornerNode.setParent(this);
+      cornerNode.setLocalPosition(localPosition);
+      cornerNode.setLocalScale(new Vector3(image.getExtentZ() * 0.5f, image.getExtentZ() * 0.5f, image.getExtentX() * 0.5f));
+      cornerNode.setLocalRotation(Quaternion.axisAngle(new Vector3(-1f, 0, 0), 90f));
+      cornerNode.setRenderable(view.getNow(null));
+    }
+
+    //第三章圖片的index = 2
+    if (imageindex == 3 ){
+      // Lower right corner.
+      localPosition.set(0.5f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
+      //cornerNode = new Node();
+      cornerNode.setParent(this);
+      cornerNode.setLocalPosition(localPosition);
+      cornerNode.setRenderable(view.getNow(null));
+
+      // Lower left corner.
+      localPosition.set(-0.5f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
+      //cornerNode = new Node();
+      cornerNode.setParent(this);
+      cornerNode.setLocalPosition(localPosition);
+      cornerNode.setRenderable(view.getNow(null));
+
+      localPosition.set(-0.2f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
+      //cornerNode = new Node();
+      cornerNode.setParent(this);
+      cornerNode.setLocalPosition(localPosition);
+      cornerNode.setLocalScale(new Vector3(image.getExtentZ() * 0.5f, image.getExtentZ() * 0.5f, image.getExtentX() * 0.5f));
+      cornerNode.setLocalRotation(Quaternion.axisAngle(new Vector3(-1f, 0, 0), 90f));
+      cornerNode.setRenderable(view.getNow(null));
+    }
+
+    //第三章圖片的index = 2
+    if (imageindex == 4 ){
       // Lower right corner.
       localPosition.set(0.5f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
       //cornerNode = new Node();
