@@ -70,9 +70,11 @@ public class IntroActivity extends AppCompatActivity {
         //fill list screen
 
         List<ScreenItem> mList = new ArrayList<>();
-        mList.add(new ScreenItem("Fresh Food","LoremipsumLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit",R.drawable.img1));
-        mList.add(new ScreenItem("Fast Delivery","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit",R.drawable.img2));
-        mList.add(new ScreenItem("Easy Payment","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit",R.drawable.img3));
+        mList.add(new ScreenItem("與無人書店緊密連結","與書店同步更新，讓使用者任何時間都能獲取最新書籍資訊、當前活動消息、熱銷書籍排行榜及新進書榜",R.drawable.img1));
+        mList.add(new ScreenItem("輕鬆掌握書籍資訊","將手機相機鏡頭對準書籍封面，畫面會出現介紹，即可瀏覽相關資訊及評價",R.drawable.img2));
+        mList.add(new ScreenItem("您的24小時服務小幫手","擔心書店找不到客服詢問嗎?打開智慧語音助理，隨時隨地解決您的疑惑",R.drawable.img3));
+        mList.add(new ScreenItem("AR擴增實境導航","利用AR導航，幫助您在浩瀚的書海中快速地找到您所找尋的那本書",R.drawable.img4));
+        mList.add(new ScreenItem("享受吧,更加便捷的閱讀時代!",null ,R.drawable.img5));
 
 
         // setup viewpager
