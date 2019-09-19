@@ -62,6 +62,10 @@ public class HomepageFragment extends Fragment {
         void onCallback(ArrayList value);
     }
 
+    public interface TypeCallback{
+        void onCallback(String value);
+    }
+
     //最近搜尋
     public void readData(MyCallback myCallback) {
 
@@ -98,6 +102,22 @@ public class HomepageFragment extends Fragment {
                 Log.w("onCancelled",databaseError.toException());
             }
         });//end  ISBN_list ValueEventListener
+    }
+
+    //取的使用者喜歡書籍別
+    public void readType(TypeCallback myCallback){
+        DatabaseReference user_like= FirebaseDatabase.getInstance().getReference("user_profile").child(uid).child("books");
+        user_like.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String type = dataSnapshot.getValue().toString();
+                myCallback.onCallback(type);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void onCreate(Bundle savedInstanceState) {
@@ -175,22 +195,81 @@ public class HomepageFragment extends Fragment {
                 Log.w("onCancelled",databaseError.toException());
             }
         });
+
+
         //猜你喜歡
         //用於存放Firebase取回的資料，限定型態為ListData。
         ArrayList<ListData> listData_like = new ArrayList<>();
+        DatabaseReference Book_like1= FirebaseDatabase.getInstance().getReference("book_info");
+        Book_like1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                readType(new TypeCallback() {
+                    @Override
+                    public void onCallback(String value) {
+                        //System.out.println("類別: " + value);
+                        String[] tokens = value.split(" ");
+                        for(String a : tokens){
+                            int i = 0;
+                            for(DataSnapshot ds : dataSnapshot.getChildren()){
+                                ListData bookList = ds.getValue(ListData.class);
+                                if(bookList.getClassification().equals(a) && i<3 ){
+                                    listData_like.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                                            bookList.getClassification(), bookList.getIndex()));
+                                    i++;
+                                }
+                            }
+                        }
+                        home_like = v.findViewById(R.id.home_like);
+                        BookItem(home_like,listData_like);
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        //暢銷排行
+        ArrayList<ListData> listData_rank = new ArrayList<>();
         //連資料庫
-        DatabaseReference Book_like= FirebaseDatabase.getInstance().getReference("book_info");
-        Book_new.orderByChild("Price").limitToLast(10).addValueEventListener(new ValueEventListener() {
+        DatabaseReference Book_rank= FirebaseDatabase.getInstance().getReference("bookList_hot");
+        Book_rank.orderByChild("Price").limitToLast(10).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     ListData bookList = ds.getValue(ListData.class);
-                    listData_like.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                    //System.out.println("日期: " + bookList.getPublishDate());
+                    listData_rank.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
                             bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
                             bookList.getClassification(), bookList.getIndex()));
+
                 }
-                home_like = v.findViewById(R.id.home_like);
-                BookItem(home_like,listData_like);
+                Collections.reverse(listData_rank);
+                //首頁排行的recyclerview
+                home_rank = v.findViewById(R.id.home_rank);
+                home_rank.setLayoutManager(new LinearLayoutManager(getActivity()));
+                home_rank.setAdapter(new RankAdapter(getActivity(), listData_rank ,new RankAdapter.OnItemClickListener(){
+                    @Override
+                    public void onClick(int pos) {
+
+                        ListData data = listData_rank.get(pos);
+                        String isbn=data.getIsbn();
+                        String book_name=data.getTitle();
+                        int book_price = Integer.parseInt((data.getPrice()));
+                        Intent intent = new Intent(getActivity(), BookInfoActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("isbn",isbn);//傳遞String
+                        bundle.putString("title",book_name);
+                        bundle.putInt("price",book_price);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        //                Toast.makeText(getActivity(),"click..."+isbn,Toast.LENGTH_SHORT).show();
+                    }
+                }));
             }
 
             @Override
@@ -199,27 +278,7 @@ public class HomepageFragment extends Fragment {
             }
         });
 
-        //首頁排行的recyclerview
-        home_rank = v.findViewById(R.id.home_rank);
-        home_rank.setLayoutManager(new LinearLayoutManager(getActivity()));
-        home_rank.setAdapter(new RankAdapter(getActivity(), listData ,new RankAdapter.OnItemClickListener(){
-            @Override
-            public void onClick(int pos) {
 
-                ListData data = listData.get(pos);
-                String isbn=data.getIsbn();
-                String book_name=data.getTitle();
-                int book_price = Integer.parseInt((data.getPrice()));
-                Intent intent = new Intent(getActivity(), BookInfoActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("isbn",isbn);//傳遞String
-                bundle.putString("title",book_name);
-                bundle.putInt("price",book_price);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                //                Toast.makeText(getActivity(),"click..."+isbn,Toast.LENGTH_SHORT).show();
-            }
-        }));
 
         //home_new = v.findViewById(R.id.home_new);
 //        home_search = v.findViewById(R.id.home_search);
