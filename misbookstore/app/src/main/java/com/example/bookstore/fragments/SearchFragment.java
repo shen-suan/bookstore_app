@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class SearchFragment extends Fragment {
     private static final String QUERY_TAG = "query";
@@ -61,7 +62,7 @@ public class SearchFragment extends Fragment {
 //        ArrayList<ListData> listData = new ArrayList<>();
         //listData.add(new ListData("沉默的遊行",1,"44","t","t","t","t","t","t","t",0));
 
-        readData(new FavoriteFragment.MyCallback() {
+        readData(new MyCallback() {
             @Override
             public void onCallback(ArrayList value) {
                 sl_main = view.findViewById(R.id.sl_main);
@@ -94,9 +95,9 @@ public class SearchFragment extends Fragment {
 //
         return view;
     }
-    public void readData(FavoriteFragment.MyCallback myCallback) {
+    public void readData(MyCallback myCallback) {
         ArrayList<ListData> listData = new ArrayList<>();
-//        listData.clear();
+        listData.clear();
         //連資料庫
         DatabaseReference ISBN_list = FirebaseDatabase.getInstance().getReference("book_info");
         //抓書籍資訊
@@ -133,6 +134,28 @@ public class SearchFragment extends Fragment {
                 String isbn=data.getIsbn();
                 String book_name=data.getTitle();
                 String book_price=data.getPrice();
+                DatabaseReference add = FirebaseDatabase.getInstance().getReference("bookList_search").child(uid);
+                //取的當前時間
+                Date time = new Date();
+                add.child(isbn).setValue(time.toString());
+
+//                DatabaseReference add = FirebaseDatabase.getInstance().getReference("bookList_search").child(uid);
+//                add.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        boolean exit = false;
+//                        for(DataSnapshot ds : dataSnapshot.getChildren()){
+//                            //取的當前時間
+//                            Date time = new Date();
+//                            add.child(isbn).setValue(time.toString());
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
                 Intent intent = new Intent(getActivity(), BookInfoActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("isbn",isbn);//傳遞String

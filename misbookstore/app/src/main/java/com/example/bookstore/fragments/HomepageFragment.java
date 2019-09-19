@@ -23,6 +23,8 @@ import com.bumptech.glide.Glide;
 import com.example.bookstore.BookInfoActivity;
 import com.example.bookstore.BookInformation.ListData;
 import com.example.bookstore.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,11 +49,55 @@ public class HomepageFragment extends Fragment {
     private LinearLayout ll_point_container;
     private int previousSelectedPosition = 0;
     private Handler handler;
+    private FirebaseUser user;
+    private String uid;
 
 
     public HomepageFragment() {
         // Required empty public constructor
 
+    }
+
+    public interface MyCallback{
+        void onCallback(ArrayList value);
+    }
+
+    //最近搜尋
+    public void readData(MyCallback myCallback) {
+
+        ArrayList<ListData> listData = new ArrayList<>();
+        //連資料庫
+        DatabaseReference ISBN_list = FirebaseDatabase.getInstance().getReference("bookList_search").child(uid);
+        //抓ISBN
+        ISBN_list.orderByValue().limitToLast(10).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listData.clear();
+                //根據ISBN抓書籍資訊
+                for (DataSnapshot ds : dataSnapshot.getChildren() ){
+                    DatabaseReference book_info = FirebaseDatabase.getInstance().getReference("book_info").child(ds.getKey());
+                    book_info.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            ListData bookList = dataSnapshot.getValue(ListData.class);
+                            listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                                    bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                                    bookList.getClassification(), bookList.getIndex()));
+                            Collections.reverse(listData);
+                            myCallback.onCallback(listData);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.w("onCancelled",databaseError.toException());
+                        }
+                    });//end book_info ValueEventListener
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("onCancelled",databaseError.toException());
+            }
+        });//end  ISBN_list ValueEventListener
     }
 
     public void onCreate(Bundle savedInstanceState) {
@@ -67,11 +113,10 @@ public class HomepageFragment extends Fragment {
 
         handler = new Handler();
         handler.postDelayed(new TimerRunnable(),3000);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
+
         // Recyclerview的設定
-//        ListData[] listData = {
-//                new ListData("沉默的遊行", 180, "11","t","t","t","t","t","t","t",0),
-//
-//        };
         //新書排行
         //用於存放Firebase取回的資料，限定型態為ListData。
         ArrayList<ListData> listData = new ArrayList<>();
@@ -96,29 +141,17 @@ public class HomepageFragment extends Fragment {
                 Log.w("onCancelled",databaseError.toException());
             }
         });
+
         //最近搜尋
-        //用於存放Firebase取回的資料，限定型態為ListData。
-        ArrayList<ListData> listData_search = new ArrayList<>();
-        //連資料庫
-        DatabaseReference Book_search= FirebaseDatabase.getInstance().getReference("book_info");
-        Book_new.orderByChild("Price").limitToFirst(10).addValueEventListener(new ValueEventListener() {
+        readData(new MyCallback() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    ListData bookList = ds.getValue(ListData.class);
-                    listData_search.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
-                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
-                            bookList.getClassification(), bookList.getIndex()));
-                }
+            public void onCallback(ArrayList value) {
                 home_search = v.findViewById(R.id.home_search);
-                BookItem(home_search,listData_search);
+                BookItem(home_search,value);
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w("onCancelled",databaseError.toException());
-            }
         });
+
         //熱門書籍
         ArrayList<ListData> listData_hot = new ArrayList<>();
         //連資料庫
