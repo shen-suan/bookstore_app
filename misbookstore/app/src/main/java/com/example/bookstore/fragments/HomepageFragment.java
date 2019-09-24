@@ -51,6 +51,8 @@ public class HomepageFragment extends Fragment {
     private Handler handler;
     private FirebaseUser user;
     private String uid;
+    private boolean search = false;
+    private boolean like = false;
 
 
     public HomepageFragment() {
@@ -68,7 +70,6 @@ public class HomepageFragment extends Fragment {
 
     //最近搜尋
     public void readData(MyCallback myCallback) {
-
         ArrayList<ListData> listData = new ArrayList<>();
         //連資料庫
         DatabaseReference ISBN_list = FirebaseDatabase.getInstance().getReference("bookList_search").child(uid);
@@ -136,7 +137,7 @@ public class HomepageFragment extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
 
-        // Recyclerview的設定
+
         //新書排行
         //用於存放Firebase取回的資料，限定型態為ListData。
         ArrayList<ListData> listData = new ArrayList<>();
@@ -163,14 +164,56 @@ public class HomepageFragment extends Fragment {
         });
 
         //最近搜尋
-        readData(new MyCallback() {
+        DatabaseReference search_uid = FirebaseDatabase.getInstance().getReference("bookList_search");
+        search_uid.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onCallback(ArrayList value) {
-                home_search = v.findViewById(R.id.home_search);
-                BookItem(home_search,value);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    if(ds.getKey() == uid){
+                        search = true;
+                    }else {
+                        search = false;
+                    }
+                }
+                if(search){
+                    System.out.println("有最近搜尋____________________________________________");
+                    readData(new MyCallback() {
+                        @Override
+                        public void onCallback(ArrayList value) {
+                            home_search = v.findViewById(R.id.home_search);
+                            BookItem(home_search,value);
+                        }
+                    });
+                }else {
+                    System.out.println("沒有最近搜尋____________________________________________");
+                    ArrayList<ListData> listData_search = new ArrayList<>();
+                    DatabaseReference Book_search= FirebaseDatabase.getInstance().getReference("book_info");
+                    Book_search.orderByChild("Price").limitToLast(10).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot ds : dataSnapshot.getChildren()){
+                                ListData bookList = ds.getValue(ListData.class);
+                                //System.out.println("日期: " + bookList.getPublishDate());
+                                listData_search.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                                        bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                                        bookList.getClassification(), bookList.getIndex()));
+                            }
+                            Collections.reverse(listData_search);
+                            home_search = v.findViewById(R.id.home_search);
+                            BookItem(home_search,listData_search);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.w("onCancelled",databaseError.toException());
+                        }
+                    });
+                }
             }
-
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
         });
+
 
         //熱門書籍
         ArrayList<ListData> listData_hot = new ArrayList<>();
@@ -198,35 +241,68 @@ public class HomepageFragment extends Fragment {
 
 
         //猜你喜歡
-        //用於存放Firebase取回的資料，限定型態為ListData。
         ArrayList<ListData> listData_like = new ArrayList<>();
-        DatabaseReference Book_like1= FirebaseDatabase.getInstance().getReference("book_info");
-        Book_like1.addValueEventListener(new ValueEventListener() {
+        DatabaseReference user_like= FirebaseDatabase.getInstance().getReference("user_profile").child(uid).child("books");
+        user_like.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                readType(new TypeCallback() {
-                    @Override
-                    public void onCallback(String value) {
-                        //System.out.println("類別: " + value);
-                        String[] tokens = value.split(" ");
-                        for(String a : tokens){
-                            int i = 0;
-                            for(DataSnapshot ds : dataSnapshot.getChildren()){
-                                ListData bookList = ds.getValue(ListData.class);
-                                if(bookList.getClassification().equals(a) && i<3 ){
-                                    listData_like.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
-                                            bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
-                                            bookList.getClassification(), bookList.getIndex()));
-                                    i++;
+                listData_like.clear();
+                String type = dataSnapshot.getValue().toString();
+                if(type.equals("尚未選擇")){
+                    like = false;
+                }else {
+                    like = true;
+                }
+                System.out.println("like -----------------------------------------------------------" + like);
+                if(like){
+                    DatabaseReference Book_like1= FirebaseDatabase.getInstance().getReference("book_info");
+                    Book_like1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String[] tokens = type.split(" ");
+                            for(String a : tokens){
+                                int i = 0;
+                                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                                    ListData bookList = ds.getValue(ListData.class);
+                                    if(bookList.getClassification().equals(a) && i<3 ){
+                                        listData_like.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                                                bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                                                bookList.getClassification(), bookList.getIndex()));
+                                        i++;
+                                    }
                                 }
                             }
+                            home_like = v.findViewById(R.id.home_like);
+                            BookItem(home_like,listData_like);
                         }
-                        home_like = v.findViewById(R.id.home_like);
-                        BookItem(home_like,listData_like);
-                    }
-                });
-            }
 
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }else {
+                    DatabaseReference Book_search= FirebaseDatabase.getInstance().getReference("book_info");
+                    Book_search.orderByChild("Price").limitToFirst(10).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot ds : dataSnapshot.getChildren()){
+                                ListData bookList = ds.getValue(ListData.class);
+                                listData_like.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                                        bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                                        bookList.getClassification(), bookList.getIndex()));
+                            }
+                            home_like = v.findViewById(R.id.home_like);
+                            BookItem(home_like,listData_like);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.w("onCancelled",databaseError.toException());
+                        }
+                    });
+                }
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

@@ -91,33 +91,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchLine
                 mlistener.onClick(position);
             }
         });
-//        viewHolder.unlike.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Toast.makeText(mContext,"刪除" + ((ListData) listData.get(position)).getTitle(),Toast.LENGTH_SHORT).show();
-//                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-//                builder.setTitle("確定要從我的收藏中移除")
-//                        .setIcon(R.drawable.alert)
-//                        .setPositiveButton("確定", new DialogInterface.OnClickListener()
-//                        {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                String isbn = ((ListData) listData.get(position)).getIsbn();
-//                                System.out.println("選擇: " + isbn);
-//                                DatabaseReference delete = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid).child(isbn);
-//                                delete.removeValue();
-//                                Toast.makeText(mContext,"已移除",Toast.LENGTH_SHORT).show();
-//                                removeData(position);
-//                                listData.clear();
-//                            }
-//                        })
-//                        .setNegativeButton("取消", new DialogInterface.OnClickListener()
-//                        {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) { }
-//                        }).show();
-//            }
-//        });
     }
     //  删除数据
     public void removeData(int position) {

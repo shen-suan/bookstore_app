@@ -12,6 +12,16 @@
         android:orientation="vertical"
         android:layout_marginTop="60dp">
 
+
+        <TextView
+            android:id="@+id/Search_Result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="搜尋關鍵字： 無                    搜尋結果：0"
+            android:textSize="18sp" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">

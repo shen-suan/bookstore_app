@@ -67,32 +67,13 @@ public class SearchFragment extends Fragment {
             public void onCallback(ArrayList value) {
                 sl_main = view.findViewById(R.id.sl_main);
                 sl_main.setLayoutManager(new LinearLayoutManager(getActivity()));
+                TextView search_result = view.findViewById(R.id.Search_Result);
+                search_result.setText("搜尋關鍵字：" + query + "                    搜尋結果：" + value.size());
                 Bookrecyclerview(value);
             }
 
         });
 
-
-
-//        fl_main = view.findViewById(R.id.fl_main);
-//        fl_main.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        fl_main.setAdapter(new FavBookAdapter(getActivity(), listData ,new FavBookAdapter.OnItemClickListener() {
-//            @Override
-//            public void onClick(int pos) {
-//                String isbn=listData.get(pos).getIsbn();
-//                String book_name=listData.get(pos).getTitle();
-//                int book_price=listData.get(pos).getPrice();
-//                Intent intent = new Intent(getActivity(), BookInfoActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putString("isbn",isbn);//傳遞String
-//                bundle.putString("title",book_name);
-//                bundle.putInt("price",book_price);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-////                Toast.makeText(getActivity(),"click..."+pos,Toast.LENGTH_SHORT).show();
-//            }
-//        }));
-//
         return view;
     }
     public void readData(MyCallback myCallback) {
@@ -139,23 +120,6 @@ public class SearchFragment extends Fragment {
                 Date time = new Date();
                 add.child(isbn).setValue(time.toString());
 
-//                DatabaseReference add = FirebaseDatabase.getInstance().getReference("bookList_search").child(uid);
-//                add.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        boolean exit = false;
-//                        for(DataSnapshot ds : dataSnapshot.getChildren()){
-//                            //取的當前時間
-//                            Date time = new Date();
-//                            add.child(isbn).setValue(time.toString());
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
                 Intent intent = new Intent(getActivity(), BookInfoActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("isbn",isbn);//傳遞String
