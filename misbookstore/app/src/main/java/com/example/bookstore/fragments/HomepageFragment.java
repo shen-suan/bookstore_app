@@ -15,9 +15,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.bookstore.BookInfoActivity;
@@ -66,6 +68,33 @@ public class HomepageFragment extends Fragment {
 
     public interface TypeCallback{
         void onCallback(String value);
+    }
+
+    public interface UidCallback{
+        void onCallback(boolean value);
+    }
+
+    public void readUid(UidCallback myCallback){
+        DatabaseReference search_uid = FirebaseDatabase.getInstance().getReference("bookList_search");
+        search_uid.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean search = false;
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    String UID = ds.getKey().toString();
+                    if(UID.equals(uid)){
+                        search = true;
+                    }
+
+                }
+                myCallback.onCallback(search);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     //最近搜尋
@@ -164,18 +193,11 @@ public class HomepageFragment extends Fragment {
         });
 
         //最近搜尋
-        DatabaseReference search_uid = FirebaseDatabase.getInstance().getReference("bookList_search");
-        search_uid.addValueEventListener(new ValueEventListener() {
+        readUid(new UidCallback() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    if(ds.getKey() == uid){
-                        search = true;
-                    }else {
-                        search = false;
-                    }
-                }
-                if(search){
+            public void onCallback(boolean value) {
+//                System.out.println("最近搜尋________________________________________________: " + value);
+                if(value){
                     System.out.println("有最近搜尋____________________________________________");
                     readData(new MyCallback() {
                         @Override
@@ -208,12 +230,9 @@ public class HomepageFragment extends Fragment {
                         }
                     });
                 }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
-
 
         //熱門書籍
         ArrayList<ListData> listData_hot = new ArrayList<>();
@@ -272,6 +291,7 @@ public class HomepageFragment extends Fragment {
                                     }
                                 }
                             }
+                            Collections.shuffle(listData_like);
                             home_like = v.findViewById(R.id.home_like);
                             BookItem(home_like,listData_like);
                         }
@@ -380,7 +400,7 @@ public class HomepageFragment extends Fragment {
                 bundle.putInt("price",book_price);
                 intent.putExtras(bundle);
                 startActivity(intent);*/
-    //                Toast.makeText(getActivity(),"click..."+isbn,Toast.LENGTH_SHORT).show();
+        //                Toast.makeText(getActivity(),"click..."+isbn,Toast.LENGTH_SHORT).show();
       /*      }
         }));*/
 
@@ -463,7 +483,7 @@ public class HomepageFragment extends Fragment {
             params = new LinearLayout.LayoutParams(15, 15);
             if(i != 0)
 //            params.setMargins(8,8 ,8 , 8);
-            params.leftMargin = 30;
+                params.leftMargin = 30;
             // 设置默认所有都不可用
 //            pointView.setEnabled(false);
             ll_point_container.addView(pointView, params);
@@ -621,11 +641,15 @@ class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder>{
     private ListData data;
     private Context rContext;
     private RankAdapter.OnItemClickListener rlistener;
+    private FirebaseUser user;
+    private String uid;
 
     public RankAdapter(Context context, ArrayList list, RankAdapter.OnItemClickListener listener){
         this.rContext = context;
         this.listData = list;
         this.rlistener = listener;
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
     }
 
     public RankViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -641,6 +665,35 @@ class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder>{
         viewHolder.title.setText(data.getTitle());
         viewHolder.price.setText("$ "+data.getPrice());
         viewHolder.rank.setText(Integer.toString(position+1));
+        DatabaseReference favorite_book = FirebaseDatabase.getInstance().getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/favorite_book/" + uid);
+        favorite_book.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                viewHolder.unlike.setChecked(false);
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    String isbn = ((ListData) listData.get(position)).getIsbn();
+                    if(isbn.equals(ds.getValue().toString())){
+                        viewHolder.unlike.setChecked(true);
+                        viewHolder.unlike.setEnabled(false);
+                    }
+                    //System.out.println("我的最愛: " + ds.getValue());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        viewHolder.unlike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String isbn = ((ListData) listData.get(position)).getIsbn();
+                DatabaseReference add = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid);
+                add.child(isbn).setValue(isbn);
+                Toast.makeText(rContext,"已加入我的最愛",Toast.LENGTH_LONG).show();
+                //System.out.println( bookInfo.getTitle() + "加入我的最愛");
+            }
+        });
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -656,7 +709,9 @@ class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder>{
     class RankViewHolder extends RecyclerView.ViewHolder{
 
         private TextView title,price,rank;
+        private CheckBox unlike;
         private ImageView photo;
+
 
         public RankViewHolder(View itemView){
             super(itemView);
@@ -664,6 +719,7 @@ class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder>{
             price = itemView.findViewById(R.id.hbr_price);
             photo = itemView.findViewById(R.id.hbr_img);
             rank = itemView.findViewById(R.id.hbr_rank);
+            unlike = itemView.findViewById(R.id.hbr_checkbox);
         }
     }
 
@@ -671,6 +727,3 @@ class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder>{
         void onClick(int pos);
     }
 }
-
-
-
