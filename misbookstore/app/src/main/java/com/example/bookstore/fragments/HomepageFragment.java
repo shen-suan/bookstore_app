@@ -15,9 +15,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.bookstore.BookInfoActivity;
@@ -621,11 +623,15 @@ class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder>{
     private ListData data;
     private Context rContext;
     private RankAdapter.OnItemClickListener rlistener;
+    private FirebaseUser user;
+    private String uid;
 
     public RankAdapter(Context context, ArrayList list, RankAdapter.OnItemClickListener listener){
         this.rContext = context;
         this.listData = list;
         this.rlistener = listener;
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
     }
 
     public RankViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -641,6 +647,35 @@ class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder>{
         viewHolder.title.setText(data.getTitle());
         viewHolder.price.setText("$ "+data.getPrice());
         viewHolder.rank.setText(Integer.toString(position+1));
+        DatabaseReference favorite_book = FirebaseDatabase.getInstance().getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/favorite_book/" + uid);
+        favorite_book.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                viewHolder.unlike.setChecked(false);
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    String isbn = ((ListData) listData.get(position)).getIsbn();
+                    if(isbn.equals(ds.getValue().toString())){
+                        viewHolder.unlike.setChecked(true);
+                        viewHolder.unlike.setEnabled(false);
+                    }
+                    //System.out.println("我的最愛: " + ds.getValue());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        viewHolder.unlike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String isbn = ((ListData) listData.get(position)).getIsbn();
+                DatabaseReference add = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid);
+                add.child(isbn).setValue(isbn);
+                Toast.makeText(rContext,"已加入我的最愛",Toast.LENGTH_LONG).show();
+                //System.out.println( bookInfo.getTitle() + "加入我的最愛");
+            }
+        });
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -656,7 +691,9 @@ class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder>{
     class RankViewHolder extends RecyclerView.ViewHolder{
 
         private TextView title,price,rank;
+        private CheckBox unlike;
         private ImageView photo;
+
 
         public RankViewHolder(View itemView){
             super(itemView);
@@ -664,6 +701,7 @@ class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder>{
             price = itemView.findViewById(R.id.hbr_price);
             photo = itemView.findViewById(R.id.hbr_img);
             rank = itemView.findViewById(R.id.hbr_rank);
+            unlike = itemView.findViewById(R.id.hbr_checkbox);
         }
     }
 
