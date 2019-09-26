@@ -70,6 +70,33 @@ public class HomepageFragment extends Fragment {
         void onCallback(String value);
     }
 
+    public interface UidCallback{
+        void onCallback(boolean value);
+    }
+
+    public void readUid(UidCallback myCallback){
+        DatabaseReference search_uid = FirebaseDatabase.getInstance().getReference("bookList_search");
+        search_uid.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean search = false;
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    String UID = ds.getKey().toString();
+                    if(UID.equals(uid)){
+                        search = true;
+                    }
+
+                }
+                myCallback.onCallback(search);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     //最近搜尋
     public void readData(MyCallback myCallback) {
         ArrayList<ListData> listData = new ArrayList<>();
@@ -166,18 +193,11 @@ public class HomepageFragment extends Fragment {
         });
 
         //最近搜尋
-        DatabaseReference search_uid = FirebaseDatabase.getInstance().getReference("bookList_search");
-        search_uid.addValueEventListener(new ValueEventListener() {
+        readUid(new UidCallback() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    if(ds.getKey() == uid){
-                        search = true;
-                    }else {
-                        search = false;
-                    }
-                }
-                if(search){
+            public void onCallback(boolean value) {
+//                System.out.println("最近搜尋________________________________________________: " + value);
+                if(value){
                     System.out.println("有最近搜尋____________________________________________");
                     readData(new MyCallback() {
                         @Override
@@ -210,12 +230,9 @@ public class HomepageFragment extends Fragment {
                         }
                     });
                 }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
-
 
         //熱門書籍
         ArrayList<ListData> listData_hot = new ArrayList<>();
@@ -274,6 +291,7 @@ public class HomepageFragment extends Fragment {
                                     }
                                 }
                             }
+                            Collections.shuffle(listData_like);
                             home_like = v.findViewById(R.id.home_like);
                             BookItem(home_like,listData_like);
                         }
