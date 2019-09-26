@@ -380,7 +380,7 @@ public class HomepageFragment extends Fragment {
                 bundle.putInt("price",book_price);
                 intent.putExtras(bundle);
                 startActivity(intent);*/
-    //                Toast.makeText(getActivity(),"click..."+isbn,Toast.LENGTH_SHORT).show();
+        //                Toast.makeText(getActivity(),"click..."+isbn,Toast.LENGTH_SHORT).show();
       /*      }
         }));*/
 
@@ -463,7 +463,7 @@ public class HomepageFragment extends Fragment {
             params = new LinearLayout.LayoutParams(15, 15);
             if(i != 0)
 //            params.setMargins(8,8 ,8 , 8);
-            params.leftMargin = 30;
+                params.leftMargin = 30;
             // 设置默认所有都不可用
 //            pointView.setEnabled(false);
             ll_point_container.addView(pointView, params);
@@ -671,6 +671,3 @@ class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder>{
         void onClick(int pos);
     }
 }
-
-
-

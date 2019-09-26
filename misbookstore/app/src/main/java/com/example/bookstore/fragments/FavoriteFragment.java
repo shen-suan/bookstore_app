@@ -58,46 +58,53 @@ public class FavoriteFragment extends Fragment {
 //        ArrayList<ListData> listData = new ArrayList<>();
         //listData.add(new ListData("沉默的遊行",1,"44","t","t","t","t","t","t","t",0));
 
-        readData(new MyCallback() {
+        readUid(new UidCallback() {
             @Override
-            public void onCallback(ArrayList value) {
-                fl_main = view.findViewById(R.id.fl_main);
-                fl_main.setLayoutManager(new LinearLayoutManager(getActivity()));
-                Bookrecyclerview(value);
+            public void onCallback(boolean value) {
+                System.out.println("value____________________________________________ : " + value);
+                if(value){
+                    ff_empty = view.findViewById(R.id.ff_empty);
+                    ff_empty.setVisibility(View.GONE);
+                    readData(new MyCallback() {
+                        @Override
+                        public void onCallback(ArrayList value) {
+                            fl_main = view.findViewById(R.id.fl_main);
+                            fl_main.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            Bookrecyclerview(value);
+                        }
+
+                    });
+                }else{
+                    ff_empty = view.findViewById(R.id.ff_empty);
+                    ff_empty.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        return view;
+    }
+    public void readUid(UidCallback myCallback){
+        DatabaseReference search_uid = FirebaseDatabase.getInstance().getReference("favorite_book");
+        search_uid.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean search = false;
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    String UID = ds.getKey().toString();
+                    if(UID.equals(uid)){
+                        search = true;
+                    }
+
+                }
+                System.out.println("我的最愛搜尋____________________________________________ : " + search);
+                myCallback.onCallback(search);
             }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
         });
-      /*  ff_empty = view.findViewById(R.id.ff_empty);
-        System.out.println(listData.size());
-        if (listData.size() == 0){
-            System.out.println("空的");
-            ff_empty.setVisibility(View.VISIBLE);
-        }else{
-            ff_empty.setVisibility(View.GONE);
-        }*/
-
-
-
-//        fl_main = view.findViewById(R.id.fl_main);
-//        fl_main.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        fl_main.setAdapter(new FavBookAdapter(getActivity(), listData ,new FavBookAdapter.OnItemClickListener() {
-//            @Override
-//            public void onClick(int pos) {
-//                String isbn=listData.get(pos).getIsbn();
-//                String book_name=listData.get(pos).getTitle();
-//                int book_price=listData.get(pos).getPrice();
-//                Intent intent = new Intent(getActivity(), BookInfoActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putString("isbn",isbn);//傳遞String
-//                bundle.putString("title",book_name);
-//                bundle.putInt("price",book_price);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-////                Toast.makeText(getActivity(),"click..."+pos,Toast.LENGTH_SHORT).show();
-//            }
-//        }));
-//
-        return view;
     }
     public void readData(MyCallback myCallback) {
 
@@ -130,12 +137,6 @@ public class FavoriteFragment extends Fragment {
                     });//end book_info ValueEventListener
                     count++;
                 }
-                ff_empty = getActivity().findViewById(R.id.ff_empty);
-                if(count>0){
-                    ff_empty.setVisibility(View.GONE);
-                }else if (count == 0){
-                    ff_empty.setVisibility(View.VISIBLE);
-                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -146,6 +147,10 @@ public class FavoriteFragment extends Fragment {
 
     public interface MyCallback{
         void onCallback(ArrayList value);
+    }
+
+    public interface UidCallback{
+        void onCallback(boolean value);
     }
 
     public void Bookrecyclerview (ArrayList listdata) {

@@ -60,15 +60,17 @@
             android:text="250元"
             android:layout_toRightOf="@+id/hbr_img"
             android:layout_below="@+id/hbr_title"/>
+
         <CheckBox
+            android:id="@+id/hbr_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/hbr_btn"
-            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="17dp"
             android:layout_marginBottom="10dp"
-            android:button="@drawable/bg_checkbox_like"/>
+            android:button="@drawable/bg_checkbox_like" />
 
         <Button
             android:id="@+id/hbr_btn"
