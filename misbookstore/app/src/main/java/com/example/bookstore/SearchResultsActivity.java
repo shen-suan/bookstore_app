@@ -49,7 +49,6 @@ public class SearchResultsActivity extends AppCompatActivity {
         SearchFragment searchFragment = (SearchFragment) fragmentManager.findFragmentByTag(KEY_SEARCH_FRAGMENT);
 
         if (searchFragment == null) {
-            System.out.println(query+"9999");
             searchFragment = SearchFragment.newInstance(query);
 
             fragmentManager.beginTransaction()
@@ -71,7 +70,10 @@ public class SearchResultsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                Intent intent = new Intent( this,BottomNavActivity.class);
+                intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                startActivity(intent);
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -44,7 +44,7 @@ public class BottomNavActivity extends AppCompatActivity {
     private ActivityBottomNavBinding bind;
     private VpAdapter adapter;
     public static final int EXTRA_REVEAL_CENTER_PADDING = 40;
-    private SimpleSearchView searchView;
+    private SimpleSearchView searchView=null;
 
     // collections
     private List<Fragment> fragments;// used for ViewPager adapter
@@ -62,7 +62,11 @@ public class BottomNavActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         searchView = findViewById(R.id.searchView);
+        searchView.setQuery("", false);
+        searchView.clearFocus();
         // perform set on query text listener event
         searchView.setOnQueryTextListener(new SimpleSearchView.OnQueryTextListener() {
             @Override
@@ -80,13 +84,12 @@ public class BottomNavActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextCleared() {
                 Log.d("SimpleSearchView", "Text cleared");
-                return false;
+                return true;
             }
         });
 
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -102,10 +105,6 @@ public class BottomNavActivity extends AppCompatActivity {
         ComponentName componentName = new ComponentName(this, SearchResultsActivity.class);
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(componentName));
-
-//        searchView.onActionViewCollapsed();
-//        searchView.setQuery("", false);
-//        searchView.clearFocus();
 
         return true;
     }

@@ -79,6 +79,7 @@ public class BookInfoFragment extends Fragment {
         TextView book_publisher = view.findViewById(R.id.bi_book_publisher);
         TextView book_publishdate = view.findViewById(R.id.bi_book_publishdate);
         TextView book_content_info  = view.findViewById(R.id.bi_content_info);
+        TextView book_type = view.findViewById(R.id.bi_book_type);
         CheckBox book_like_btn = view.findViewById(R.id.bi_like_btn);
         if (getArguments() != null) {
             isbn = getArguments().getString(ISBN_TAG);
@@ -109,6 +110,7 @@ public class BookInfoFragment extends Fragment {
                 book_publisher.setText(bookInfo.getPublisher());
                 book_publishdate.setText(bookInfo.getPublishDate());
                 book_content_info.setText(bookInfo.getOutline());
+                book_type.setText(bookInfo.getClassification());
                 //預先載入書籤
                 DatabaseReference fav = FirebaseDatabase.getInstance().getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/favorite_book/" + uid);
                 fav.addValueEventListener(new ValueEventListener() {

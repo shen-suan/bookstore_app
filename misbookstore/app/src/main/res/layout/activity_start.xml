@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/start_bg"
     tools:context=".startActivity">
 
 
@@ -22,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="MIS BookStore"
-        android:textColor="#A42D00"
+        android:textColor="@color/colorPrimary"
         android:textSize="25sp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/imageView_start"
