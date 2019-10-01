@@ -81,7 +81,9 @@ public class FavBookAdapter extends RecyclerView.Adapter<FavBookAdapter.FavLinea
                         .setNegativeButton("取消", new DialogInterface.OnClickListener()
                         {
                             @Override
-                            public void onClick(DialogInterface dialogInterface, int i) { }
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                viewHolder.unlike.setChecked(true);
+                            }
                         }).show();
             }
         });
