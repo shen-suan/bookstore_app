@@ -119,8 +119,29 @@ public class BookInfoFragment extends Fragment {
                         for (DataSnapshot ds :dataSnapshot.getChildren()){
                             if(isbn.equals(ds.getValue())){
                                 book_like_btn.setChecked(true);
-                                book_like_btn.setEnabled(false);
+                                //book_like_btn.setEnabled(false);
                             }
+                        }
+                        if(book_like_btn.isChecked()){
+                            book_like_btn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    DatabaseReference delete = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid).child(isbn);
+                                    delete.removeValue();
+                                    Toast.makeText(getContext(),"已移除",Toast.LENGTH_LONG).show();
+                                    book_like_btn.setChecked(false);
+                                }
+                            });
+                        }else {
+                            book_like_btn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    DatabaseReference add = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid);
+                                    add.child(isbn).setValue(isbn);
+                                    Toast.makeText(getContext(),"已加入我的最愛",Toast.LENGTH_LONG).show();
+                                    //System.out.println( bookInfo.getTitle() + "加入我的最愛");
+                                }
+                            });
                         }
                     }
 
@@ -129,6 +150,7 @@ public class BookInfoFragment extends Fragment {
 
                     }
                 });
+
                 //加入我的最愛資料庫
                 book_like_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
