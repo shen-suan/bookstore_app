@@ -68,36 +68,40 @@ public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.LinearView
                     String isbn = ((ListData) listData.get(position)).getIsbn();
                     if(isbn.equals(ds.getValue().toString())){
                         viewHolder.favorite.setChecked(true);
-                        viewHolder.favorite.setEnabled(false);
+                        //viewHolder.favorite.setEnabled(false);
                     }
-                    //System.out.println("我的最愛: " + ds.getValue());
+                }
+                if(viewHolder.favorite.isChecked()){
+                    viewHolder.favorite.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String isbn = ((ListData) listData.get(position)).getIsbn();
+                            DatabaseReference delete = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid).child(isbn);
+                            delete.removeValue();
+                            Toast.makeText(mContext,"已移除",Toast.LENGTH_LONG).show();
+                            viewHolder.favorite.setChecked(false);
+
+                        }
+                    });
+                }else {
+                    viewHolder.favorite.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String isbn = ((ListData) listData.get(position)).getIsbn();
+                            DatabaseReference add = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid);
+                            add.child(isbn).setValue(isbn);
+                            Toast.makeText(mContext,"已加入我的最愛",Toast.LENGTH_LONG).show();
+                            viewHolder.favorite.setChecked(true);
+
+                        }
+                    });
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-        viewHolder.favorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String isbn = ((ListData) listData.get(position)).getIsbn();
-                DatabaseReference add = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid);
-                add.child(isbn).setValue(isbn);
-                Toast.makeText(mContext,"已加入我的最愛",Toast.LENGTH_LONG).show();
-                //System.out.println( bookInfo.getTitle() + "加入我的最愛");
-            }
-        });
-        //viewHolder.title.setText(listData[position].getTitle());
-        //viewHolder.price.setText("$ "+listData[position].getPrice());
-//        viewHolder.favorite.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //viewHolder.favorite.setChecked(true);
-//                DatabaseReference favorite_book = FirebaseDatabase.getInstance().getReferenceFromUrl("https://unmanned-bookst.firebaseio.com/favorite_book/" + uid);
-//                favorite_book.child(data.getIsbn()).setValue(data.getIsbn());
-//                System.out.println("點擊" + position);
-//            }
-//        });
+
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -674,9 +674,30 @@ class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder>{
                     String isbn = ((ListData) listData.get(position)).getIsbn();
                     if(isbn.equals(ds.getValue().toString())){
                         viewHolder.unlike.setChecked(true);
-                        viewHolder.unlike.setEnabled(false);
                     }
-                    //System.out.println("我的最愛: " + ds.getValue());
+                }
+                if(viewHolder.unlike.isChecked()){
+                    viewHolder.unlike.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String isbn = ((ListData) listData.get(position)).getIsbn();
+                            DatabaseReference delete = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid).child(isbn);
+                            delete.removeValue();
+                            viewHolder.unlike.setChecked(false);
+                            Toast.makeText(rContext,"已移除",Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }else {
+                    viewHolder.unlike.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String isbn = ((ListData) listData.get(position)).getIsbn();
+                            DatabaseReference add = FirebaseDatabase.getInstance().getReference("favorite_book").child(uid);
+                            add.child(isbn).setValue(isbn);
+                            viewHolder.unlike.setChecked(true);
+                            Toast.makeText(rContext,"已加入我的最愛",Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             }
             @Override
