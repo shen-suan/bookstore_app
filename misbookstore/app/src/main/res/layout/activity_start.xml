@@ -10,10 +10,10 @@
 
     <ImageView
         android:id="@+id/imageView_start"
-        android:layout_width="164dp"
-        android:layout_height="145dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:contentDescription="logoPic"
-        app:srcCompat="@drawable/start"
+        app:srcCompat="@drawable/logo1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="230dp"
         />
@@ -22,7 +22,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MIS BookStore"
+        android:text=""
         android:textColor="@color/colorPrimary"
         android:textSize="25sp"
         android:layout_centerHorizontal="true"

@@ -61,7 +61,7 @@ public class BottomNavActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         searchView = findViewById(R.id.searchView);

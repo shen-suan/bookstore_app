@@ -28,8 +28,15 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:popupTheme="@style/AppTheme.PopupOverlay"
-                    app:title="BookStore"/>
+                    app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                    <ImageView
+                        android:id="@+id/logoXmarks"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/logo2" />
+                </android.support.v7.widget.Toolbar>
 
                 <com.ferfalk.simplesearchview.SimpleSearchView
                     android:id="@+id/searchView"
@@ -55,7 +62,8 @@
             android:id="@+id/vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/bnve" />
+            android:layout_above="@id/bnve"
+            android:layout_marginBottom="64dp" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
