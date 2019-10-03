@@ -20,20 +20,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.bookstore.R;
 import com.google.ar.core.AugmentedImage;
 import com.google.ar.core.Frame;
 import com.google.ar.core.TrackingState;
 import com.google.ar.sceneform.FrameTime;
-import com.google.ar.sceneform.Node;
-import com.google.ar.sceneform.math.Vector3;
-import com.google.ar.sceneform.rendering.Renderable;
-import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.samples.common.helpers.SnackbarHelper;
 import com.google.ar.sceneform.ux.ArFragment;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,6 +59,7 @@ public class AugmentedImageActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_ar_main);
 
+
     arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
     fitToScanView = findViewById(R.id.image_view_fit_to_scan);
 
@@ -81,6 +82,12 @@ public class AugmentedImageActivity extends AppCompatActivity {
   @RequiresApi(api = Build.VERSION_CODES.N)
   private void onUpdateFrame(FrameTime frameTime) {
     Frame frame = arFragment.getArSceneView().getArFrame();
+    LayoutInflater inflater = LayoutInflater.from(this);
+    LinearLayout container = findViewById(R.id.container);
+    View view = inflater.inflate(R.layout.ar_book_info, container, false);
+    TextView name, content;
+    name = view.findViewById(R.id.ar_book_info);
+    content = view.findViewById(R.id.ar_content_info);
 
     // If there is no frame or ARCore is not tracking yet, just return.
     if (frame == null || frame.getCamera().getTrackingState() != TrackingState.TRACKING) {
@@ -107,6 +114,7 @@ public class AugmentedImageActivity extends AppCompatActivity {
             node = new AugmentedImageNode(this);
             first = 1;
           }
+          name.setText("jjjjjjjjjjjjj");
           node.setImage(augmentedImage);
           augmentedImageMap.put(augmentedImage, node);
           arFragment.getArSceneView().getScene().addChild(node);

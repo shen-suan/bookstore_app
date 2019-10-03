@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="270dp"
+    android:layout_height="500dp"
     android:orientation="vertical"
     android:background="@drawable/ar_bg"
-    android:alpha="0.80"
-    android:padding="5dp">
+    android:alpha="0.90">
     <!-- <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -60,8 +60,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="王兒十"
+            android:layout_toRightOf="@+id/ar_author_title"
             android:layout_alignParentRight="true"
-            android:gravity="center_vertical"
+            android:gravity="center_vertical|right"
             android:textSize="23sp"
             android:textColor="@color/colorWhite"/>
     </RelativeLayout>
@@ -72,28 +73,36 @@
         android:background="@color/colorGrey"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp">
         <TextView
             android:id="@+id/ar_book_title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="書名"
             android:gravity="center_vertical"
             android:textSize="21sp"
             android:textColor="@color/colorWhite"
             android:layout_marginLeft="-10dp"
             android:clickable="true"
+            android:paddingBottom="10dp"
             android:paddingHorizontal="25dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_above="@+id/ar_book_info"
+            android:layout_height="0.5dp"
+            android:background="@color/colorGrey"/>
         <TextView
             android:id="@+id/ar_book_info"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_below="@+id/ar_book_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="舉頭望明月"
-            android:layout_alignParentRight="true"
-            android:gravity="center_vertical"
+            android:lines="3"
+            android:gravity="center_vertical|left"
             android:textSize="23sp"
+            android:paddingHorizontal="13dp"
             android:textColor="@color/colorWhite"/>
     </RelativeLayout>
     <View
@@ -136,7 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/bi_content"
-                android:textSize="26sp"
+                android:textSize="20sp"
                 android:padding="15dp"
                 android:textColor="@color/colorWhite"/>
         </LinearLayout>

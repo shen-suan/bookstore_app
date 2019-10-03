@@ -46,7 +46,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -130,13 +129,8 @@ public class AugmentedImageFragment extends ArFragment {
   }
 
 
-
-
   private boolean setupAugmentedImageDatabase(Config config, Session session) throws IOException {
     System.out.println(config + "1===========================================================================");
-    readData(new MyCallback() {
-      @Override
-      public void onCallback(ArrayList value) throws IOException {
     AugmentedImageDatabase augmentedImageDatabase;
 //    augmentedImageDatabase = new AugmentedImageDatabase(session);//創建新的資料庫
 //    Bitmap augmentedImageBitmap = null;
@@ -194,46 +188,64 @@ public class AugmentedImageFragment extends ArFragment {
 
 
 
+//      readData(new MyCallback() {
+//        @Override
+//        public void onCallback(ArrayList value) throws IOException {
+//              for (int i = 0; i < value.size(); i++){
+//                data = (ListData) value.get(i);
+//                String url = data.getUrl();
+//                String name = data.getIsbn();
+//                System.out.println(url+"===========================================================================");
+//                System.out.println(name+"===========================================================================");
+//                InputStream is = new java.net.URL(url).openStream();
+//                try {
+//                  is = new URL(url).openStream();
+//                  System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+//                } catch (IOException e) {
+//                  e.printStackTrace();
+//                }
+//                Bitmap augmentedImageBitmap = BitmapFactory.decodeStream(is);
+//                //augmentedImageDatabase.addImage(name + ".jpg", augmentedImageBitmap);
+//              }
+//        }
+//      });
+      String url, name;
+      //第一本書
+      url = "https://firebasestorage.googleapis.com/v0/b/unmanned-bookst.appspot.com/o/9780593072868.jpg?alt=media&token=02e0a54a-9b5d-49e3-b00e-aee640de06f7";
+      InputStream is = new java.net.URL(url).openStream();
+      name  = "9780593072868";
+      augmentedImageBitmap = BitmapFactory.decodeStream(is);
+      augmentedImageDatabase.addImage("9780593072868.jpg", augmentedImageBitmap);
 
-              for (int i = 0; i < value.size(); i++){
-                data = (ListData) value.get(i);
-                String url = data.getUrl();
-                String name = data.getIsbn();
-                System.out.println(url+"===========================================================================");
-                System.out.println(name+"===========================================================================");
-                InputStream is = new java.net.URL(url).openStream();
-                try {
-                  is = new URL(url).openStream();
-                  System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-                } catch (IOException e) {
-                  e.printStackTrace();
-                }
-                augmentedImageBitmap = BitmapFactory.decodeStream(is);
-                //augmentedImageDatabase.addImage(name + ".jpg", augmentedImageBitmap);
-              }
+      //第二本書
+      url = "https://firebasestorage.googleapis.com/v0/b/unmanned-bookst.appspot.com/o/9780618243757.jpg?alt=media&token=a703f5f2-34bb-4dd1-b6e3-f4cf35899819";
+      is = new java.net.URL(url).openStream();
+      name  = "9780618243757";
+      augmentedImageBitmap = BitmapFactory.decodeStream(is);
+      augmentedImageDatabase.addImage(name + ".jpg", augmentedImageBitmap);
 
-              System.out.println("=================================================================================================================");
-              String url = "https://firebasestorage.googleapis.com/v0/b/unmanned-bookst.appspot.com/o/9780593072868.jpg?alt=media&token=02e0a54a-9b5d-49e3-b00e-aee640de06f7";
-              InputStream is = new java.net.URL(url).openStream();
-              augmentedImageBitmap = BitmapFactory.decodeStream(is);
-              augmentedImageDatabase.addImage("9780618243757.jpg", augmentedImageBitmap);
+      //第三本書
+      System.out.println("=================================================================================================================");
+      url = "https://firebasestorage.googleapis.com/v0/b/unmanned-bookst.appspot.com/o/9789571199474.jpg?alt=media&token=7adf0576-8bd6-4308-93e2-a4a5874cc46b";
+      is = new java.net.URL(url).openStream();
+      name  = "9789571199474";
+      augmentedImageBitmap = BitmapFactory.decodeStream(is);
+      augmentedImageDatabase.addImage(name + ".jpg", augmentedImageBitmap);
 
-              System.out.println("=================================================================================================================");
-              url = "https://firebasestorage.googleapis.com/v0/b/unmanned-bookst.appspot.com/o/9780618243757.jpg?alt=media&token=a703f5f2-34bb-4dd1-b6e3-f4cf35899819";
-              is = new java.net.URL(url).openStream();
-              String name  = "9780618243757";
-              augmentedImageBitmap = BitmapFactory.decodeStream(is);
-              augmentedImageDatabase.addImage(name + ".jpg", augmentedImageBitmap);
+      //第四本書
+      url = "https://firebasestorage.googleapis.com/v0/b/unmanned-bookst.appspot.com/o/9789571371511.jpg?alt=media&token=6d476390-fbd9-4cc0-a189-f23019ba2d44";
+      is = new java.net.URL(url).openStream();
+      name  = "9789571199474";
+      augmentedImageBitmap = BitmapFactory.decodeStream(is);
+      augmentedImageDatabase.addImage(name + ".jpg", augmentedImageBitmap);
 
-              //config.setAugmentedImageDatabase(augmentedImageDatabase);
-
-
-//      //加入第一章圖片
-//      augmentedImageBitmap = loadAugmentedImageBitmap(assetManager, DEFAULT_IMAGE_NAME);
-//      if (augmentedImageBitmap == null) {
-//        return false;
-//      }
-//      //augmentedImageDatabase.addImage(DEFAULT_IMAGE_NAME, augmentedImageBitmap);
+      //第五本書
+      url = "https://firebasestorage.googleapis.com/v0/b/unmanned-bookst.appspot.com/o/9789573273349.jpg?alt=media&token=b1356683-17df-4780-8e0f-5d2148c9fb47";
+      is = new java.net.URL(url).openStream();
+      name  = "9789573273349";
+      augmentedImageBitmap = BitmapFactory.decodeStream(is);
+      augmentedImageDatabase.addImage(name + ".jpg", augmentedImageBitmap);
+      config.setAugmentedImageDatabase(augmentedImageDatabase);
     } else {
       // This is an alternative way to initialize an AugmentedImageDatabase instance,
       // load a pre-existing augmented image database.
@@ -244,10 +256,7 @@ public class AugmentedImageFragment extends ArFragment {
         //return false;
       }
     }
-    config.setAugmentedImageDatabase(augmentedImageDatabase);
     System.out.println(config + "2===========================================================================");
-      }
-    });
     return true;
   }
 

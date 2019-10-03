@@ -18,8 +18,12 @@ package com.example.bookstore.arContent.augmentedimage;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
+import android.widget.TextView;
 
+import com.example.bookstore.BookInformation.ListData;
 import com.example.bookstore.R;
 import com.google.ar.core.AugmentedImage;
 import com.google.ar.sceneform.AnchorNode;
@@ -28,7 +32,13 @@ import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.ViewRenderable;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -78,7 +88,7 @@ public class AugmentedImageNode extends AnchorNode {
    */
   @RequiresApi(api = Build.VERSION_CODES.N)
   @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
-  public void setImage(AugmentedImage image) {
+  public int setImage(AugmentedImage image) {
     this.image = image;
 
     // Set the anchor based on the center of the image.
@@ -89,109 +99,55 @@ public class AugmentedImageNode extends AnchorNode {
 
     int imageindex = image.getIndex();
 
-    //第一章圖片的index = 0
-    if (imageindex == 0){
-      // Upper left corner.
-      localPosition.set(-0.5f * image.getExtentX(), 0.0f, -0.5f * image.getExtentZ());
-      //cornerNode = new Node();
-      cornerNode.setParent(this);
-      cornerNode.setLocalPosition(localPosition);
-      cornerNode.setRenderable(view.getNow(null));
-    }
 
-    //第二章圖片的index = 1
-    if (imageindex == 1){
-      // Upper right corner.
-      localPosition.set(0.5f * image.getExtentX(), 0.0f, -0.5f * image.getExtentZ());
-      //cornerNode = new Node();
-      cornerNode.setParent(this);
-      cornerNode.setLocalPosition(localPosition);
-      cornerNode.setRenderable(view.getNow(null));
+      ArrayList<ListData> listData = new ArrayList<>();
+      listData.clear();
+      //連資料庫
+      DatabaseReference Book_list = FirebaseDatabase.getInstance().getReference("bookList");
+      Book_list.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+          for (DataSnapshot ds : dataSnapshot.getChildren() ){
+            ListData bookList = ds.getValue(ListData.class);
+            listData.add(new ListData(bookList.getTitle(),bookList.getPrice(),bookList.getIsbn(), bookList.getUrl(),
+                    bookList.getAuthor(), bookList.getPublisher(), bookList.getPublishDate(), bookList.getVersion(), bookList.getOutline(),
+                    bookList.getClassification(), bookList.getIndex()));
+          }
 
-      localPosition.set(-0.2f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
-      //cornerNode = new Node();
-      cornerNode.setParent(this);
-      cornerNode.setLocalPosition(localPosition);
-      cornerNode.setLocalScale(new Vector3(image.getExtentZ() * 0.5f, image.getExtentZ() * 0.5f, image.getExtentX() * 0.5f));
-      cornerNode.setLocalRotation(Quaternion.axisAngle(new Vector3(-1f, 0, 0), 90f));
-      cornerNode.setRenderable(view2.getNow(null));
-    }
+          view.thenAccept(view ->{
+            for (DataSnapshot ds : dataSnapshot.getChildren()){
+                ListData data = ds.getValue(ListData.class);
+                if(data.getIndex() == imageindex){
+                  TextView author = view.getView().findViewById(R.id.ar_author_info);
+                  TextView name = view.getView().findViewById(R.id.ar_book_info);
+                  TextView contain = view.getView().findViewById(R.id.ar_content_info);
+                  author.setText(data.getAuthor());
+                  name.setText(data.getTitle());
+                  contain.setText(data.getOutline());
+                  break;
+                }
+            }
+          });
+        }
 
-    //第三章圖片的index = 2
-    if (imageindex == 2 ){
-      // Lower right corner.
-      localPosition.set(0.5f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
-      //cornerNode = new Node();
-      cornerNode.setParent(this);
-      cornerNode.setLocalPosition(localPosition);
-      cornerNode.setRenderable(view.getNow(null));
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+          Log.w("onCancelled",databaseError.toException());
+        }
+      });
 
-      // Lower left corner.
-      localPosition.set(-0.5f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
-      //cornerNode = new Node();
-      cornerNode.setParent(this);
-      cornerNode.setLocalPosition(localPosition);
-      cornerNode.setRenderable(view.getNow(null));
 
-      localPosition.set(-0.2f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
-      //cornerNode = new Node();
-      cornerNode.setParent(this);
-      cornerNode.setLocalPosition(localPosition);
-      cornerNode.setLocalScale(new Vector3(image.getExtentZ() * 0.5f, image.getExtentZ() * 0.5f, image.getExtentX() * 0.5f));
-      cornerNode.setLocalRotation(Quaternion.axisAngle(new Vector3(-1f, 0, 0), 90f));
-      cornerNode.setRenderable(view.getNow(null));
-    }
 
-    //第三章圖片的index = 2
-    if (imageindex == 3 ){
-      // Lower right corner.
-      localPosition.set(0.5f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
-      //cornerNode = new Node();
-      cornerNode.setParent(this);
-      cornerNode.setLocalPosition(localPosition);
-      cornerNode.setRenderable(view.getNow(null));
+    localPosition.set(-0.2f * image.getExtentX(), 0.0f, 0.4f * image.getExtentZ());
+    //cornerNode = new Node();
+    cornerNode.setParent(this);
+    cornerNode.setLocalPosition(localPosition);
+    cornerNode.setLocalScale(new Vector3(image.getExtentZ() * 0.5f, image.getExtentZ() * 0.5f, image.getExtentX() * 0.5f));
+    cornerNode.setLocalRotation(Quaternion.axisAngle(new Vector3(-1f, 0, 0), 90f));
+    cornerNode.setRenderable(view.getNow(null));
 
-      // Lower left corner.
-      localPosition.set(-0.5f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
-      //cornerNode = new Node();
-      cornerNode.setParent(this);
-      cornerNode.setLocalPosition(localPosition);
-      cornerNode.setRenderable(view.getNow(null));
 
-      localPosition.set(-0.2f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
-      //cornerNode = new Node();
-      cornerNode.setParent(this);
-      cornerNode.setLocalPosition(localPosition);
-      cornerNode.setLocalScale(new Vector3(image.getExtentZ() * 0.5f, image.getExtentZ() * 0.5f, image.getExtentX() * 0.5f));
-      cornerNode.setLocalRotation(Quaternion.axisAngle(new Vector3(-1f, 0, 0), 90f));
-      cornerNode.setRenderable(view.getNow(null));
-    }
-
-    //第三章圖片的index = 2
-    if (imageindex == 4 ){
-      // Lower right corner.
-      localPosition.set(0.5f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
-      //cornerNode = new Node();
-      cornerNode.setParent(this);
-      cornerNode.setLocalPosition(localPosition);
-      cornerNode.setRenderable(view.getNow(null));
-
-      // Lower left corner.
-      localPosition.set(-0.5f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
-      //cornerNode = new Node();
-      cornerNode.setParent(this);
-      cornerNode.setLocalPosition(localPosition);
-      cornerNode.setRenderable(view.getNow(null));
-
-      localPosition.set(-0.2f * image.getExtentX(), 0.0f, 0.5f * image.getExtentZ());
-      //cornerNode = new Node();
-      cornerNode.setParent(this);
-      cornerNode.setLocalPosition(localPosition);
-      cornerNode.setLocalScale(new Vector3(image.getExtentZ() * 0.5f, image.getExtentZ() * 0.5f, image.getExtentX() * 0.5f));
-      cornerNode.setLocalRotation(Quaternion.axisAngle(new Vector3(-1f, 0, 0), 90f));
-      cornerNode.setRenderable(view.getNow(null));
-    }
-
+    return imageindex;
   }
 
   public AugmentedImage getImage() {
