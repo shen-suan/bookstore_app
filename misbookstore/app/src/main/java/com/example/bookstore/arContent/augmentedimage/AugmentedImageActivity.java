@@ -122,7 +122,8 @@ public class AugmentedImageActivity extends AppCompatActivity {
           break;
 
         case STOPPED:
-          //augmentedImageMap.remove(augmentedImage);
+          augmentedImageMap.remove(augmentedImage);
+          node.setParent(null);
           break;
       }
     }

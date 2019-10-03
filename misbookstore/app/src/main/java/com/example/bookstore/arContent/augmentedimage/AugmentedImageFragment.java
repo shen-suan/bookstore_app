@@ -245,6 +245,14 @@ public class AugmentedImageFragment extends ArFragment {
       name  = "9789573273349";
       augmentedImageBitmap = BitmapFactory.decodeStream(is);
       augmentedImageDatabase.addImage(name + ".jpg", augmentedImageBitmap);
+
+      //第六本書
+      url = "https://firebasestorage.googleapis.com/v0/b/unmanned-bookst.appspot.com/o/9789576390838.jpg?alt=media&token=9a1a0fe5-ed52-49f7-baa9-ca8937b8ccad";
+      is = new java.net.URL(url).openStream();
+      name  = "9789576390838";
+      augmentedImageBitmap = BitmapFactory.decodeStream(is);
+      augmentedImageDatabase.addImage(name + ".jpg", augmentedImageBitmap);
+
       config.setAugmentedImageDatabase(augmentedImageDatabase);
     } else {
       // This is an alternative way to initialize an AugmentedImageDatabase instance,
