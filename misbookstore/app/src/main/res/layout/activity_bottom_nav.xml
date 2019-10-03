@@ -62,8 +62,7 @@
             android:id="@+id/vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/bnve"
-            android:layout_marginBottom="64dp" />
+            android:layout_above="@+id/bnve" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
