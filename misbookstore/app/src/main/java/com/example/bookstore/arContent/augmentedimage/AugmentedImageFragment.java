@@ -67,7 +67,7 @@ public class AugmentedImageFragment extends ArFragment {
 
   // Augmented image configuration and rendering.
   // Load a single image (true) or a pre-generated image database (false).
-  private static final boolean USE_SINGLE_IMAGE = true;//改TRUE才跑的近if
+  private static final boolean USE_SINGLE_IMAGE = false;//改TRUE才跑的近if
 
   // Do a runtime check for the OpenGL level available at runtime to avoid Sceneform crashing the
   // application.
@@ -250,6 +250,34 @@ public class AugmentedImageFragment extends ArFragment {
       url = "https://firebasestorage.googleapis.com/v0/b/unmanned-bookst.appspot.com/o/9789576390838.jpg?alt=media&token=9a1a0fe5-ed52-49f7-baa9-ca8937b8ccad";
       is = new java.net.URL(url).openStream();
       name  = "9789576390838";
+      augmentedImageBitmap = BitmapFactory.decodeStream(is);
+      augmentedImageDatabase.addImage(name + ".jpg", augmentedImageBitmap);
+
+      //第七本書
+      url = "https://firebasestorage.googleapis.com/v0/b/unmanned-bookst.appspot.com/o/9789868998346.jpg?alt=media&token=53e863a2-c135-4ca4-82f1-361da01ec8ef";
+      is = new java.net.URL(url).openStream();
+      name  = "9789868998346";
+      augmentedImageBitmap = BitmapFactory.decodeStream(is);
+      augmentedImageDatabase.addImage(name + ".jpg", augmentedImageBitmap);
+
+      //第八本書
+      url = "https://firebasestorage.googleapis.com/v0/b/unmanned-bookst.appspot.com/o/9789866018275.jpg?alt=media&token=4f251c18-f311-40f6-b4b3-3ad2b3b16859";
+      is = new java.net.URL(url).openStream();
+      name  = "9789866018275";
+      augmentedImageBitmap = BitmapFactory.decodeStream(is);
+      augmentedImageDatabase.addImage(name + ".jpg", augmentedImageBitmap);
+
+      //第九本書
+      url = "https://firebasestorage.googleapis.com/v0/b/unmanned-bookst.appspot.com/o/9789865797591.jpg?alt=media&token=c46076e0-27c8-4553-9269-7c73a4310dc7";
+      is = new java.net.URL(url).openStream();
+      name  = "9789865797591";
+      augmentedImageBitmap = BitmapFactory.decodeStream(is);
+      augmentedImageDatabase.addImage(name + ".jpg", augmentedImageBitmap);
+
+      //第十本書
+      url = "https://firebasestorage.googleapis.com/v0/b/unmanned-bookst.appspot.com/o/9789573256502.jpg?alt=media&token=3c969179-442c-4c60-9cf9-791b76d6c882";
+      is = new java.net.URL(url).openStream();
+      name  = "9789573256502";
       augmentedImageBitmap = BitmapFactory.decodeStream(is);
       augmentedImageDatabase.addImage(name + ".jpg", augmentedImageBitmap);
 
